@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.DataSupplierClasses;
+package me.abhishekraj.showmyshow;
 
 import android.os.Parcel;
 import android.os.Parcelable;

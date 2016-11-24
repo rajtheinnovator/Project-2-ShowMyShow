@@ -1,10 +1,7 @@
-package me.abhishekraj.showmyshow.Activity;
+package me.abhishekraj.showmyshow;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import me.abhishekraj.showmyshow.Fragments.DefaultMovieFragment;
-import me.abhishekraj.showmyshow.R;
 
 
 public class MainActivity extends AppCompatActivity {

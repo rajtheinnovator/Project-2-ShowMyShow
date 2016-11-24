@@ -1,12 +1,11 @@
-package me.abhishekraj.showmyshow.Utils;
+package me.abhishekraj.showmyshow;
 
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import java.util.ArrayList;
-
-import me.abhishekraj.showmyshow.DataSupplierClasses.Movie;
 
 /**
  * Created by ABHISHEK RAJ on 11/15/2016.
@@ -28,11 +27,13 @@ public class DefaultMovieLoader extends AsyncTaskLoader {
     public DefaultMovieLoader(Context context, String url) {
         super(context);
         mUrl = url;
+        Log.v("############", "url is "+mUrl);
     }
 
     @Override
     protected void onStartLoading() {
         forceLoad();
+        Log.v("############", "onStartLoading called");
     }
 
     /**
@@ -46,6 +47,7 @@ public class DefaultMovieLoader extends AsyncTaskLoader {
 
         // Perform the network request, parse the response, and extract a list of news.
         ArrayList<Movie> movies = QueryUtils.fetchMovieData(mUrl);
+        Log.v("############", "loadInBackground called");
         return movies;
     }
 }
