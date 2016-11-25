@@ -44,12 +44,6 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         Movie movie = new Movie("ram", 2, "path");
         if (savedInstanceState==null){
             movies = new ArrayList<>();
-            movies.add(movie);
-            movies.add(new Movie("shyam", 3, "shyam"));
-            movies.add(movie);
-            movies.add(new Movie("shyam", 3, "shyam"));
-            movies.add(movie);
-            movies.add(new Movie("shyam", 3, "shyam"));
         }
 
         //First of all check if network is connected or not then only start the loader
@@ -66,8 +60,6 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         // Lookup the recyclerview in activity layout
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovies);
 
-        //        // Initialize movies
-        //        movies = Movies.createMoviesList(20);
         // Create mAdapter passing in the sample user data
         mAdapter = new DefaultMovieAdapter(getActivity(), movies);
         // Attach the mAdapter to the recyclerview to populate items
@@ -78,9 +70,6 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         // Attach the layout manager to the recycler view
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        //
-        //        // Set layout manager to position the items
-        //        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext()));
         // That's all!
 
         return rootView;
@@ -114,15 +103,9 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             return;
         } else {
             Log.v("############", "movies are"+movie);
-            // Create mAdapter passing in the sample user data
-            mAdapter = new DefaultMovieAdapter(getActivity(), movie);
-            mAdapter.notifyDataSetChanged();
-            // First param is number of columns and second param is orientation i.e Vertical or Horizontal
-            final StaggeredGridLayoutManager gridLayoutManager =
-                    new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-            // Attach the layout manager to the recycler view
-            mRecyclerView.setLayoutManager(gridLayoutManager);
             // Attach the mAdapter to the recyclerview to populate items
+
+            mAdapter.setWeatherData(movie);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
