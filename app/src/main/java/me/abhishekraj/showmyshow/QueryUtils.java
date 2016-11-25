@@ -155,7 +155,7 @@ public class QueryUtils {
                 JSONArray resultsArray = movie_json_response.getJSONArray("results");
                 if (resultsArray.length() > 0) {
                     for (int i = 0; i < resultsArray.length(); i++) {
-                        JSONObject movieDetail = resultsArray.getJSONObject(0);
+                        JSONObject movieDetail = resultsArray.getJSONObject(i);
                         if (movieDetail.has("title")) {
                             movieTitle = movieDetail.getString("title");
                         }
@@ -173,6 +173,7 @@ public class QueryUtils {
         } catch (JSONException e) {
             //handle exception
         }
+        Log.v("############", "Movies returned is: " + movies.toString());
         // Return the list of movies
         return movies;
     }

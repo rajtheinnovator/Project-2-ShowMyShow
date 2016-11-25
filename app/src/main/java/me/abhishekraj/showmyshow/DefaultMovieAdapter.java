@@ -23,7 +23,7 @@ public class DefaultMovieAdapter extends  RecyclerView.Adapter<DefaultMovieAdapt
     private ArrayList<Movie> mDefaultMovie;
     // Store the context for easy access
     private Context mContext;
-    private Movie currentMovie;
+//    private Movie currentMovie;
 
     // Pass in the movies array into the constructor
     public DefaultMovieAdapter(Context context, ArrayList<Movie> movies) {
@@ -63,25 +63,25 @@ public class DefaultMovieAdapter extends  RecyclerView.Adapter<DefaultMovieAdapt
 
     @Override
     public DefaultMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        Context context = parent.getContext();
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//
-//        // Inflate the custom layout
-//        View moviesView = inflater.inflate(R.layout.item_movies, parent, false);
-//
-//        // Return a new holder instance
-//        ViewHolder viewHolder = new DefaultMovieAdapter.ViewHolder(moviesView);
-//        return viewHolder;
-        View v = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.item_movies, parent, false);
-        return new ViewHolder(v);
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        // Inflate the custom layout
+        View moviesView = inflater.inflate(R.layout.item_movies, parent, false);
+
+        // Return a new holder instance
+        ViewHolder viewHolder = new DefaultMovieAdapter.ViewHolder(moviesView);
+        return viewHolder;
+//        View v = LayoutInflater.from(parent.getContext()).
+//                inflate(R.layout.item_movies, parent, false);
+//        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(DefaultMovieAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
-        currentMovie = mDefaultMovie.get(position);
+        Movie currentMovie = mDefaultMovie.get(position);
         Log.v("############", "currentMovie called is "+currentMovie.toString());
         Log.v("############", "currentMovie's title is "+currentMovie.getMovieTitle().toString());
         /*
@@ -105,8 +105,8 @@ public class DefaultMovieAdapter extends  RecyclerView.Adapter<DefaultMovieAdapt
         Log.v("############", "getItemCount called with size "+ mDefaultMovie.size());
         return mDefaultMovie.size();
     }
-    public void setWeatherData(ArrayList<Movie> weatherData) {
-        Log.v("############", "setWeatherData Called");
+    public void setMovieData(ArrayList<Movie> weatherData) {
+        Log.v("############", "setMovieData Called");
         mDefaultMovie = weatherData;
         Log.v("############", "mDefaultMovie is "+mDefaultMovie);
         notifyDataSetChanged();

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -69,7 +70,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         final StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         // Attach the layout manager to the recycler view
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         // That's all!
 
         return rootView;
@@ -91,8 +92,8 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         Log.v("############", "uriBuilder is "+uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         Log.v("############", "uriBuilder.toString() is "+uriBuilder.toString());
-        String urls = "https://api.themoviedb.org/3/discover/movie?api_key=4182aa25bab27d06344e404f65c4ae76";
-        return new DefaultMovieLoader(getActivity().getApplicationContext(), urls);
+        //String urls = "https://api.themoviedb.org/3/discover/movie?api_key=4182aa25bab27d06344e404f65c4ae76";
+        return new DefaultMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 
     @Override
@@ -105,8 +106,10 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             Log.v("############", "movies are"+movie);
             // Attach the mAdapter to the recyclerview to populate items
 
-            mAdapter.setWeatherData(movie);
+            mAdapter.setMovieData(movie);
+            Log.v("############", " mAdapter.setMovieData(movie) finished");
             mRecyclerView.setAdapter(mAdapter);
+            Log.v("############", " mRecyclerView.setAdapter(mAdapter); finished");
         }
     }
 
