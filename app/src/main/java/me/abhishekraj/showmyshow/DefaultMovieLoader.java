@@ -27,7 +27,7 @@ public class DefaultMovieLoader extends AsyncTaskLoader {
     public DefaultMovieLoader(Context context, String url) {
         super(context);
         mUrl = url;
-        Log.v("############", "url is "+mUrl);
+        Log.v("############", "url is " + mUrl);
     }
 
     @Override

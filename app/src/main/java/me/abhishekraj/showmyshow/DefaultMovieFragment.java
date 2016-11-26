@@ -43,7 +43,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_default_movie, container, false);
         Movie movie = new Movie("ram", 2, "path");
-        if (savedInstanceState==null){
+        if (savedInstanceState == null) {
             movies = new ArrayList<>();
         }
 
@@ -87,11 +87,11 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
         Log.v("############", "onCreateLoader called");
         Uri baseUri = Uri.parse(UrlsAndConstants.DefaultQuery.DEFAULT_URL);
-        Log.v("############", "baseUri is "+baseUri.toString());
+        Log.v("############", "baseUri is " + baseUri.toString());
         Uri.Builder uriBuilder = baseUri.buildUpon();
-        Log.v("############", "uriBuilder is "+uriBuilder.toString());
+        Log.v("############", "uriBuilder is " + uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-        Log.v("############", "uriBuilder.toString() is "+uriBuilder.toString());
+        Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
         //String urls = "https://api.themoviedb.org/3/discover/movie?api_key=4182aa25bab27d06344e404f65c4ae76";
         return new DefaultMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
@@ -103,7 +103,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             Log.v("******************", "movies isEmpty");
             return;
         } else {
-            Log.v("############", "movies are"+movie);
+            Log.v("############", "movies are" + movie);
             // Attach the mAdapter to the recyclerview to populate items
 
             mAdapter.setMovieData(movie);

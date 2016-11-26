@@ -137,7 +137,7 @@ public class QueryUtils {
      */
     public static ArrayList<Movie> extractFeatureFromJson(String jsonResponse) {
         Log.v("############", "extractFeatureFromJson called");
-        Log.v("############", "jsonResponse"+jsonResponse);
+        Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding movies to
         ArrayList<Movie> movies = new ArrayList<Movie>();
@@ -165,7 +165,7 @@ public class QueryUtils {
                         if (movieDetail.has("poster_path")) {
                             moviePosterPath = movieDetail.getString("poster_path");
                         }
-                        Log.v("############", " title is "+movies + "############ id is"+movieId+" ############ poster path is "+moviePosterPath);
+                        Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
                         movies.add(new Movie(movieTitle, movieId, moviePosterPath));
                     }
                 }
