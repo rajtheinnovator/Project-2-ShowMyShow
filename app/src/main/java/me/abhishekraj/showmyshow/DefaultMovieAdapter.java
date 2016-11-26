@@ -1,6 +1,7 @@
 package me.abhishekraj.showmyshow;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,10 +70,13 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
                 Movie currentMovie = mDefaultMovie.get(position);
                 // We can access the data within the views
                 Toast.makeText(context, ""+currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
+                Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
+                movieDetailIntent.putExtra("movie", currentMovie);
+
+                context.startActivity(movieDetailIntent);
             }
         }
     }
-
     // Pass in the movies array into the constructor
     public DefaultMovieAdapter(Context context, ArrayList<Movie> movies) {
         mDefaultMovie = movies;

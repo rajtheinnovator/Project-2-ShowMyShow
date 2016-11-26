@@ -110,6 +110,14 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             Log.v("############", " mAdapter.setMovieData(movie) finished");
             mRecyclerView.setAdapter(mAdapter);
             Log.v("############", " mRecyclerView.setAdapter(mAdapter); finished");
+//            mRecyclerView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent movieDetailIntent = new Intent(getActivity(), MovieDetailActivity.class);
+//                    movieDetailIntent.putExtra("movieId", mAdapter);
+//                    startActivity(movieDetailIntent);
+//                }
+//            });
         }
     }
 
