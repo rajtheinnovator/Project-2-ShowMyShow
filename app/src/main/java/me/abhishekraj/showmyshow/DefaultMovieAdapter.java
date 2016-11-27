@@ -36,7 +36,7 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
      Provide a direct reference to each of the views within a data item
      Used to cache the views within the item layout for fast access
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         /*
         Your holder should contain a member variable
         for any view that will be set as you render a row
@@ -69,7 +69,7 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 Movie currentMovie = mDefaultMovie.get(position);
                 // We can access the data within the views
-                Toast.makeText(context, ""+currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
                 Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
                 movieDetailIntent.putExtra("movie", currentMovie);
 
@@ -77,6 +77,7 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
             }
         }
     }
+
     // Pass in the movies array into the constructor
     public DefaultMovieAdapter(Context context, ArrayList<Movie> movies) {
         mDefaultMovie = movies;
@@ -89,13 +90,13 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View moviesView = inflater.inflate(R.layout.item_movies, parent, false);
+        View moviesView = inflater.inflate(R.layout.item_movies_grid, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new DefaultMovieAdapter.ViewHolder(context, moviesView);
         return viewHolder;
 //        View v = LayoutInflater.from(parent.getContext()).
-//                inflate(R.layout.item_movies, parent, false);
+//                inflate(R.layout.item_movies_grid, parent, false);
 //        return new ViewHolder(v);
     }
 

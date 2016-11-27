@@ -10,7 +10,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +41,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         Log.v("############", "onCreateView called");
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_default_movie, container, false);
-        Movie movie = new Movie("ram", 2, "path");
+
         if (savedInstanceState == null) {
             movies = new ArrayList<>();
         }
@@ -67,10 +66,10 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         mRecyclerView.setAdapter(mAdapter);
 
         // First param is number of columns and second param is orientation i.e Vertical or Horizontal
-        final StaggeredGridLayoutManager gridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        final GridLayoutManager gridLayoutManager =
+                new GridLayoutManager(getActivity(), 2);
         // Attach the layout manager to the recycler view
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mRecyclerView.setLayoutManager(gridLayoutManager);
         // That's all!
 
         return rootView;
@@ -110,14 +109,6 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             Log.v("############", " mAdapter.setMovieData(movie) finished");
             mRecyclerView.setAdapter(mAdapter);
             Log.v("############", " mRecyclerView.setAdapter(mAdapter); finished");
-//            mRecyclerView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent movieDetailIntent = new Intent(getActivity(), MovieDetailActivity.class);
-//                    movieDetailIntent.putExtra("movieId", mAdapter);
-//                    startActivity(movieDetailIntent);
-//                }
-//            });
         }
     }
 
