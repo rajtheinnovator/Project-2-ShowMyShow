@@ -27,8 +27,7 @@ public class Movie implements Parcelable {
     /**
      * BackdropPosterPath of the movie
      */
-    private String mBackdropPath;
-
+    private String mMovieBackdropPath;
     private double mMovieVoteCount;
     private String mMovieOverview;
     private double mMovieVoteAverage;
@@ -49,7 +48,7 @@ public class Movie implements Parcelable {
      * @param id         is the id of the movie
      */
     public Movie(String movieTitle, int id, String posterPath, String overview, double voteCount, String originalTitle,
-                 double voteAverage, double popularity) {
+                 double voteAverage, double popularity, String backdropPath) {
         mMovieTitle = movieTitle;
         mMoviePosterPath = posterPath;
         mMovieId = id;
@@ -58,6 +57,7 @@ public class Movie implements Parcelable {
         mMovieOriginalTitle = originalTitle;
         mMovieVoteAverage = voteAverage;
         mMoviePopularity = popularity;
+        mMovieBackdropPath = backdropPath;
 
     }
 
@@ -112,6 +112,10 @@ public class Movie implements Parcelable {
         return mMoviePosterPath;
     }
 
+    public String getMovieBackdropPath() {
+        return mMovieBackdropPath;
+    }
+
     public String getMovieOverview() {
         return mMovieOverview;
     }
@@ -152,6 +156,7 @@ public class Movie implements Parcelable {
         out.writeString(mMovieOriginalTitle);
         out.writeDouble(mMovieVoteAverage);
         out.writeDouble(mMoviePopularity);
+        out.writeString(mMovieBackdropPath);
     }
 
     private Movie(Parcel in) {
@@ -163,6 +168,7 @@ public class Movie implements Parcelable {
         mMovieOriginalTitle = in.readString();
         mMovieVoteAverage = in.readDouble();
         mMoviePopularity = in.readDouble();
+        mMovieBackdropPath = in.readString();
     }
 
     /*

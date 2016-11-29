@@ -40,14 +40,15 @@ public class MovieDetailsFragment extends Fragment {
         if ((bundle != null)) {
             Movie movie = getArguments().getParcelable("movie");
             textView.setText(movie.getMovieTitle().toString());
-            String url = "https://image.tmdb.org/t/p/w500/" + movie.getMoviePosterPath().toString();
+            String posterURL = "https://image.tmdb.org/t/p/w500/" + movie.getMoviePosterPath().toString();
+            String backdropURL = "https://image.tmdb.org/t/p/w500/" + movie.getMovieBackdropPath().toString();
             collapsingToolbar.setTitle(movie.getMovieTitle().toString());
             Picasso.with(getContext())
-                    .load(url)
+                    .load(posterURL)
                     .placeholder(R.mipmap.ic_launcher)
                     .into(imageView);
             Picasso.with(getContext())
-                    .load(url)
+                    .load(backdropURL)
                     .placeholder(R.mipmap.ic_launcher)
                     .into(imageViewBackdrop);
         }

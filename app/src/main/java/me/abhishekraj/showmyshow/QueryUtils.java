@@ -24,6 +24,13 @@ public class QueryUtils {
     private static String movieTitle;
     private static int movieId;
     private static String moviePosterPath;
+    private static String movieOverview;
+    private static double movieVoteCount;
+    private static String movieOriginalTitle;
+    private static double movieVoteAverage;
+    private static double moviePopularity;
+    private static String movieBackdropPath;
+
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -165,8 +172,27 @@ public class QueryUtils {
                         if (movieDetail.has("poster_path")) {
                             moviePosterPath = movieDetail.getString("poster_path");
                         }
+                        if (movieDetail.has("overview")) {
+                            movieOverview = movieDetail.getString("overview");
+                        }
+                        if (movieDetail.has("original_title")) {
+                            movieOriginalTitle = movieDetail.getString("original_title");
+                        }
+                        if (movieDetail.has("backdrop_path")) {
+                            movieBackdropPath = movieDetail.getString("backdrop_path");
+                        }
+                        if (movieDetail.has("popularity")) {
+                            moviePopularity = movieDetail.getDouble("popularity");
+                        }
+                        if (movieDetail.has("vote_count")) {
+                            movieVoteCount = movieDetail.getDouble("vote_count");
+                        }
+                        if (movieDetail.has("vote_average")){
+                            movieVoteAverage = movieDetail.getDouble("vote_average");
+                        }
                         Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
-                        movies.add(new Movie(movieTitle, movieId, moviePosterPath));
+                        movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
+                                movieVoteAverage, moviePopularity, movieBackdropPath));
                     }
                 }
             }
