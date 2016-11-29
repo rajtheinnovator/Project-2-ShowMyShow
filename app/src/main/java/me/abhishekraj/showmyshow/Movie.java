@@ -22,8 +22,18 @@ public class Movie implements Parcelable {
      * id of the movie
      */
     private int mMovieId;
-    /*Variables for handling recycler view click*/
+    /*Variables neede when handling recycler view is clicked*/
 
+    /**
+     * BackdropPosterPath of the movie
+     */
+    private String mBackdropPath;
+
+    private double mMovieVoteCount;
+    private String mMovieOverview;
+    private double mMovieVoteAverage;
+    private String mMovieOriginalTitle;
+    private double mMoviePopularity;
     /**
      * Create an empty constructor so that an empty movie's object can be referenced
      * in the MainActivity for storing movie's info
@@ -38,10 +48,16 @@ public class Movie implements Parcelable {
      * @param posterPath is the posterPath of the movie
      * @param id         is the id of the movie
      */
-    public Movie(String movieTitle, int id, String posterPath) {
+    public Movie(String movieTitle, int id, String posterPath, String overview, double voteCount, String originalTitle,
+                 double voteAverage, double popularity) {
         mMovieTitle = movieTitle;
         mMoviePosterPath = posterPath;
         mMovieId = id;
+        mMovieOverview = overview;
+        mMovieVoteCount = voteCount;
+        mMovieOriginalTitle = originalTitle;
+        mMovieVoteAverage = voteAverage;
+        mMoviePopularity = popularity;
 
     }
 
@@ -96,6 +112,27 @@ public class Movie implements Parcelable {
         return mMoviePosterPath;
     }
 
+    public String getMovieOverview() {
+        return mMovieOverview;
+    }
+
+    public double getMovieVoteCount() {
+        return mMovieVoteCount;
+    }
+
+    public String getMovieOriginalTitle() {
+        return mMovieOriginalTitle;
+    }
+
+    public double getMovieVoteAverage() {
+        return mMovieVoteAverage;
+    }
+
+    public double getMoviePopularity() {
+        return mMoviePopularity;
+    }
+
+
 
     /**
      * Make Parcelabe Work Through these methods
@@ -110,12 +147,22 @@ public class Movie implements Parcelable {
         out.writeString(mMovieTitle);
         out.writeInt(mMovieId);
         out.writeString(mMoviePosterPath);
+        out.writeString(mMovieOverview);
+        out.writeDouble(mMovieVoteCount);
+        out.writeString(mMovieOriginalTitle);
+        out.writeDouble(mMovieVoteAverage);
+        out.writeDouble(mMoviePopularity);
     }
 
     private Movie(Parcel in) {
         mMovieTitle = in.readString();
         mMovieId = in.readInt();
         mMoviePosterPath = in.readString();
+        mMovieOverview = in.readString();
+        mMovieVoteCount = in.readDouble();
+        mMovieOriginalTitle = in.readString();
+        mMovieVoteAverage = in.readDouble();
+        mMoviePopularity = in.readDouble();
     }
 
     /*
