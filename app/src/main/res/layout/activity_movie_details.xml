@@ -5,5 +5,3 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetailsActivity"
     tools:ignore="MergeRootFrame" />
-
-
