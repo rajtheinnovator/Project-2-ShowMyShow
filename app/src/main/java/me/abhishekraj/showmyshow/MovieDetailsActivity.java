@@ -10,10 +10,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         Bundle movieDetails = new Bundle();
+
         /**get the Movie's Object from the parent Activity**/
         Movie movie = getIntent().getParcelableExtra("movie");
         movieDetails.putParcelable("movie", movie);
-
         if (savedInstanceState == null) {
             MovieDetailsFragment defaultMovieFragment = new MovieDetailsFragment();
             defaultMovieFragment.setArguments(movieDetails);
