@@ -7,7 +7,7 @@
     tools:context="me.abhishekraj.showmyshow.MainActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewMovies"
+        android:id="@+id/recyclerViewDefaultMovies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>

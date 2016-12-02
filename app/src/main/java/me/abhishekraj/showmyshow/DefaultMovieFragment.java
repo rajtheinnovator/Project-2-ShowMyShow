@@ -58,7 +58,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         }
 
         // Lookup the recyclerview in activity layout
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovies);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewDefaultMovies);
 
         // Create mAdapter passing in the sample user data
         mAdapter = new DefaultMovieAdapter(getActivity(), movies);

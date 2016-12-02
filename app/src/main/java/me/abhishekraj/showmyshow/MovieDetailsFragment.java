@@ -142,7 +142,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             textView.setText(videoArrayList.get(0));
         }
     }
-
     @Override
     public void onLoaderReset(Loader<MovieDetailsBundle> loader) {
 
