@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/card_margin">
 
-    <ImageView
-        android:id="@+id/grid_item_movie_image"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#634500"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/grid_item_movie_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:hint="@string/movieTitleHint"/>
-</LinearLayout>
+        <ImageView
+            android:id="@+id/grid_item_movie_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:adjustViewBounds="true"
+            android:background="#634500"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/grid_item_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:hint="@string/movieTitleHint" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

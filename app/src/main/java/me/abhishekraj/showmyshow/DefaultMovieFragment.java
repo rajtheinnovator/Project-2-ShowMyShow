@@ -77,10 +77,10 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
 
     private void startLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
+        Log.v("############", "startLoaderManager started");
         loaderManager.initLoader(DEFAULT_MOVIE_LOADER_ID, null, this);
         Log.v("############", "startLoaderManager finished");
     }
-
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
@@ -91,7 +91,6 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         Log.v("############", "uriBuilder is " + uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
-        //String urls = "https://api.themoviedb.org/3/discover/movie?api_key=4182aa25bab27d06344e404f65c4ae76";
         return new DefaultMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 

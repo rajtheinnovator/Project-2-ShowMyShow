@@ -1,17 +1,14 @@
 package me.abhishekraj.showmyshow;
 
-
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 /**
- * Created by ABHISHEK RAJ on 11/15/2016.
+ * Created by ABHISHEK RAJ on 12/1/2016.
  */
 
-public class DefaultMovieLoader extends AsyncTaskLoader {
+public class DetailsMovieLoader extends AsyncTaskLoader {
 
     /**
      * Query URL
@@ -19,12 +16,13 @@ public class DefaultMovieLoader extends AsyncTaskLoader {
     private String mUrl;
 
     /**
-     * Constructs a new {@link DefaultMovieLoader}.
+     * Constructs a new {@link me.abhishekraj.showmyshow.DetailsMovieLoader}.
+     *
      * @param context of the activity
      * @param url     to load data from
      */
 
-    public DefaultMovieLoader(Context context, String url) {
+    public DetailsMovieLoader(Context context, String url) {
         super(context);
         mUrl = url;
         Log.v("############", "url is " + mUrl);
@@ -41,13 +39,13 @@ public class DefaultMovieLoader extends AsyncTaskLoader {
      */
 
     @Override
-    public ArrayList<Movie> loadInBackground() {
+    public MovieDetailsBundle loadInBackground() {
         if (mUrl == null) {
             return null;
         }
         Log.v("############", "loadInBackground called");
         // Perform the network request, parse the response, and extract a list of news.
-        ArrayList<Movie> movies = DefaultMovieQueryUtils.fetchMovieData(mUrl);
+        MovieDetailsBundle movies = MovieDetailsQueryUtils.fetchMovieData(mUrl);
         Log.v("############", "loadInBackground finished");
         return movies;
     }

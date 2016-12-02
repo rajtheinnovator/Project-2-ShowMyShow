@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by ABHISHEK RAJ on 11/15/2016.
  */
 
-public class QueryUtils {
+public class DefaultMovieQueryUtils {
     private static String movieTitle;
     private static int movieId;
     private static String moviePosterPath;
@@ -33,11 +33,11 @@ public class QueryUtils {
 
 
     /**
-     * Create a private constructor because no one should ever create a {@link QueryUtils} object.
+     * Create a private constructor because no one should ever create a {@link DefaultMovieQueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
+     * directly from the class name DefaultMovieQueryUtils (and an object instance of DefaultMovieQueryUtils is not needed).
      */
-    private QueryUtils() {
+    private DefaultMovieQueryUtils() {
     }
 
     /**
@@ -148,6 +148,8 @@ public class QueryUtils {
 
         // Create an empty ArrayList that we can start adding movies to
         ArrayList<Movie> movies = new ArrayList<Movie>();
+        // Create a Movie reference
+        Movie movie;
 
         /*
         Try to parse the received jsonResponse. If there's a problem with the way the JSON
@@ -157,45 +159,45 @@ public class QueryUtils {
         try {
             // Parse the jsonResponse string
             JSONObject movie_json_response = new JSONObject(jsonResponse);
-            Log.v("############", "JSONObject is: " + movie_json_response.toString());
-            if (movie_json_response.has("results")) {
-                JSONArray resultsArray = movie_json_response.getJSONArray("results");
-                if (resultsArray.length() > 0) {
-                    for (int i = 0; i < resultsArray.length(); i++) {
-                        JSONObject movieDetail = resultsArray.getJSONObject(i);
-                        if (movieDetail.has("title")) {
-                            movieTitle = movieDetail.getString("title");
+                Log.v("############", "JSONObject is: " + movie_json_response.toString());
+                if (movie_json_response.has("results")) {
+                    JSONArray resultsArray = movie_json_response.getJSONArray("results");
+                    if (resultsArray.length() > 0) {
+                        for (int i = 0; i < resultsArray.length(); i++) {
+                            JSONObject movieDetail = resultsArray.getJSONObject(i);
+                            if (movieDetail.has("title")) {
+                                movieTitle = movieDetail.getString("title");
+                            }
+                            if (movieDetail.has("id")) {
+                                movieId = movieDetail.getInt("id");
+                            }
+                            if (movieDetail.has("poster_path")) {
+                                moviePosterPath = movieDetail.getString("poster_path");
+                            }
+                            if (movieDetail.has("overview")) {
+                                movieOverview = movieDetail.getString("overview");
+                            }
+                            if (movieDetail.has("original_title")) {
+                                movieOriginalTitle = movieDetail.getString("original_title");
+                            }
+                            if (movieDetail.has("backdrop_path")) {
+                                movieBackdropPath = movieDetail.getString("backdrop_path");
+                            }
+                            if (movieDetail.has("popularity")) {
+                                moviePopularity = movieDetail.getDouble("popularity");
+                            }
+                            if (movieDetail.has("vote_count")) {
+                                movieVoteCount = movieDetail.getDouble("vote_count");
+                            }
+                            if (movieDetail.has("vote_average")) {
+                                movieVoteAverage = movieDetail.getDouble("vote_average");
+                            }
+                            Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
+                            movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
+                                    movieVoteAverage, moviePopularity, movieBackdropPath));
                         }
-                        if (movieDetail.has("id")) {
-                            movieId = movieDetail.getInt("id");
-                        }
-                        if (movieDetail.has("poster_path")) {
-                            moviePosterPath = movieDetail.getString("poster_path");
-                        }
-                        if (movieDetail.has("overview")) {
-                            movieOverview = movieDetail.getString("overview");
-                        }
-                        if (movieDetail.has("original_title")) {
-                            movieOriginalTitle = movieDetail.getString("original_title");
-                        }
-                        if (movieDetail.has("backdrop_path")) {
-                            movieBackdropPath = movieDetail.getString("backdrop_path");
-                        }
-                        if (movieDetail.has("popularity")) {
-                            moviePopularity = movieDetail.getDouble("popularity");
-                        }
-                        if (movieDetail.has("vote_count")) {
-                            movieVoteCount = movieDetail.getDouble("vote_count");
-                        }
-                        if (movieDetail.has("vote_average")){
-                            movieVoteAverage = movieDetail.getDouble("vote_average");
-                        }
-                        Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
-                        movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
-                                movieVoteAverage, moviePopularity, movieBackdropPath));
                     }
                 }
-            }
         } catch (JSONException e) {
             //handle exception
         }
@@ -203,7 +205,5 @@ public class QueryUtils {
         // Return the list of movies
         return movies;
     }
-
-
 }
 
