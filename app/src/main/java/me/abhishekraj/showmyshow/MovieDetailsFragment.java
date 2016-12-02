@@ -179,11 +179,13 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
         if (movieDetailsBundle != null) {
             mMovieDetailsBundle = movieDetailsBundle;
+
             // Attach the mAdapter to the reviewRecyclerView to populate items
             mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
             // Attach the mAdapter to the trailerRecyclerView to populate items
             mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
             Log.v("############", " mAdapter.setMovieDetailsBundleData(movie) finished");
+
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
             Log.v("############", " mMovieReviewRecyclerView.setAdapter(mAdapter); finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);

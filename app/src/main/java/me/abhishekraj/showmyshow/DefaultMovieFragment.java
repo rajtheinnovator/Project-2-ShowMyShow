@@ -56,7 +56,9 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             startLoaderManager();
             Log.v("############", "startLoaderManager called");
         }
-
+        /* Code referenced from the @link:
+        * "https://guides.codepath.com/android/using-the-recyclerview"
+        */
         // Lookup the recyclerview in activity layout
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewDefaultMovies);
 

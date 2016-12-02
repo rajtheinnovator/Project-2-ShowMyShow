@@ -8,6 +8,10 @@ import android.os.Parcelable;
  */
 
 public class Movie implements Parcelable {
+
+    /*
+    * Codes referenced from the link, @link: "https://guides.codepath.com/android/Using-Parcelable"
+    */
     /**
      * Title of the movie
      */
@@ -60,27 +64,6 @@ public class Movie implements Parcelable {
         mMovieBackdropPath = backdropPath;
 
     }
-
-    /**
-     * Constructs a new {@link Movie} for movie's details Intent
-     *
-     * @param movieTitle   is the title of the book
-     * @param posterPath   is the title of the book
-     * @param id           is the title of the book
-     * @param releaseDate  is the title of the book
-     * @param voteCount    is the title of the book
-     * @param voteAverage  is the title of the book
-     * @param plotSynopsis is the title of the book
-     * @param trailerUrl   is the title of the book
-     * @param review       is the title of the book
-     */
-    //Used to store all the info of the selected movie on RecyclerView item click on the MainActivity
-    public Movie(String movieTitle, String posterPath, String id, String releaseDate,
-                 int voteCount, int voteAverage, String plotSynopsis, String trailerUrl, String review) {
-        mMovieTitle = movieTitle;
-
-    }
-
     /**
      * The Setters Methods
      */

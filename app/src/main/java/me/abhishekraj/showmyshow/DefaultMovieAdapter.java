@@ -21,13 +21,12 @@ import java.util.ArrayList;
 
 public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapter.ViewHolder> {
 
-    // Store a member variable for the movies
+    /* Store a member variable for the movies */
     private static ArrayList<Movie> mDefaultMovie;
-    // Store the context for easy access
+    /* Store the context for easy access */
     private Context mContext;
 
-    //    private Movie currentMovie;
-    // Easy access to the context object in the recyclerview
+    /* Easy access to the context object in the recyclerview */
     private Context getContext() {
         return mContext;
     }
@@ -58,11 +57,14 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
             movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_title);
             movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_image);
             this.context = context;
-            // Attach a click listener to the entire row view
+            /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);
         }
-
-        // Handles the row being being clicked
+        /*The codes below and at some other places throughout the app related to RecyclerView has been
+        * taken from multiple sources on the web including from the following @link:
+        * "https://guides.codepath.com/android/using-the-recyclerview
+        */
+        /* Handles the row being being clicked */
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
@@ -78,7 +80,7 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         }
     }
 
-    // Pass in the movies array into the constructor
+    /* Pass in the movies array into the constructor */
     public DefaultMovieAdapter(Context context, ArrayList<Movie> movies) {
         mDefaultMovie = movies;
         mContext = context;
@@ -89,32 +91,26 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
+        /* Inflate the custom layout */
         View moviesView = inflater.inflate(R.layout.item_movies_grid, parent, false);
 
-        // Return a new holder instance
+        /* Return a new holder instance */
         ViewHolder viewHolder = new DefaultMovieAdapter.ViewHolder(context, moviesView);
         return viewHolder;
-//        View v = LayoutInflater.from(parent.getContext()).
-//                inflate(R.layout.item_movies_grid, parent, false);
-//        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(DefaultMovieAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
-        // Get the data model based on position
+        /* Get the data model based on position */
         Movie currentMovie = mDefaultMovie.get(position);
         Log.v("############", "currentMovie called is " + currentMovie.toString());
         Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
         /*
         Set item views based on your views and data model
-        TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
-        */
+         */
         viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
         Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMovieTitle());
-        //ImageView button = viewHolder.movieTitleImageView;
-        //viewHolder.movieTitleImageView.setImageResource(R.mipmap.ic_launcher);
         String url = "https://image.tmdb.org/t/p/w500/" + currentMovie.getMoviePosterPath().toString();
         Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMoviePosterPath().toString());
         Picasso.with(getContext())

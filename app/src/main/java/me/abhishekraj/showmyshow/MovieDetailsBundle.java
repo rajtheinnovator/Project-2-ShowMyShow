@@ -9,8 +9,11 @@ import java.util.ArrayList;
 public class MovieDetailsBundle {
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
-    public MovieDetailsBundle(){
 
+    /*
+    * Create an empty constructor so that no NullPontException occur during the JSON parsing
+    */
+    public MovieDetailsBundle(){
     }
     public MovieDetailsBundle(ArrayList review, ArrayList video){
         mReview = review;

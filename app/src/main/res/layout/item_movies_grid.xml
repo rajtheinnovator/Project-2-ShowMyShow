@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:hint="@string/movieTitleHint" />
+            android:hint="@string/movieTitleHint"
+            android:maxLines="1" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

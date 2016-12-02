@@ -30,7 +30,7 @@ public class MovieDetailsQueryUtils {
     }
 
     /**
-     * Query the GUARDIAN dataset and return an {@link Movie} ArrayList to represent a single Movie.
+     * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
      */
     public static MovieDetailsBundle fetchMovieData(String requestUrl) {
         Log.v("############", "fetchMovieData called");

@@ -18,7 +18,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             MovieDetailsFragment defaultMovieFragment = new MovieDetailsFragment();
             defaultMovieFragment.setArguments(movieDetails);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container1, defaultMovieFragment)
+                    .add(R.id.containerMovieDetailActivity, defaultMovieFragment)
                     .commit();
 
         }

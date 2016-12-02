@@ -31,6 +31,9 @@ public class DefaultMovieQueryUtils {
     private static double moviePopularity;
     private static String movieBackdropPath;
 
+    /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
+    * and the reference link on the github for that project is @link: https://github.com/rajtheinnovator/NewsToday
+    */
 
     /**
      * Create a private constructor because no one should ever create a {@link DefaultMovieQueryUtils} object.
@@ -41,7 +44,7 @@ public class DefaultMovieQueryUtils {
     }
 
     /**
-     * Query the GUARDIAN dataset and return an {@link Movie} ArrayList to represent a single Movie.
+     * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
      */
     public static ArrayList<Movie> fetchMovieData(String requestUrl) {
         Log.v("############", "fetchMovieData called");
