@@ -103,9 +103,8 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         } else {
             Log.v("############", "movies are" + movie);
             // Attach the mAdapter to the recyclerview to populate items
-
             mAdapter.setMovieData(movie);
-            Log.v("############", " mAdapter.setMovieData(movie) finished");
+            Log.v("############", " mAdapter.setMovieDetailsBundleData(movie) finished");
             mRecyclerView.setAdapter(mAdapter);
             Log.v("############", " mRecyclerView.setAdapter(mAdapter); finished");
         }

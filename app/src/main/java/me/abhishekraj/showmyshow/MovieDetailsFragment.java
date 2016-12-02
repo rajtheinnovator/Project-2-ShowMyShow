@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -35,9 +36,10 @@ import static me.abhishekraj.showmyshow.UrlsAndConstants.DetailQuery.VIDEOS_AND_
 public class MovieDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<MovieDetailsBundle> {
 
     private static final int MOVIE_DETAIL_LOADER_ID = 2;
-    DefaultMovieAdapter mAdapter;
+    MovieDetailsAdapter mMovieDetailsAdapter;
     RecyclerView mRecyclerView;
     Movie movie;
+    private MovieDetailsBundle mMovieDetailsBundle;
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
 
@@ -74,6 +76,11 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         collapsingToolbar =
                 (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
 
+        if (savedInstanceState == null){
+            mReview = new ArrayList<>();
+            mMovieDetailsBundle = new MovieDetailsBundle();
+        }
+
         if ((bundle != null)) {
             movie = getArguments().getParcelable("movie");
             textView.setText(movie.getMovieTitle());
@@ -100,6 +107,23 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                 Log.v("############", "startLoaderManager called");
             }
 
+            // Lookup the recyclerview in activity layout
+            mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
+
+            // Create mAdapter passing in the sample user data
+            mMovieDetailsAdapter = new MovieDetailsAdapter(getActivity(), mMovieDetailsBundle);
+            // Attach the mAdapter to the recyclerview to populate items
+            mRecyclerView.setAdapter(mMovieDetailsAdapter);
+
+            // Setup layout manager for items with orientation
+            // Also supports `LinearLayoutManager.HORIZONTAL`
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            // Optionally customize the position you want to default scroll to
+            layoutManager.scrollToPosition(0);
+            // Attach layout manager to the RecyclerView
+            mRecyclerView.setLayoutManager(layoutManager);
+
+
         }
         return rootView;
     }
@@ -125,21 +149,15 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     }
 
     @Override
-    public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle data) {
-        if (data != null) {
-            mReview = data.getReviewArrayList();
-            mVideo = data.getVideoArrayList();
-            ArrayList<String> videoArrayList = new ArrayList<>();
-            Log.v("############", "MovieDetailsBundle is" + data.toString());
-            Log.v("############", "onLoadFinished with MovieDetailsBundle");
-            for (Video videos :
-                    mVideo) {
-                videoArrayList.add(videos.getMovieVideoName());
-            }
-            Log.v("############", "Size of mReview is" + mReview.size());
-            Log.v("############", "Size of mVideo is" + mVideo.size());
-            Log.v("############", "Size of videoArrayList is" + videoArrayList.size());
-            textView.setText(videoArrayList.get(0));
+    public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
+        if (movieDetailsBundle != null) {
+            mMovieDetailsBundle = movieDetailsBundle;
+            // Attach the mAdapter to the recyclerview to populate items
+            mMovieDetailsAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
+            Log.v("############", " mAdapter.setMovieDetailsBundleData(movie) finished");
+            mRecyclerView.setAdapter(mMovieDetailsAdapter);
+            Log.v("############", " mRecyclerView.setAdapter(mAdapter); finished");
+
         }
     }
     @Override

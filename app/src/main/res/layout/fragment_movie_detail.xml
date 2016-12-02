@@ -67,12 +67,14 @@
             android:paddingTop="24dp">
 
             <include layout="@layout/item_movie_detail" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#440000"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp"/>
+                android:paddingRight="8dp" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewMovieTrailers"
                 android:layout_width="match_parent"

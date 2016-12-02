@@ -109,7 +109,7 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
         /*
         Set item views based on your views and data model
-        TextView textView = viewHolder.movieTitleTextView;
+        TextView textView = viewHolder.movieReviewContentTextView;
         */
         viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
         Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMovieTitle());
@@ -129,9 +129,9 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         return mDefaultMovie.size();
     }
 
-    public void setMovieData(ArrayList<Movie> weatherData) {
-        Log.v("############", "setMovieData Called");
-        mDefaultMovie = weatherData;
+    public void setMovieData(ArrayList<Movie> movieData) {
+        Log.v("############", "setMovieDetailsBundleData Called");
+        mDefaultMovie = movieData;
         Log.v("############", "mDefaultMovie is " + mDefaultMovie);
         notifyDataSetChanged();
         Log.v("############", "notifyDataSetChanged Finished");
