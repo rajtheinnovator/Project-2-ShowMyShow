@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by ABHISHEK RAJ on 12/2/2016.
  */
 
-public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapter.ViewHolder> {
+public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.ViewHolder> {
 
     // Store a member variable for the movies
     private static ArrayList<Review> mReview;
@@ -69,14 +69,14 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
     }
 
     // Pass in the movies array into the constructor
-    public MovieDetailsAdapter(Context context, MovieDetailsBundle movies) {
+    public MovieReviewAdapter(Context context, MovieDetailsBundle movies) {
         movieDetailsBundle = movies;
         mReview = new ArrayList<>();
         mContext = context;
     }
 
     @Override
-    public MovieDetailsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MovieReviewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -84,12 +84,12 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
         View moviesView = inflater.inflate(R.layout.item_movie_review, parent, false);
 
         // Return a new holder instance
-        MovieDetailsAdapter.ViewHolder viewHolder = new MovieDetailsAdapter.ViewHolder(context, moviesView);
+        MovieReviewAdapter.ViewHolder viewHolder = new MovieReviewAdapter.ViewHolder(context, moviesView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(MovieDetailsAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(MovieReviewAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Review currentReview = mReview.get(position);
@@ -97,7 +97,7 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
         Log.v("############", "currentReview's title is " + currentReview.getMovieReviewAuthor().toString());
         /*
         Set item views based on your views and data model
-        TextView textView = viewHolder.movieReviewContentTextView;
+        TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
         */
         viewHolder.expTv1.setText(currentReview.getMovieReviewContent());
         Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getMovieReviewContent());

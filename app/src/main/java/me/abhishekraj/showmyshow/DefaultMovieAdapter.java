@@ -109,7 +109,7 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
         /*
         Set item views based on your views and data model
-        TextView textView = viewHolder.movieReviewContentTextView;
+        TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
         */
         viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
         Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMovieTitle());

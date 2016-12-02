@@ -106,7 +106,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             mAdapter.setMovieData(movie);
             Log.v("############", " mAdapter.setMovieDetailsBundleData(movie) finished");
             mRecyclerView.setAdapter(mAdapter);
-            Log.v("############", " mRecyclerView.setAdapter(mAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mAdapter); finished");
         }
     }
 
