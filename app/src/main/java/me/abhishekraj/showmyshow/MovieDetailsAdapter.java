@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
+
 import java.util.ArrayList;
 
 /**
@@ -18,11 +20,11 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
 
     // Store a member variable for the movies
     private static ArrayList<Review> mReview;
-    private static ArrayList<Video> mVideos;
+
     // Store the context for easy access
     private Context mContext;
     MovieDetailsBundle movieDetailsBundle;
-    //    private Movie currentMovie;
+
     // Easy access to the context object in the recyclerview
     private Context getContext() {
         return mContext;
@@ -37,8 +39,13 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
         Your holder should contain a member variable
         for any view that will be set as you render a row
         */
-        public final TextView movieReviewContentTextView;
+        //public final TextView movieReviewContentTextView;
         public final TextView movieReviewAuthorTextView;
+        /*
+        * Make the review content expandable by using the code
+        * from: @link https://github.com/Manabu-GT/ExpandableTextView
+        */
+        public final ExpandableTextView expTv1;
         private Context context;
 
         /*
@@ -51,7 +58,11 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
+            //set the review content on the ExpandableTextView
+
+            expTv1 = (ExpandableTextView) itemView.findViewById(R.id.expand_text_view);
+
+            // movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
             movieReviewAuthorTextView = (TextView) itemView.findViewById(R.id.review_author);
             this.context = context;
         }
@@ -75,9 +86,6 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
         // Return a new holder instance
         MovieDetailsAdapter.ViewHolder viewHolder = new MovieDetailsAdapter.ViewHolder(context, moviesView);
         return viewHolder;
-//        View v = LayoutInflater.from(parent.getContext()).
-//                inflate(R.layout.item_movies_grid, parent, false);
-//        return new ViewHolder(v);
     }
 
     @Override
@@ -91,13 +99,11 @@ public class MovieDetailsAdapter extends RecyclerView.Adapter<MovieDetailsAdapte
         Set item views based on your views and data model
         TextView textView = viewHolder.movieReviewContentTextView;
         */
-        viewHolder.movieReviewContentTextView.setText(currentReview.getMovieReviewContent());
+        viewHolder.expTv1.setText(currentReview.getMovieReviewContent());
         Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getMovieReviewContent());
-        //ImageView button = viewHolder.movieTitleImageView;
-        //viewHolder.movieTitleImageView.setImageResource(R.mipmap.ic_launcher);
-        String url = "https://image.tmdb.org/t/p/w500/" + currentReview.getMovieReviewAuthor().toString();
+        String url = "https://image.tmdb.org/t/p/w500/" + currentReview.getMovieReviewAuthor().toString().trim();
         Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getMovieReviewAuthor().toString());
-        viewHolder.movieReviewAuthorTextView.setText(currentReview.getMovieReviewAuthor());
+        viewHolder.movieReviewAuthorTextView.setText(currentReview.getMovieReviewAuthor().trim());
 
     }
 

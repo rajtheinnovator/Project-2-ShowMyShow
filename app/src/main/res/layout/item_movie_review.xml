@@ -2,22 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="4dp"
+    android:orientation="vertical"
     android:textAlignment="center">
-<TextView
-    android:id="@+id/review_content"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="review_content"
-    android:paddingLeft="24dp"
-    android:textStyle="italic"/>
+
+    <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/expand_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        expandableTextView:animDuration="200"
+        expandableTextView:maxCollapsedLines="4">
+
+        <TextView
+            android:id="@id/expandable_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="4dp"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:background="@android:color/transparent"
+            android:padding="8dp" />
+
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
     <TextView
         android:id="@+id/review_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="review_author"
         android:gravity="bottom|end"
+        android:hint="review_author"
         android:paddingRight="24dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 </LinearLayout>

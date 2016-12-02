@@ -122,8 +122,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             layoutManager.scrollToPosition(0);
             // Attach layout manager to the RecyclerView
             mRecyclerView.setLayoutManager(layoutManager);
-
-
         }
         return rootView;
     }
