@@ -16,10 +16,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by ABHISHEK RAJ on 11/16/2016.
+ * Created by ABHISHEK RAJ on 12/4/2016.
  */
 
-public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapter.ViewHolder> {
+public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdapter.ViewHolder> {
 
     /* Store a member variable for the movies */
     private static ArrayList<Movie> mDefaultMovie;
@@ -54,8 +54,8 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_default_movie_title);
-            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_default_movie_image);
+            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_top_movie_title);
+            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_top_movie_image);
             this.context = context;
             /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);
@@ -74,33 +74,32 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
                 Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
                 Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
                 movieDetailIntent.putExtra("movie", currentMovie);
-
                 context.startActivity(movieDetailIntent);
             }
         }
     }
 
     /* Pass in the movies array into the constructor */
-    public DefaultMovieAdapter(Context context, ArrayList<Movie> movies) {
+    public TopRatedMovieAdapter(Context context, ArrayList<Movie> movies) {
         mDefaultMovie = movies;
         mContext = context;
     }
 
     @Override
-    public DefaultMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TopRatedMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movies_grid_default_movie, parent, false);
+        View moviesView = inflater.inflate(R.layout.item_movie_grid_top_movies, parent, false);
 
         /* Return a new holder instance */
-        ViewHolder viewHolder = new DefaultMovieAdapter.ViewHolder(context, moviesView);
+        TopRatedMovieAdapter.ViewHolder viewHolder = new TopRatedMovieAdapter.ViewHolder(context, moviesView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(DefaultMovieAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(TopRatedMovieAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
         Movie currentMovie = mDefaultMovie.get(position);

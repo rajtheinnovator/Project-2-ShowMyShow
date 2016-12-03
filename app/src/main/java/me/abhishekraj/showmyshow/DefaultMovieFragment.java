@@ -23,6 +23,9 @@ import java.util.ArrayList;
 
 import static me.abhishekraj.showmyshow.UrlsAndConstants.DefaultQuery.API_KEY_PARAM;
 import static me.abhishekraj.showmyshow.UrlsAndConstants.DefaultQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.UrlsAndConstants.DefaultQuery.SORT_BY_KEY;
+import static me.abhishekraj.showmyshow.UrlsAndConstants.DefaultQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
+import static me.abhishekraj.showmyshow.UrlsAndConstants.DefaultQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
 
 
 /**
@@ -31,9 +34,13 @@ import static me.abhishekraj.showmyshow.UrlsAndConstants.DefaultQuery.API_KEY_PA
 public class DefaultMovieFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
 
     private static final int DEFAULT_MOVIE_LOADER_ID = 1;
+    private static final int TOP_RATED_MOVIE_LOADER_ID = 9999;
     ArrayList<Movie> movies;
-    DefaultMovieAdapter mAdapter;
-    RecyclerView mRecyclerView;
+    DefaultMovieAdapter mDefaultMovieAdapter;
+    TopRatedMovieAdapter mTopRatedMovieAdapter;
+    RecyclerView mDefaultMovieRecyclerView;
+    RecyclerView mTopRatedMovieRecyclerView;
+    Uri.Builder uriBuilder;
 
     public DefaultMovieFragment() {
         // Required empty public constructor
@@ -57,70 +64,125 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         if (networkInfo != null && networkInfo.isConnected()) {
 
           /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
-            startLoaderManager();
-            Log.v("############", "startLoaderManager called");
+            startPopularMoviesLoaderManager();
+            startTopRatedMoviesLoaderManager();
+            Log.v("############", "startPopularMoviesLoaderManager called");
         }
         /* Code referenced from the @link:
         * "https://guides.codepath.com/android/using-the-recyclerview"
         */
         // Lookup the recyclerview in activity layout
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewDefaultMovies);
+        mDefaultMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewDefaultMovies);
+        mTopRatedMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTopMoviesMovies);
 
-        // Create mAdapter passing in the sample user data
-        mAdapter = new DefaultMovieAdapter(getActivity(), movies);
-        // Attach the mAdapter to the recyclerview to populate items
-        mRecyclerView.setAdapter(mAdapter);
+        // Create mDefaultMovieAdapter passing in the sample user data
+        mDefaultMovieAdapter = new DefaultMovieAdapter(getActivity(), movies);
+        // Attach the mDefaultMovieAdapter to the recyclerview to populate items
+        mDefaultMovieRecyclerView.setAdapter(mDefaultMovieAdapter);
 
+        // Create mDefaultMovieAdapter passing in the sample user data
+        mTopRatedMovieAdapter = new TopRatedMovieAdapter(getActivity(), movies);
+        // Attach the mDefaultMovieAdapter to the recyclerview to populate items
+        mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
 
          /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-        LinearLayoutManager layoutManagerMovietrailer = new LinearLayoutManager(getActivity(),
+        LinearLayoutManager layoutManagerMoviePoster = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
             /* Optionally customize the position you want to default scroll to */
-        layoutManagerMovietrailer.scrollToPosition(0);
+        layoutManagerMoviePoster.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-        mRecyclerView.setLayoutManager(layoutManagerMovietrailer);
+        mDefaultMovieRecyclerView.setLayoutManager(layoutManagerMoviePoster);
+
+             /*
+            Setup layout manager for items with orientation
+            Also supports `LinearLayoutManager.HORIZONTAL`
+            */
+        LinearLayoutManager layoutManagerTopMoviePoster = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
+            /* Optionally customize the position you want to default scroll to */
+        layoutManagerMoviePoster.scrollToPosition(0);
+            /* Attach layout manager to the RecyclerView */
+        mTopRatedMovieRecyclerView.setLayoutManager(layoutManagerTopMoviePoster);
 
         SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
-        snapHelperStart.attachToRecyclerView(mRecyclerView);
+        snapHelperStart.attachToRecyclerView(mDefaultMovieRecyclerView);
+        snapHelperStart.attachToRecyclerView(mTopRatedMovieRecyclerView);
 
         return rootView;
     }
 
-    private void startLoaderManager() {
+    private void startPopularMoviesLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
-        Log.v("############", "startLoaderManager started");
+        Log.v("############", "startPopularMoviesLoaderManager started");
         loaderManager.initLoader(DEFAULT_MOVIE_LOADER_ID, null, this);
-        Log.v("############", "startLoaderManager finished");
+        Log.v("############", "startPopularMoviesLoaderManager finished");
+    }
+
+    private void startTopRatedMoviesLoaderManager() {
+        LoaderManager loaderManager = getLoaderManager();
+        Log.v("############", "startPopularMoviesLoaderManager started");
+        loaderManager.initLoader(TOP_RATED_MOVIE_LOADER_ID, null, this);
+        Log.v("############", "startPopularMoviesLoaderManager finished");
     }
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
-        Log.v("############", "onCreateLoader called");
-        Uri baseUri = Uri.parse(UrlsAndConstants.DefaultQuery.DEFAULT_URL);
-        Log.v("############", "baseUri is " + baseUri.toString());
-        Uri.Builder uriBuilder = baseUri.buildUpon();
-        Log.v("############", "uriBuilder is " + uriBuilder.toString());
-        uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-        Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+        if (id == DEFAULT_MOVIE_LOADER_ID) {
+            Log.v("############", "onCreateLoader called");
+            Uri baseUri = Uri.parse(UrlsAndConstants.DefaultQuery.DEFAULT_URL);
+            Log.v("############", "baseUri is " + baseUri.toString());
+            uriBuilder = baseUri.buildUpon();
+            Log.v("############", "uriBuilder is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
+            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
+            //return new DefaultMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
+        } else if (id == TOP_RATED_MOVIE_LOADER_ID) {
+            Log.v("############", "onCreateLoader called");
+            Uri baseUri = Uri.parse(UrlsAndConstants.DefaultQuery.DEFAULT_URL);
+            Log.v("############", "baseUri is " + baseUri.toString());
+            uriBuilder = baseUri.buildUpon();
+            Log.v("############", "uriBuilder is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
+            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
+        }
         return new DefaultMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> movie) {
-        Log.v("############", "startLoaderManager finished");
-        if (movie.isEmpty()) {
-            Log.v("******************", "movies isEmpty");
-            return;
-        } else {
-            Log.v("############", "movies are" + movie);
-            // Attach the mAdapter to the recyclerview to populate items
-            mAdapter.setMovieData(movie);
-            Log.v("############", " mAdapter.setMovieDetailsBundleData(movie) finished");
-            mRecyclerView.setAdapter(mAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mAdapter); finished");
+        switch (loader.getId()) {
+            case DEFAULT_MOVIE_LOADER_ID:
+                Log.v("############", "startPopularMoviesLoaderManager finished");
+                if (movie.isEmpty()) {
+                    Log.v("******************", "movies isEmpty");
+                    return;
+                } else {
+                    Log.v("############", "movies are" + movie);
+                    // Attach the mDefaultMovieAdapter to the recyclerview to populate items
+                    mDefaultMovieAdapter.setMovieData(movie);
+                    Log.v("############", " mDefaultMovieAdapter.setMovieDetailsBundleData(movie) finished");
+                    mDefaultMovieRecyclerView.setAdapter(mDefaultMovieAdapter);
+                    Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+                }
+            case TOP_RATED_MOVIE_LOADER_ID:
+                Log.v("############", "startPopularMoviesLoaderManager finished");
+                if (movie.isEmpty()) {
+                    Log.v("******************", "movies isEmpty");
+                    return;
+                } else {
+                    Log.v("############******", "movies are" + movie);
+                    // Attach the mDefaultMovieAdapter to the recyclerview to populate items
+                    mTopRatedMovieAdapter.setMovieData(movie);
+                    Log.v("############", " mDefaultMovieAdapter.setMovieDetailsBundleData(movie) finished");
+                    mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
+                    Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+                }
+
         }
     }
 

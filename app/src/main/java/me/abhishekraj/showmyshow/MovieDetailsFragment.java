@@ -135,14 +135,14 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
             mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
 
-            /* Create mAdapter passing in the sample user data */
+            /* Create mDefaultMovieAdapter passing in the sample user data */
             mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
-             /* Create mAdapter passing in the sample user data */
+             /* Create mDefaultMovieAdapter passing in the sample user data */
             mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
 
-            /* Attach the mAdapter to the reviewRecyclerView to populate items */
+            /* Attach the mDefaultMovieAdapter to the reviewRecyclerView to populate items */
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            /* Attach the mAdapter to the trailerRecyclerView to populate items */
+            /* Attach the mDefaultMovieAdapter to the trailerRecyclerView to populate items */
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
 
             /*
@@ -207,16 +207,16 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
         if (movieDetailsBundle != null) {
             mMovieDetailsBundle = movieDetailsBundle;
-            // Attach the mAdapter to the reviewRecyclerView to populate items
+            // Attach the mDefaultMovieAdapter to the reviewRecyclerView to populate items
             mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            // Attach the mAdapter to the trailerRecyclerView to populate items
+            // Attach the mDefaultMovieAdapter to the trailerRecyclerView to populate items
             mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mAdapter.setMovieDetailsBundleData(movie) finished");
+            Log.v("############", " mDefaultMovieAdapter.setMovieDetailsBundleData(movie) finished");
 
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
             updateDurationTextView(mMovieDetailsBundle);
         }
     }

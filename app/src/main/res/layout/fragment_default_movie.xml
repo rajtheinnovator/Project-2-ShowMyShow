@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="me.abhishekraj.showmyshow.MainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POPULAR MOVIES"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewDefaultMovies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical" />
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HIGHEST RATED MOVIES"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewTopMoviesMovies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" />
+</LinearLayout>
