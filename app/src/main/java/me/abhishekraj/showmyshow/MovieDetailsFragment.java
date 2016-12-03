@@ -11,7 +11,9 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -135,7 +137,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
             LinearLayoutManager layoutManagerMovieReview = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.HORIZONTAL, false);
+                    LinearLayoutManager.VERTICAL, false);
             /* Optionally customize the position you want to default scroll to */
             layoutManagerMovieReview.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
@@ -151,6 +153,12 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             layoutManagerMovietrailer.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
             mMovieTrailerRecyclerView.setLayoutManager(layoutManagerMovietrailer);
+
+            /*
+            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
+            */
+            SnapHelper snapHelper = new LinearSnapHelper();
+            snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
         }
         return rootView;
     }

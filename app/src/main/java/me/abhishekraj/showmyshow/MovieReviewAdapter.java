@@ -99,7 +99,7 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         Set item views based on your views and data model
         TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
         */
-        viewHolder.expTv1.setText(currentReview.getMovieReviewContent());
+        viewHolder.expTv1.setText(currentReview.getMovieReviewContent().trim());
         Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getMovieReviewContent());
         String url = "https://image.tmdb.org/t/p/w500/" + currentReview.getMovieReviewAuthor().toString().trim();
         Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getMovieReviewAuthor().toString());
