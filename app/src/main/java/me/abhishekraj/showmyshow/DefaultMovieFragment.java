@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
@@ -67,12 +71,20 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         // Attach the mAdapter to the recyclerview to populate items
         mRecyclerView.setAdapter(mAdapter);
 
-        // First param is number of columns and second param is orientation i.e Vertical or Horizontal
-        final GridLayoutManager gridLayoutManager =
-                new GridLayoutManager(getActivity(), 2);
-        // Attach the layout manager to the recycler view
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        // That's all!
+
+         /*
+            Setup layout manager for items with orientation
+            Also supports `LinearLayoutManager.HORIZONTAL`
+            */
+        LinearLayoutManager layoutManagerMovietrailer = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
+            /* Optionally customize the position you want to default scroll to */
+        layoutManagerMovietrailer.scrollToPosition(0);
+            /* Attach layout manager to the RecyclerView */
+        mRecyclerView.setLayoutManager(layoutManagerMovietrailer);
+
+        SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
+        snapHelperStart.attachToRecyclerView(mRecyclerView);
 
         return rootView;
     }
