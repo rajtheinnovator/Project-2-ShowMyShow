@@ -64,6 +64,9 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     String posterURL;
     String backdropURL;
     TextView movieReleaseDate;
+    TextView movieRunTimeDuration;
+    private int mMovieDuration;
+    private String mMovieDurationString;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +78,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
         moviedetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
         movieReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
+        movieRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
 
         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar for this Fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
@@ -112,7 +116,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
             SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
-            simpleRatingBar.setRating((float) (movie.getMovieVoteAverage())/2);
+            simpleRatingBar.setRating((float) (movie.getMovieVoteAverage()) / 2);
 
              /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
@@ -203,7 +207,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
         if (movieDetailsBundle != null) {
             mMovieDetailsBundle = movieDetailsBundle;
-
             // Attach the mAdapter to the reviewRecyclerView to populate items
             mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
             // Attach the mAdapter to the trailerRecyclerView to populate items
@@ -214,12 +217,25 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             Log.v("############", " mMovieReviewRecyclerView.setAdapter(mAdapter); finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
             Log.v("############", " mMovieReviewRecyclerView.setAdapter(mAdapter); finished");
-
+            updateDurationTextView(mMovieDetailsBundle);
         }
+    }
+
+    public void updateDurationTextView(MovieDetailsBundle movieDetailsBundle) {
+        mMovieDuration = movieDetailsBundle.getMovie().getMovieRuntimeDuration();
+        if (mMovieDuration < 60) {
+            mMovieDurationString = String.valueOf(mMovieDuration) + "mins";
+        } else if (60 < mMovieDuration && mMovieDuration < 120) {
+            mMovieDurationString = "1 Hrs " + String.valueOf(mMovieDuration - 60) + "mins";
+        } else if (120 < mMovieDuration && mMovieDuration < 180) {
+            mMovieDurationString = "2 Hrs " + String.valueOf(mMovieDuration - 120) + "mins";
+        } else {
+            mMovieDurationString = "3 Hrs " + String.valueOf(mMovieDuration - 180) + "mins";
+        }
+        movieRunTimeDuration.setText(mMovieDurationString);
     }
 
     @Override
     public void onLoaderReset(Loader<MovieDetailsBundle> loader) {
-
     }
 }

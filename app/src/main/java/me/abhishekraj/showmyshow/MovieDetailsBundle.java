@@ -9,20 +9,24 @@ import java.util.ArrayList;
 public class MovieDetailsBundle {
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
+    public Movie mMovie;
 
     /*
     * Create an empty constructor so that no NullPontException occur during the JSON parsing
     */
     public MovieDetailsBundle(){
     }
-    public MovieDetailsBundle(ArrayList review, ArrayList video){
+    public MovieDetailsBundle(ArrayList review, ArrayList video, Movie movie){
         mReview = review;
         mVideo = video;
+        mMovie = movie;
     }
 
     public void setReviewArrayList(ArrayList<Review> reviews){mReview = reviews;}
     public void setVideoArrayList(ArrayList<Video> video){mVideo = video;}
+    public void setMovie(Movie movie){mMovie = movie;}
 
     public ArrayList<Review> getReviewArrayList(){return mReview;}
     public ArrayList<Video> getVideoArrayList(){return mVideo;}
+    public Movie getMovie(){return mMovie;}
 }

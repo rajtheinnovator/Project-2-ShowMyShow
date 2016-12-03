@@ -39,6 +39,7 @@ public class Movie implements Parcelable {
     private String mMovieOriginalTitle;
     private double mMoviePopularity;
     private String mMovieReleaseDate;
+    private int mMovieRunTimeDuration;
     /**
      * Create an empty constructor so that an empty movie's object can be referenced
      * in the MainActivity for storing movie's info
@@ -67,6 +68,9 @@ public class Movie implements Parcelable {
         mMovieReleaseDate = movieReleaseDate;
 
     }
+    public Movie(int runTimeDuration){
+        mMovieRunTimeDuration = runTimeDuration;
+    }
     /**
      * The Setters Methods
      */
@@ -81,6 +85,8 @@ public class Movie implements Parcelable {
     public void setMoviePosterPath(String path) {
         mMoviePosterPath = path;
     }
+
+    public void setMovieRunTimeDuration(int movieDuration){mMovieRunTimeDuration = movieDuration;}
 
 
     /**
@@ -124,6 +130,8 @@ public class Movie implements Parcelable {
 
     public String getMovieReleaseDate(){return mMovieReleaseDate;}
 
+    public int getMovieRuntimeDuration(){return mMovieRunTimeDuration;}
+
 
 
     /**
@@ -146,6 +154,7 @@ public class Movie implements Parcelable {
         out.writeDouble(mMoviePopularity);
         out.writeString(mMovieBackdropPath);
         out.writeString(mMovieReleaseDate);
+        out.writeInt(mMovieRunTimeDuration);
     }
 
     private Movie(Parcel in) {
@@ -159,6 +168,7 @@ public class Movie implements Parcelable {
         mMoviePopularity = in.readDouble();
         mMovieBackdropPath = in.readString();
         mMovieReleaseDate = in.readString();
+        mMovieRunTimeDuration = in.readInt();
     }
 
     /*
