@@ -12,14 +12,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <ImageView
             android:id="@+id/movie_detail_title_image_view"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_weight="3"
-            android:paddingLeft="16dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
             app:layout_collapseMode="parallax"
@@ -34,38 +35,56 @@
 
             <TextView
                 android:id="@+id/movie_detail_title_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="end"
                 android:layout_margin="@dimen/text_margin"
-                android:text="large_text" />
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="large_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <RatingBar
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
                 android:id="@+id/movieRatingInsideMovieDetailsFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.1" />
+                android:layout_width="162dp"
+                android:layout_height="0dp"
+                android:layout_gravity="end|right"
+                android:layout_weight="1"
+                android:gravity="end|right"
+                app:srb_borderColor="@color/colorPrimaryDark"
+                app:srb_fillColor="@color/colorPrimary"
+                app:srb_isIndicator="true"
+                app:srb_numberOfStars="5"
+                app:srb_starSize="24dp"
+                app:srb_stepSize="0.1" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="4dp"
-                android:paddingRight="4dp">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:id="@+id/movie_release_date_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="left|start|center_vertical"
                     android:hint="movie_release_date"
-                    android:paddingRight="8dp" />
+                    android:paddingRight="8dp"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/movie_duration_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="movie_duration" />
+                    android:gravity="right|end|center_vertical"
+                    android:hint="movie_duration"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

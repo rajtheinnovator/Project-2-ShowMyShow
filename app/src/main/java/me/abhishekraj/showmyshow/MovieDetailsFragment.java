@@ -11,17 +11,19 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     CollapsingToolbarLayout collapsingToolbar;
     String posterURL;
     String backdropURL;
+    TextView movieReleaseDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +74,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.movie_detail_title_text_view);
         movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
         moviedetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
+        movieReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
 
         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar for this Fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
@@ -84,7 +88,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         collapsingToolbar =
                 (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             mReview = new ArrayList<>();
             mVideo = new ArrayList<>();
             mMovieDetailsBundle = new MovieDetailsBundle();
@@ -93,6 +97,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         if ((bundle != null)) {
             movie = getArguments().getParcelable("movie");
             movieDetailTitleTextView.setText(movie.getMovieTitle());
+            movieReleaseDate.setText(movie.getMovieReleaseDate());
             posterURL = UrlsAndConstants.DefaultQuery.BASE_IMAGE_URL + movie.getMoviePosterPath();
             backdropURL = UrlsAndConstants.DefaultQuery.BASE_IMAGE_URL + movie.getMovieBackdropPath();
             collapsingToolbar.setTitle(movie.getMovieTitle());
@@ -104,6 +109,10 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     .load(backdropURL)
                     .placeholder(R.mipmap.ic_launcher)
                     .into(moviedetailsBackdropImageView);
+
+            /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
+            SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
+            simpleRatingBar.setRating((float) (movie.getMovieVoteAverage())/2);
 
              /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
@@ -154,11 +163,18 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             /* Attach layout manager to the RecyclerView */
             mMovieTrailerRecyclerView.setLayoutManager(layoutManagerMovietrailer);
 
-            /*
-            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
+//            /*
+//            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
+//            */
+//            SnapHelper snapHelper = new LinearSnapHelper();
+//            snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
+
+            /*Snap code for trailer review taken from
+            * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
             */
-            SnapHelper snapHelper = new LinearSnapHelper();
-            snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
+
+            SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
+            snapHelperStart.attachToRecyclerView(mMovieTrailerRecyclerView);
         }
         return rootView;
     }
@@ -201,6 +217,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
         }
     }
+
     @Override
     public void onLoaderReset(Loader<MovieDetailsBundle> loader) {
 

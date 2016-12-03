@@ -30,6 +30,7 @@ public class DefaultMovieQueryUtils {
     private static double movieVoteAverage;
     private static double moviePopularity;
     private static String movieBackdropPath;
+    private static String movieReleaseDate;
 
     /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
     * and the reference link on the github for that project is @link: https://github.com/rajtheinnovator/NewsToday
@@ -195,9 +196,12 @@ public class DefaultMovieQueryUtils {
                             if (movieDetail.has("vote_average")) {
                                 movieVoteAverage = movieDetail.getDouble("vote_average");
                             }
+                            if (movieDetail.has("release_date")){
+                                movieReleaseDate = movieDetail.getString("release_date");
+                            }
                             Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
                             movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
-                                    movieVoteAverage, moviePopularity, movieBackdropPath));
+                                    movieVoteAverage, moviePopularity, movieBackdropPath, movieReleaseDate));
                         }
                     }
                 }

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
     android:textAlignment="center">
 
     <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"

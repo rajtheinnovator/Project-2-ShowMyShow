@@ -26,17 +26,19 @@ public class Movie implements Parcelable {
      * id of the movie
      */
     private int mMovieId;
-    /*Variables neede when handling recycler view is clicked*/
+    /*Variables needed when handling recycler view is clicked*/
 
     /**
      * BackdropPosterPath of the movie
      */
     private String mMovieBackdropPath;
+
     private double mMovieVoteCount;
     private String mMovieOverview;
     private double mMovieVoteAverage;
     private String mMovieOriginalTitle;
     private double mMoviePopularity;
+    private String mMovieReleaseDate;
     /**
      * Create an empty constructor so that an empty movie's object can be referenced
      * in the MainActivity for storing movie's info
@@ -52,7 +54,7 @@ public class Movie implements Parcelable {
      * @param id         is the id of the movie
      */
     public Movie(String movieTitle, int id, String posterPath, String overview, double voteCount, String originalTitle,
-                 double voteAverage, double popularity, String backdropPath) {
+                 double voteAverage, double popularity, String backdropPath, String movieReleaseDate) {
         mMovieTitle = movieTitle;
         mMoviePosterPath = posterPath;
         mMovieId = id;
@@ -62,6 +64,7 @@ public class Movie implements Parcelable {
         mMovieVoteAverage = voteAverage;
         mMoviePopularity = popularity;
         mMovieBackdropPath = backdropPath;
+        mMovieReleaseDate = movieReleaseDate;
 
     }
     /**
@@ -119,6 +122,8 @@ public class Movie implements Parcelable {
         return mMoviePopularity;
     }
 
+    public String getMovieReleaseDate(){return mMovieReleaseDate;}
+
 
 
     /**
@@ -140,6 +145,7 @@ public class Movie implements Parcelable {
         out.writeDouble(mMovieVoteAverage);
         out.writeDouble(mMoviePopularity);
         out.writeString(mMovieBackdropPath);
+        out.writeString(mMovieReleaseDate);
     }
 
     private Movie(Parcel in) {
@@ -152,6 +158,7 @@ public class Movie implements Parcelable {
         mMovieVoteAverage = in.readDouble();
         mMoviePopularity = in.readDouble();
         mMovieBackdropPath = in.readString();
+        mMovieReleaseDate = in.readString();
     }
 
     /*
