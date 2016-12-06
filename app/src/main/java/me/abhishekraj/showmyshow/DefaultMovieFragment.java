@@ -130,9 +130,6 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         SnapHelper snapHelperForDefaultMovieRecyclerView = new GravitySnapHelper(Gravity.START);
         snapHelperForDefaultMovieRecyclerView.attachToRecyclerView(mDefaultMovieRecyclerView);
 
-        //Log.v("############******", "onCreateView called and budle is" + bundleNullOrNot);
-
-
         /* Code referenced from the @link:
         * "https://guides.codepath.com/android/using-the-recyclerview"
         */
@@ -231,7 +228,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
                 /*
                  * prevent onLoadFinished from called twice using @param nullChecker
                 */
-                if (nullChecker.isEmpty()) {
+
                     nullChecker = incomingMovieArrayList;
                     Log.v("############******", "onLoadFinished called with id " + TOP_RATED_MOVIE_LOADER_ID);
                     if (incomingMovieArrayList.isEmpty()) {
@@ -243,12 +240,6 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
                         mTopRatedMovieAdapter.setMovieData(topRatedMovies);
                         mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
                     }
-
-                } else {
-                    return;
-                }
-                break;
-            default:
                 break;
         }
     }
