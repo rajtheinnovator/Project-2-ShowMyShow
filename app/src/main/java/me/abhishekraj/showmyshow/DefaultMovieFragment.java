@@ -91,62 +91,78 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
+        Log.v("############******", "onCreateView savedInstance is " + savedInstanceState);
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_default_movie, container, false);
 
-        Log.v("############******", "onCreateView called and budle is" + bundleNullOrNot);
-        if (savedInstanceState == null) {
-
-        /* Code referenced from the @link:
+             /* Code referenced from the @link:
         * "https://guides.codepath.com/android/using-the-recyclerview"
         */
-            // Lookup the recyclerview in activity layout
-            mDefaultMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewDefaultMovies);
-            mTopRatedMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTopMoviesMovies);
-
-            // Create mDefaultMovieAdapter passing in the sample user data
-            mDefaultMovieAdapter = new DefaultMovieAdapter(getActivity(), defaultMovies);
-            // Attach the mDefaultMovieAdapter to the recyclerview to populate items
-            mDefaultMovieRecyclerView.setAdapter(mDefaultMovieAdapter);
-
-            // Create mDefaultMovieAdapter passing in the sample user data
-            mTopRatedMovieAdapter = new TopRatedMovieAdapter(getActivity(), topRatedMovies);
-            // Attach the mDefaultMovieAdapter to the recyclerview to populate items
-            mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
-
-         /*
-            Setup layout manager for items with orientation
-            Also supports `LinearLayoutManager.HORIZONTAL`
-            */
-            layoutManagerMoviePoster = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.HORIZONTAL, false);
-            /* Optionally customize the position you want to default scroll to */
-            layoutManagerMoviePoster.scrollToPosition(0);
-            /* Attach layout manager to the RecyclerView */
-            mDefaultMovieRecyclerView.setLayoutManager(layoutManagerMoviePoster);
+        // Lookup the recyclerview in activity layout
+        mDefaultMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewDefaultMovies);
+        mTopRatedMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTopMoviesMovies);
 
              /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-            layoutManagerTopMoviePoster = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.HORIZONTAL, false);
+        layoutManagerMoviePoster = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
             /* Optionally customize the position you want to default scroll to */
-            layoutManagerTopMoviePoster.scrollToPosition(0);
+        layoutManagerMoviePoster.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-            mTopRatedMovieRecyclerView.setLayoutManager(layoutManagerTopMoviePoster);
+        mDefaultMovieRecyclerView.setLayoutManager(layoutManagerMoviePoster);
 
-            SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
-            snapHelperStart.attachToRecyclerView(mTopRatedMovieRecyclerView);
+             /*
+            Setup layout manager for items with orientation
+            Also supports `LinearLayoutManager.HORIZONTAL`
+            */
+        layoutManagerTopMoviePoster = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
+            /* Optionally customize the position you want to default scroll to */
+        layoutManagerTopMoviePoster.scrollToPosition(0);
+            /* Attach layout manager to the RecyclerView */
+        mTopRatedMovieRecyclerView.setLayoutManager(layoutManagerTopMoviePoster);
 
-            SnapHelper snapHelperForDefaultMovieRecyclerView = new GravitySnapHelper(Gravity.START);
-            snapHelperForDefaultMovieRecyclerView.attachToRecyclerView(mDefaultMovieRecyclerView);
-        }
+        SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
+        snapHelperStart.attachToRecyclerView(mTopRatedMovieRecyclerView);
+
+        SnapHelper snapHelperForDefaultMovieRecyclerView = new GravitySnapHelper(Gravity.START);
+        snapHelperForDefaultMovieRecyclerView.attachToRecyclerView(mDefaultMovieRecyclerView);
+
+        //Log.v("############******", "onCreateView called and budle is" + bundleNullOrNot);
+
+
+        /* Code referenced from the @link:
+        * "https://guides.codepath.com/android/using-the-recyclerview"
+        */
+
+        // Create mDefaultMovieAdapter passing in the sample user data
+        mDefaultMovieAdapter = new DefaultMovieAdapter(getActivity(), defaultMovies);
+        mDefaultMovieAdapter.setMovieData(defaultMovies);
+        // Attach the mDefaultMovieAdapter to the recyclerview to populate items
+        mDefaultMovieRecyclerView.setAdapter(mDefaultMovieAdapter);
+
+        // Create mDefaultMovieAdapter passing in the sample user data
+        mTopRatedMovieAdapter = new TopRatedMovieAdapter(getActivity(), topRatedMovies);
+        mTopRatedMovieAdapter.setMovieData(topRatedMovies);
+        // Attach the mDefaultMovieAdapter to the recyclerview to populate items
+        mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
 
         return rootView;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mDefaultMovieAdapter = new DefaultMovieAdapter(getActivity(), defaultMovies);
+        mTopRatedMovieAdapter = new TopRatedMovieAdapter(getActivity(), topRatedMovies);
+        mTopRatedMovieAdapter.setMovieData(topRatedMovies);
+        mDefaultMovieAdapter.setMovieData(defaultMovies);
+        mDefaultMovieRecyclerView.setAdapter(mDefaultMovieAdapter);
+        mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
+
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -155,6 +171,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         outState.putParcelableArrayList("defaultMovies", defaultMovies);
         outState.putParcelableArrayList("topMovies", topRatedMovies);
     }
+
 
     private void startPopularMoviesLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
@@ -167,7 +184,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
         LoaderManager loaderManager = getLoaderManager();
         Log.v("############******", "initLoader called with id " + TOP_RATED_MOVIE_LOADER_ID);
         loaderManager.initLoader(TOP_RATED_MOVIE_LOADER_ID, null, this);
-        Log.v("############******", "startPopularMoviesLoaderManager finished");
+        Log.v("############******", "startTopRatedMoviesLoaderManager finished");
     }
 
     @Override
@@ -179,7 +196,7 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             uriBuilder = baseUri.buildUpon();
             Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-              Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
 
         } else if (id == TOP_RATED_MOVIE_LOADER_ID) {
@@ -200,13 +217,16 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
             case DEFAULT_MOVIE_LOADER_ID:
                 Log.v("############******", "onLoadFinished called with id " + DEFAULT_MOVIE_LOADER_ID);
                 if (incomingMovieArrayList.isEmpty()) {
-                      Log.v("******************", "defaultMovies isEmpty");
+                    Log.v("******************", "defaultMovies isEmpty");
                     return;
                 } else {
                     defaultMovies = incomingMovieArrayList;
-                    updateDefaultMovieRecyclerView(defaultMovies);
+                    mDefaultMovieAdapter = new DefaultMovieAdapter(getActivity(), defaultMovies);
+                    mDefaultMovieAdapter.setMovieData(defaultMovies);
+                    mDefaultMovieRecyclerView.setAdapter(mDefaultMovieAdapter);
 
                 }
+                break;
             case TOP_RATED_MOVIE_LOADER_ID:
                 /*
                  * prevent onLoadFinished from called twice using @param nullChecker
@@ -215,36 +235,46 @@ public class DefaultMovieFragment extends Fragment implements LoaderManager.Load
                     nullChecker = incomingMovieArrayList;
                     Log.v("############******", "onLoadFinished called with id " + TOP_RATED_MOVIE_LOADER_ID);
                     if (incomingMovieArrayList.isEmpty()) {
-                         Log.v("******************", "defaultMovies isEmpty");
+                        Log.v("******************", "defaultMovies isEmpty");
                         return;
                     } else {
                         topRatedMovies = incomingMovieArrayList;
-                        updateTopRatedMovieRecyclerView(topRatedMovies);
-                        nullChecker = new ArrayList<>();
+                        mTopRatedMovieAdapter = new TopRatedMovieAdapter(getActivity(), topRatedMovies);
+                        mTopRatedMovieAdapter.setMovieData(topRatedMovies);
+                        mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
                     }
-                } else return;
 
+                } else {
+                    return;
+                }
+                break;
+            default:
+                break;
         }
     }
 
     public void updateDefaultMovieRecyclerView(ArrayList<Movie> movies) {
-         Log.v("############******", "defaultMovies are" + movies.get(0).getMovieTitle());
-         Log.v("############******", "defaultMovies are" + movies.get(1).getMovieTitle());
+        Log.v("############******", "defaultMovies are" + movies.get(0).getMovieTitle());
+        Log.v("############******", "defaultMovies are" + movies.get(1).getMovieTitle());
 //         Attach the mDefaultMovieAdapter to the recyclerview to populate items
         mDefaultMovieAdapter.setMovieData(movies);
         Log.v("############", " mDefaultMovieAdapter.setMovieDetailsBundleData(movie) finished");
         mDefaultMovieRecyclerView.setAdapter(mDefaultMovieAdapter);
-         Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+        Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+        defaultMovies = new ArrayList<>();
+        getLoaderManager().destroyLoader(DEFAULT_MOVIE_LOADER_ID);
     }
 
     public void updateTopRatedMovieRecyclerView(ArrayList<Movie> movies) {
         Log.v("############******", "topMovies are" + movies.get(0).getMovieTitle());
-         Log.v("############******", "topMovies are" + movies.get(1).getMovieTitle());
+        Log.v("############******", "topMovies are" + movies.get(1).getMovieTitle());
         // Attach the mDefaultMovieAdapter to the recyclerview to populate items
         mTopRatedMovieAdapter.setMovieData(movies);
         Log.v("############", " mDefaultMovieAdapter.setMovieDetailsBundleData(movie) finished");
         mTopRatedMovieRecyclerView.setAdapter(mTopRatedMovieAdapter);
-         Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+        Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+        defaultMovies = new ArrayList<>();
+        getLoaderManager().destroyLoader(TOP_RATED_MOVIE_LOADER_ID);
     }
 
     @Override

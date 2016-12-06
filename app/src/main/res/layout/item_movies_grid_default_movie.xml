@@ -12,7 +12,7 @@
         <ImageView
             android:id="@+id/grid_item_default_movie_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="170dp"
             android:layout_gravity="center_horizontal|center_vertical"
             android:adjustViewBounds="true"
             android:background="#634500"
@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal"
             android:ellipsize="end"
             android:hint="@string/movieTitleHint"
             android:maxLines="1" />
