@@ -14,6 +14,8 @@ public class UrlsAndConstants {
         public static final String DEFAULT_URL =
                 "https://api.themoviedb.org/3/discover/movie";
         public static final String API_KEY_PARAM = "api_key";
+
+        /*Put your API KEY either here directly or use BuildConfig to retrieve it*/
         public static final String API_KEY_PARAM_VALUE = BuildConfig.THE_MOVIEDB_API_KEY;
         public static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
         public static final String SORT_BY_KEY = "sort_by";

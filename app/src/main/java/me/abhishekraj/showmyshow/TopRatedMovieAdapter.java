@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdapter.ViewHolder> {
 
-    /* Store a member variable for the movies */
+    /* Store a member variable for the defaultMovies */
     private static ArrayList<Movie> mDefaultMovie;
     /* Store the context for easy access */
     private Context mContext;
@@ -79,7 +79,7 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
         }
     }
 
-    /* Pass in the movies array into the constructor */
+    /* Pass in the defaultMovies array into the constructor */
     public TopRatedMovieAdapter(Context context, ArrayList<Movie> movies) {
         mDefaultMovie = movies;
         mContext = context;

@@ -135,7 +135,7 @@ public class MovieDetailsQueryUtils {
         Log.v("############", "extractFeatureFromJson called");
         Log.v("############", "jsonResponse" + jsonResponse);
 
-        // Create an empty ArrayList that we can start adding movies to
+        // Create an empty ArrayList that we can start adding defaultMovies to
         ArrayList<Review> reviews = new ArrayList<Review>();
         ArrayList<Video> videos = new ArrayList<Video>();
         Movie movie = new Movie();
@@ -197,7 +197,7 @@ public class MovieDetailsQueryUtils {
             //handle exception
         }
         Log.v("############", "Movies returned is: " + movieDetailsBundle.toString());
-        // Return the list of movies
+        // Return the list of defaultMovies
         return movieDetailsBundle;
     }
 }

@@ -150,7 +150,7 @@ public class DefaultMovieQueryUtils {
         Log.v("############", "extractFeatureFromJson called");
         Log.v("############", "jsonResponse" + jsonResponse);
 
-        // Create an empty ArrayList that we can start adding movies to
+        // Create an empty ArrayList that we can start adding defaultMovies to
         ArrayList<Movie> movies = new ArrayList<Movie>();
         // Create a Movie reference
         Movie movie;
@@ -209,7 +209,7 @@ public class DefaultMovieQueryUtils {
             //handle exception
         }
         Log.v("############", "Movies returned is: " + movies.toString());
-        // Return the list of movies
+        // Return the list of defaultMovies
         return movies;
     }
 }

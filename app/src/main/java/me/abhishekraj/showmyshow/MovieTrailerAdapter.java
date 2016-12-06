@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapter.ViewHolder> {
 
-    // Store a member variable for the movies
+    // Store a member variable for the defaultMovies
     private static ArrayList<Video> mVideo;
 
     // Store the context for easy access
@@ -64,7 +64,7 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
         }
     }
 
-    // Pass in the movies array into the constructor
+    // Pass in the defaultMovies array into the constructor
     public MovieTrailerAdapter(Context context, MovieDetailsBundle movies) {
         movieDetailsBundle = movies;
         mVideo = new ArrayList<>();
