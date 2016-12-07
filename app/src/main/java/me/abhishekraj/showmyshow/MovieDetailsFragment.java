@@ -102,8 +102,8 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             movie = getArguments().getParcelable("movie");
             movieDetailTitleTextView.setText(movie.getMovieTitle());
             movieReleaseDate.setText(movie.getMovieReleaseDate());
-            posterURL = UrlsAndConstants.DefaultQuery.BASE_IMAGE_URL + movie.getMoviePosterPath();
-            backdropURL = UrlsAndConstants.DefaultQuery.BASE_IMAGE_URL + movie.getMovieBackdropPath();
+            posterURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + movie.getMoviePosterPath();
+            backdropURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + movie.getMovieBackdropPath();
             collapsingToolbar.setTitle(movie.getMovieTitle());
             Picasso.with(getContext())
                     .load(posterURL)
@@ -135,14 +135,14 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
             mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
 
-            /* Create mDefaultMovieAdapter passing in the sample user data */
+            /* Create mPopularMoviesAdapter passing in the sample user data */
             mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
-             /* Create mDefaultMovieAdapter passing in the sample user data */
+             /* Create mPopularMoviesAdapter passing in the sample user data */
             mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
 
-            /* Attach the mDefaultMovieAdapter to the reviewRecyclerView to populate items */
+            /* Attach the mPopularMoviesAdapter to the reviewRecyclerView to populate items */
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            /* Attach the mDefaultMovieAdapter to the trailerRecyclerView to populate items */
+            /* Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items */
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
 
             /*
@@ -207,16 +207,16 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
         if (movieDetailsBundle != null) {
             mMovieDetailsBundle = movieDetailsBundle;
-            // Attach the mDefaultMovieAdapter to the reviewRecyclerView to populate items
+            // Attach the mPopularMoviesAdapter to the reviewRecyclerView to populate items
             mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            // Attach the mDefaultMovieAdapter to the trailerRecyclerView to populate items
+            // Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items
             mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mDefaultMovieAdapter.setMovieDetailsBundleData(movie) finished");
+            Log.v("############", " mPopularMoviesAdapter.setMovieDetailsBundleData(movie) finished");
 
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mDefaultMovieAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
             updateDurationTextView(mMovieDetailsBundle);
         }
     }

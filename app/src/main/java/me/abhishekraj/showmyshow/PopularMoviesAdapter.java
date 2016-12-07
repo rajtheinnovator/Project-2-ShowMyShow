@@ -19,9 +19,9 @@ import java.util.ArrayList;
  * Created by ABHISHEK RAJ on 11/16/2016.
  */
 
-public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapter.ViewHolder> {
+public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdapter.ViewHolder> {
 
-    /* Store a member variable for the defaultMovies */
+    /* Store a member variable for the popularMovies */
     private static ArrayList<Movie> mDefaultMovie;
     /* Store the context for easy access */
     private Context mContext;
@@ -80,14 +80,14 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         }
     }
 
-    /* Pass in the defaultMovies array into the constructor */
-    public DefaultMovieAdapter(Context context, ArrayList<Movie> movies) {
+    /* Pass in the popularMovies array into the constructor */
+    public PopularMoviesAdapter(Context context, ArrayList<Movie> movies) {
         mDefaultMovie = movies;
         mContext = context;
     }
 
     @Override
-    public DefaultMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PopularMoviesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -95,12 +95,12 @@ public class DefaultMovieAdapter extends RecyclerView.Adapter<DefaultMovieAdapte
         View moviesView = inflater.inflate(R.layout.item_movies_grid_default_movie, parent, false);
 
         /* Return a new holder instance */
-        ViewHolder viewHolder = new DefaultMovieAdapter.ViewHolder(context, moviesView);
+        ViewHolder viewHolder = new PopularMoviesAdapter.ViewHolder(context, moviesView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(DefaultMovieAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(PopularMoviesAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
         Movie currentMovie = mDefaultMovie.get(position);

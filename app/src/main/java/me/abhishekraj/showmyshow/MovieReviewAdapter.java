@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.ViewHolder> {
 
-    // Store a member variable for the defaultMovies
+    // Store a member variable for the popularMovies
     private static ArrayList<Review> mReview;
 
     // Store the context for easy access
@@ -68,7 +68,7 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         }
     }
 
-    // Pass in the defaultMovies array into the constructor
+    // Pass in the popularMovies array into the constructor
     public MovieReviewAdapter(Context context, MovieDetailsBundle movies) {
         movieDetailsBundle = movies;
         mReview = new ArrayList<>();

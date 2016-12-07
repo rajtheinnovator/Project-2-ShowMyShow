@@ -5,7 +5,7 @@ package me.abhishekraj.showmyshow;
  */
 
 public class UrlsAndConstants {
-    public class DefaultQuery {
+    public class MoviePosterQuery {
         /*
         * General URL for discovering a movie from the TheMovieDb API
         * @link: "https://api.themoviedb.org/3/discover/movie?api_key=4182aa25bab27d06344e404f65c4ae76"

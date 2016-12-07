@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by ABHISHEK RAJ on 11/15/2016.
  */
 
-public class DefaultMovieLoader extends AsyncTaskLoader {
+public class MoviePosterLoader extends AsyncTaskLoader {
 
     /**
      * Query URL
@@ -19,12 +19,12 @@ public class DefaultMovieLoader extends AsyncTaskLoader {
     private String mUrl;
 
     /**
-     * Constructs a new {@link DefaultMovieLoader}.
+     * Constructs a new {@link MoviePosterLoader}.
      * @param context of the activity
      * @param url     to load data from
      */
 
-    public DefaultMovieLoader(Context context, String url) {
+    public MoviePosterLoader(Context context, String url) {
         super(context);
         mUrl = url;
         Log.v("############", "url is " + mUrl);

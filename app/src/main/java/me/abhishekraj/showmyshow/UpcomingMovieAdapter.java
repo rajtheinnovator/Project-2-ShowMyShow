@@ -19,9 +19,9 @@ import java.util.ArrayList;
  * Created by ABHISHEK RAJ on 12/4/2016.
  */
 
-public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdapter.ViewHolder> {
+public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdapter.ViewHolder> {
 
-    /* Store a member variable for the defaultMovies */
+    /* Store a member variable for the popularMovies */
     private static ArrayList<Movie> mDefaultMovie;
     /* Store the context for easy access */
     private Context mContext;
@@ -79,14 +79,14 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
         }
     }
 
-    /* Pass in the defaultMovies array into the constructor */
-    public TopRatedMovieAdapter(Context context, ArrayList<Movie> movies) {
+    /* Pass in the popularMovies array into the constructor */
+    public UpcomingMovieAdapter(Context context, ArrayList<Movie> movies) {
         mDefaultMovie = movies;
         mContext = context;
     }
 
     @Override
-    public TopRatedMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UpcomingMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -94,12 +94,12 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
         View moviesView = inflater.inflate(R.layout.item_movie_grid_top_movies, parent, false);
 
         /* Return a new holder instance */
-        TopRatedMovieAdapter.ViewHolder viewHolder = new TopRatedMovieAdapter.ViewHolder(context, moviesView);
+        UpcomingMovieAdapter.ViewHolder viewHolder = new UpcomingMovieAdapter.ViewHolder(context, moviesView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(TopRatedMovieAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(UpcomingMovieAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
         Movie currentMovie = mDefaultMovie.get(position);
