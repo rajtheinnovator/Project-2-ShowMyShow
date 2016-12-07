@@ -5,7 +5,8 @@
     android:layout_margin="4dp"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    android:id="@+id/item_movie_review">
 
     <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
         android:id="@+id/expand_text_view"

@@ -45,6 +45,8 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     String savedInstance;
     LinearLayoutManager layoutManagerPopularMoviesPoster;
     LinearLayoutManager layoutManagerUpcomingMoviesPoster;
+    ArrayList<Movie> popularMoviesParcelable;
+    ArrayList<Movie> upcomingMoviesParcelable;
 
     public MoviePosterFragment() {
         // Required empty public constructor
@@ -54,7 +56,13 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v("############******", "onCreate called");
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null) {
+            savedInstance = "not empty";
+            Log.v("############******", "onCreate savedInstance is " + savedInstance);
+            popularMovies = savedInstanceState.getParcelableArrayList("popularMovies");
+            upcomingMovies = savedInstanceState.getParcelableArrayList("upcomingMovies");
+
+        } else {
             popularMovies = new ArrayList<>();
             upcomingMovies = new ArrayList<>();
             savedInstance = "empty";
@@ -71,14 +79,8 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                 startPopularMoviesLoaderManager();
                 Log.v("############******", "startUpcomingMoviesLoaderManager called");
                 startUpcomingMoviesLoaderManager();
-
             }
 
-        } else {
-            savedInstance = "not empty";
-            Log.v("############******", "onCreate savedInstance is " + savedInstance);
-            popularMovies = savedInstanceState.getParcelableArrayList("popularMovies");
-            upcomingMovies = savedInstanceState.getParcelableArrayList("upcomingMovies");
         }
     }
 
@@ -96,7 +98,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
          * Lookup the recyclerView in activity layout
          */
         mPopularMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewPopularMovies);
-        mUpcomingMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTopMoviesMovies);
+        mUpcomingMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewUpcomingMovies);
 
          /*
           * Setup layout manager for items with orientation
@@ -157,12 +159,15 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
     }
 
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+        popularMoviesParcelable = popularMovies;
+        upcomingMoviesParcelable = upcomingMovies;
         Log.v("############******", "onSaveInstanceState called");
-        outState.putParcelableArrayList("popularMovies", popularMovies);
-        outState.putParcelableArrayList("upcomingMovies", upcomingMovies);
+        outState.putParcelableArrayList("popularMovies", popularMoviesParcelable);
+        outState.putParcelableArrayList("upcomingMovies", upcomingMoviesParcelable);
+        super.onSaveInstanceState(outState);
     }
 
 
@@ -237,6 +242,8 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
+        upcomingMoviesParcelable = upcomingMovies;
+        popularMoviesParcelable = popularMovies;
         Log.v("############******", "onLoaderReset called ");
     }
 }

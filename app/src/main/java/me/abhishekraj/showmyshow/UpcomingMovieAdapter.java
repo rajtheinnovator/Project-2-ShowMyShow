@@ -54,8 +54,8 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_top_movie_title);
-            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_top_movie_image);
+            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_upcoming_movie_title);
+            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_upcoming_movie_image);
             this.context = context;
             /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);
@@ -91,7 +91,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movie_grid_top_movies, parent, false);
+        View moviesView = inflater.inflate(R.layout.item_movie_grid_upcoming_movies, parent, false);
 
         /* Return a new holder instance */
         UpcomingMovieAdapter.ViewHolder viewHolder = new UpcomingMovieAdapter.ViewHolder(context, moviesView);
