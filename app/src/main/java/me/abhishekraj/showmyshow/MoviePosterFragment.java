@@ -148,19 +148,6 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.v("############******", "onActivityCreated called and saveInstance is " + savedInstanceState);
-        mPopularMoviesAdapter = new PopularMoviesAdapter(getActivity(), popularMovies);
-        mUpcomingMovieAdapter = new UpcomingMovieAdapter(getActivity(), upcomingMovies);
-        mUpcomingMovieAdapter.setMovieData(upcomingMovies);
-        mPopularMoviesAdapter.setMovieData(popularMovies);
-        mPopularMovieRecyclerView.setAdapter(mPopularMoviesAdapter);
-        mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
-    }
-
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         popularMoviesParcelable = popularMovies;
         upcomingMoviesParcelable = upcomingMovies;
