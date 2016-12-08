@@ -22,17 +22,20 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.Adapter.PopularMoviesAdapter;
+import me.abhishekraj.showmyshow.Adapter.TopRatedMoviesAdapter;
+import me.abhishekraj.showmyshow.Adapter.UpcomingMovieAdapter;
 import me.abhishekraj.showmyshow.Model.Movie;
 import me.abhishekraj.showmyshow.Network.MoviePosterLoader;
-import me.abhishekraj.showmyshow.Adapter.PopularMoviesAdapter;
 import me.abhishekraj.showmyshow.R;
-import me.abhishekraj.showmyshow.Adapter.UpcomingMovieAdapter;
 import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
 
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.DESCENDING;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
 
 
 /**
@@ -41,17 +44,22 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.
 public class MoviePosterFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
 
     private static final int POPULAR_MOVIE_LOADER_ID = 1111;
-    private static final int UPCOMING_MOVIE_LOADER_ID = 9999;
+    private static final int UPCOMING_MOVIE_LOADER_ID = 2222;
+    private static final int TOP_RATED_MOVIE_LOADER_ID = 3333;
     ArrayList<Movie> popularMovies;
     ArrayList<Movie> upcomingMovies;
+    ArrayList<Movie> topRatedMovies;
     PopularMoviesAdapter mPopularMoviesAdapter;
     UpcomingMovieAdapter mUpcomingMovieAdapter;
+    TopRatedMoviesAdapter mTopRatedMoviesAdapter;
     RecyclerView mPopularMovieRecyclerView;
     RecyclerView mUpcomingMovieRecyclerView;
+    RecyclerView mTopRatedMovieRecyclerView;
     Uri.Builder uriBuilder;
     String savedInstance;
     LinearLayoutManager layoutManagerPopularMoviesPoster;
     LinearLayoutManager layoutManagerUpcomingMoviesPoster;
+    LinearLayoutManager layoutManagerTopRatedMoviesPoster;
     ArrayList<Movie> popularMoviesParcelable;
     ArrayList<Movie> upcomingMoviesParcelable;
 
@@ -68,10 +76,12 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
             Log.v("############******", "onCreate savedInstance is " + savedInstance);
             popularMovies = savedInstanceState.getParcelableArrayList("popularMovies");
             upcomingMovies = savedInstanceState.getParcelableArrayList("upcomingMovies");
+            topRatedMovies = savedInstanceState.getParcelableArrayList("topRatedMovies");
 
         } else {
             popularMovies = new ArrayList<>();
             upcomingMovies = new ArrayList<>();
+            topRatedMovies = new ArrayList<>();
             savedInstance = "empty";
             Log.v("############******", "onCreate savedInstance is " + savedInstance);
             //First of all check if network is connected or not then only start the loader
@@ -86,6 +96,8 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                 startPopularMoviesLoaderManager();
                 Log.v("############******", "startUpcomingMoviesLoaderManager called");
                 startUpcomingMoviesLoaderManager();
+                Log.v("############******", "startTopRatedMoviesLoaderManager called");
+                startTopRatedMoviesLoaderManager();
             }
 
         }
@@ -106,6 +118,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
          */
         mPopularMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewPopularMovies);
         mUpcomingMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewUpcomingMovies);
+        mTopRatedMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTopRatedMovies);
 
          /*
           * Setup layout manager for items with orientation
@@ -129,11 +142,25 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
             /* Attach layout manager to the RecyclerView */
         mUpcomingMovieRecyclerView.setLayoutManager(layoutManagerUpcomingMoviesPoster);
 
+                 /*
+          * Setup layout manager for items with orientation
+          * Also supports `LinearLayoutManager.HORIZONTAL`
+          */
+        layoutManagerTopRatedMoviesPoster = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
+            /* Optionally customize the position you want to default scroll to */
+        layoutManagerTopRatedMoviesPoster.scrollToPosition(0);
+            /* Attach layout manager to the RecyclerView */
+        mTopRatedMovieRecyclerView.setLayoutManager(layoutManagerTopRatedMoviesPoster);
+
         SnapHelper snapHelperForPopularMovieRecyclerView = new GravitySnapHelper(Gravity.START);
         snapHelperForPopularMovieRecyclerView.attachToRecyclerView(mPopularMovieRecyclerView);
 
         SnapHelper snapHelperForUpcomingMovieRecyclerView = new GravitySnapHelper(Gravity.START);
         snapHelperForUpcomingMovieRecyclerView.attachToRecyclerView(mUpcomingMovieRecyclerView);
+
+        SnapHelper snapHelperForTopRatedMovieRecyclerView = new GravitySnapHelper(Gravity.START);
+        snapHelperForTopRatedMovieRecyclerView.attachToRecyclerView(mTopRatedMovieRecyclerView);
 
         /* Code referenced from the @link:
         * "https://guides.codepath.com/android/using-the-recyclerview"
@@ -151,6 +178,12 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         // Attach the mUpcomingMoviesAdapter to the recyclerview to populate items
         mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
 
+        // Create mTopRatedMoviesAdapter passing in the sample user data
+        mTopRatedMoviesAdapter = new TopRatedMoviesAdapter(getActivity(), topRatedMovies);
+        mTopRatedMoviesAdapter.setMovieData(topRatedMovies);
+        // Attach the mTopRatedMoviesAdapter to the recyclerview to populate items
+        mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
+
         return rootView;
     }
 
@@ -161,6 +194,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         Log.v("############******", "onSaveInstanceState called");
         outState.putParcelableArrayList("popularMovies", popularMoviesParcelable);
         outState.putParcelableArrayList("upcomingMovies", upcomingMoviesParcelable);
+        outState.putParcelableArrayList("topRatedMovies", topRatedMovies);
         super.onSaveInstanceState(outState);
     }
 
@@ -179,6 +213,13 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         Log.v("############******", "startUpcomingMoviesLoaderManager finished");
     }
 
+    private void startTopRatedMoviesLoaderManager() {
+        LoaderManager loaderManager = getLoaderManager();
+        Log.v("############******", "initLoader called with id " + TOP_RATED_MOVIE_LOADER_ID);
+        loaderManager.initLoader(TOP_RATED_MOVIE_LOADER_ID, null, this);
+        Log.v("############******", "startTopRatedMoviesLoaderManager finished");
+    }
+
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
         if (id == POPULAR_MOVIE_LOADER_ID) {
@@ -193,12 +234,23 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
 
         } else if (id == UPCOMING_MOVIE_LOADER_ID) {
             Log.v("############", "onCreateLoader called with id " + UPCOMING_MOVIE_LOADER_ID);
-            Uri baseUri = Uri.parse("https://api.themoviedb.org/3/movie/upcoming");
+            Uri baseUri = Uri.parse(UrlsAndConstants.MoviePosterQuery.UPCOMING_MOVIE_BASE_URL);
             Log.v("############", "baseUri is " + baseUri.toString());
             uriBuilder = baseUri.buildUpon();
             Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, DESCENDING);
+        } else if (id == TOP_RATED_MOVIE_LOADER_ID) {
+            Log.v("############", "onCreateLoader called with id " + TOP_RATED_MOVIE_LOADER_ID);
+            Uri baseUri = Uri.parse(UrlsAndConstants.MoviePosterQuery.DEFAULT_URL);
+            Log.v("############", "baseUri is " + baseUri.toString());
+            uriBuilder = baseUri.buildUpon();
+            Log.v("############", "uriBuilder is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
+            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
         }
         return new MoviePosterLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
@@ -229,6 +281,18 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                     mUpcomingMovieAdapter = new UpcomingMovieAdapter(getActivity(), upcomingMovies);
                     mUpcomingMovieAdapter.setMovieData(upcomingMovies);
                     mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
+                }
+                break;
+            case TOP_RATED_MOVIE_LOADER_ID:
+                Log.v("############******", "onLoadFinished called with id " + TOP_RATED_MOVIE_LOADER_ID);
+                if (incomingMovieArrayList.isEmpty()) {
+                    Log.v("******************", "popularMovies isEmpty");
+                    return;
+                } else {
+                    topRatedMovies = incomingMovieArrayList;
+                    mTopRatedMoviesAdapter = new TopRatedMoviesAdapter(getActivity(), topRatedMovies);
+                    mTopRatedMoviesAdapter.setMovieData(topRatedMovies);
+                    mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
                 }
                 break;
         }

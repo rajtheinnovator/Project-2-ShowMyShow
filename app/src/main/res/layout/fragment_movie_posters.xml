@@ -45,5 +45,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="4dp"
+            android:text="TOP RATED MOVIES"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewTopRatedMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
     </LinearLayout>
 </ScrollView>

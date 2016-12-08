@@ -15,6 +15,8 @@ public class UrlsAndConstants {
 
         public static final String DEFAULT_URL =
                 "https://api.themoviedb.org/3/discover/movie";
+        public static final String UPCOMING_MOVIE_BASE_URL =
+                "https://api.themoviedb.org/3/movie/upcoming";
         public static final String API_KEY_PARAM = "api_key";
 
         /*Put your API KEY either here directly or use BuildConfig to retrieve it*/
