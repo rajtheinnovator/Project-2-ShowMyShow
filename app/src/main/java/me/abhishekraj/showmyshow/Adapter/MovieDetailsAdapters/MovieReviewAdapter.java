@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter;
+package me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

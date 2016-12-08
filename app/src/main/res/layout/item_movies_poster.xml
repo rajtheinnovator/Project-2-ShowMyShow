@@ -3,7 +3,7 @@
     android:layout_width="128dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/card_margin"
-    android:id="@+id/item_movie_grid_upcoming_movies">
+    android:id="@+id/item_movies_poster">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/grid_item_upcoming_movie_image"
+            android:id="@+id/grid_item_movie_poster_image"
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_gravity="center_horizontal|center_vertical"
@@ -20,7 +20,7 @@
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/grid_item_upcoming_movie_title"
+            android:id="@+id/grid_item_movie_poster_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"

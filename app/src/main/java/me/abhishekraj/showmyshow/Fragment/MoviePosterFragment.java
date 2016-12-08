@@ -22,9 +22,9 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Adapter.PopularMoviesAdapter;
-import me.abhishekraj.showmyshow.Adapter.TopRatedMoviesAdapter;
-import me.abhishekraj.showmyshow.Adapter.UpcomingMovieAdapter;
+import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.PopularMoviesAdapter;
+import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.TopRatedMoviesAdapter;
+import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.UpcomingMovieAdapter;
 import me.abhishekraj.showmyshow.Model.Movie;
 import me.abhishekraj.showmyshow.Network.MoviePosterLoader;
 import me.abhishekraj.showmyshow.R;
@@ -60,8 +60,6 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     LinearLayoutManager layoutManagerPopularMoviesPoster;
     LinearLayoutManager layoutManagerUpcomingMoviesPoster;
     LinearLayoutManager layoutManagerTopRatedMoviesPoster;
-    ArrayList<Movie> popularMoviesParcelable;
-    ArrayList<Movie> upcomingMoviesParcelable;
 
     public MoviePosterFragment() {
         // Required empty public constructor
@@ -189,11 +187,9 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        popularMoviesParcelable = popularMovies;
-        upcomingMoviesParcelable = upcomingMovies;
         Log.v("############******", "onSaveInstanceState called");
-        outState.putParcelableArrayList("popularMovies", popularMoviesParcelable);
-        outState.putParcelableArrayList("upcomingMovies", upcomingMoviesParcelable);
+        outState.putParcelableArrayList("popularMovies", popularMovies);
+        outState.putParcelableArrayList("upcomingMovies", upcomingMovies);
         outState.putParcelableArrayList("topRatedMovies", topRatedMovies);
         super.onSaveInstanceState(outState);
     }
@@ -300,8 +296,6 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
-        upcomingMoviesParcelable = upcomingMovies;
-        popularMoviesParcelable = popularMovies;
         Log.v("############******", "onLoaderReset called ");
     }
 }

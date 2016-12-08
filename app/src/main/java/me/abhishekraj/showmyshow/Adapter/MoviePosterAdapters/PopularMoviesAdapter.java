@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter;
+package me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import me.abhishekraj.showmyshow.R;
 public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdapter.ViewHolder> {
 
     /* Store a member variable for the popularMovies */
-    private static ArrayList<Movie> mDefaultMovie;
+    private static ArrayList<Movie> mPopularMovie;
     /* Store the context for easy access */
     private Context mContext;
 
@@ -58,8 +58,8 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_popular_movie_title);
-            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_popular_movie_image);
+            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
+            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
             this.context = context;
             /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);
@@ -73,7 +73,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Movie currentMovie = mDefaultMovie.get(position);
+                Movie currentMovie = mPopularMovie.get(position);
                 // We can access the data within the views
                 Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
                 Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
@@ -86,7 +86,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     /* Pass in the popularMovies array into the constructor */
     public PopularMoviesAdapter(Context context, ArrayList<Movie> movies) {
-        mDefaultMovie = movies;
+        mPopularMovie = movies;
         mContext = context;
     }
 
@@ -96,7 +96,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movies_grid_popular_movie, parent, false);
+        View moviesView = inflater.inflate(R.layout.item_movies_poster, parent, false);
 
         /* Return a new holder instance */
         ViewHolder viewHolder = new PopularMoviesAdapter.ViewHolder(context, moviesView);
@@ -107,7 +107,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
     public void onBindViewHolder(PopularMoviesAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
-        Movie currentMovie = mDefaultMovie.get(position);
+        Movie currentMovie = mPopularMovie.get(position);
         Log.v("############", "currentMovie called is " + currentMovie.toString());
         Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
         /*
@@ -125,14 +125,14 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mDefaultMovie.size());
-        return mDefaultMovie.size();
+        Log.v("############", "getItemCount called with size " + mPopularMovie.size());
+        return mPopularMovie.size();
     }
 
     public void setMovieData(ArrayList<Movie> movieData) {
         Log.v("############", "setMovieDetailsBundleData Called");
-        mDefaultMovie = movieData;
-        Log.v("############", "mDefaultMovie is " + mDefaultMovie);
+        mPopularMovie = movieData;
+        Log.v("############", "mPopularMovie is " + mPopularMovie);
         notifyDataSetChanged();
         Log.v("############", "notifyDataSetChanged Finished");
     }

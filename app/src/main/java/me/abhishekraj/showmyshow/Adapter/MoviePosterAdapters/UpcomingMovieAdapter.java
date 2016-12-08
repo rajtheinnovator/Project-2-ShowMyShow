@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter;
+package me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import me.abhishekraj.showmyshow.R;
 public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdapter.ViewHolder> {
 
     /* Store a member variable for the popularMovies */
-    private static ArrayList<Movie> mDefaultMovie;
+    private static ArrayList<Movie> mUpcomingMovie;
     /* Store the context for easy access */
     private Context mContext;
 
@@ -58,8 +58,8 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_upcoming_movie_title);
-            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_upcoming_movie_image);
+            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
+            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
             this.context = context;
             /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);
@@ -73,7 +73,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Movie currentMovie = mDefaultMovie.get(position);
+                Movie currentMovie = mUpcomingMovie.get(position);
                 // We can access the data within the views
                 Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
                 Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
@@ -85,7 +85,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
     /* Pass in the popularMovies array into the constructor */
     public UpcomingMovieAdapter(Context context, ArrayList<Movie> movies) {
-        mDefaultMovie = movies;
+        mUpcomingMovie = movies;
         mContext = context;
     }
 
@@ -95,7 +95,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movie_grid_upcoming_movies, parent, false);
+        View moviesView = inflater.inflate(R.layout.item_movies_poster, parent, false);
 
         /* Return a new holder instance */
         UpcomingMovieAdapter.ViewHolder viewHolder = new UpcomingMovieAdapter.ViewHolder(context, moviesView);
@@ -106,7 +106,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
     public void onBindViewHolder(UpcomingMovieAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
-        Movie currentMovie = mDefaultMovie.get(position);
+        Movie currentMovie = mUpcomingMovie.get(position);
         Log.v("############", "currentMovie called is " + currentMovie.toString());
         Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
         /*
@@ -124,14 +124,14 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mDefaultMovie.size());
-        return mDefaultMovie.size();
+        Log.v("############", "getItemCount called with size " + mUpcomingMovie.size());
+        return mUpcomingMovie.size();
     }
 
     public void setMovieData(ArrayList<Movie> movieData) {
         Log.v("############", "setMovieDetailsBundleData Called");
-        mDefaultMovie = movieData;
-        Log.v("############", "mDefaultMovie is " + mDefaultMovie);
+        mUpcomingMovie = movieData;
+        Log.v("############", "mUpcomingMovie is " + mUpcomingMovie);
         notifyDataSetChanged();
         Log.v("############", "notifyDataSetChanged Finished");
     }
