@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Fragment;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -28,10 +28,20 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import static me.abhishekraj.showmyshow.UrlsAndConstants.DetailQuery.API_KEY_PARAM;
-import static me.abhishekraj.showmyshow.UrlsAndConstants.DetailQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.UrlsAndConstants.DetailQuery.APPEND_TO_RESPONSE;
-import static me.abhishekraj.showmyshow.UrlsAndConstants.DetailQuery.VIDEOS_AND_REVIEWS;
+import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Model.Review;
+import me.abhishekraj.showmyshow.Model.Video;
+import me.abhishekraj.showmyshow.Adapter.MovieReviewAdapter;
+import me.abhishekraj.showmyshow.Adapter.MovieTrailerAdapter;
+import me.abhishekraj.showmyshow.Network.DetailsMovieLoader;
+import me.abhishekraj.showmyshow.R;
+import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
+
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.API_KEY_PARAM;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.APPEND_TO_RESPONSE;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.VIDEOS_AND_REVIEWS;
 
 /**
  * Created by ABHISHEK RAJ on 11/26/2016.

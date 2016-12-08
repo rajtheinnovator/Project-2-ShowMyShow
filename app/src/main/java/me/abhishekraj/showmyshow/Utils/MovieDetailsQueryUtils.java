@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Utils;
 
 import android.util.Log;
 
@@ -16,38 +16,28 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Model.Review;
+import me.abhishekraj.showmyshow.Model.Video;
+
 /**
- * Created by ABHISHEK RAJ on 11/15/2016.
+ * Created by ABHISHEK RAJ on 12/1/2016.
  */
-
-public class DefaultMovieQueryUtils {
-    private static String movieTitle;
-    private static int movieId;
-    private static String moviePosterPath;
-    private static String movieOverview;
-    private static double movieVoteCount;
-    private static String movieOriginalTitle;
-    private static double movieVoteAverage;
-    private static double moviePopularity;
-    private static String movieBackdropPath;
-    private static String movieReleaseDate;
-
-    /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
-    * and the reference link on the github for that project is @link: https://github.com/rajtheinnovator/NewsToday
-    */
+public class MovieDetailsQueryUtils {
 
     /**
      * Create a private constructor because no one should ever create a {@link DefaultMovieQueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
      * directly from the class name DefaultMovieQueryUtils (and an object instance of DefaultMovieQueryUtils is not needed).
      */
-    private DefaultMovieQueryUtils() {
+    private MovieDetailsQueryUtils() {
     }
 
     /**
      * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
      */
-    public static ArrayList<Movie> fetchMovieData(String requestUrl) {
+    public static MovieDetailsBundle fetchMovieData(String requestUrl) {
         Log.v("############", "fetchMovieData called");
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -61,10 +51,10 @@ public class DefaultMovieQueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create an {@link Event} object
-        ArrayList<Movie> movies = extractFeatureFromJson(jsonResponse);
+        MovieDetailsBundle movieDetailsBundle = extractFeatureFromJson(jsonResponse);
 
         // Return the {@link Event}
-        return movies;
+        return movieDetailsBundle;
     }
 
     /**
@@ -146,14 +136,16 @@ public class DefaultMovieQueryUtils {
      * Return a list of {@link Movie} objects that has been built up from
      * parsing a JSON response.
      */
-    public static ArrayList<Movie> extractFeatureFromJson(String jsonResponse) {
+    public static MovieDetailsBundle extractFeatureFromJson(String jsonResponse) {
         Log.v("############", "extractFeatureFromJson called");
         Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding popularMovies to
-        ArrayList<Movie> movies = new ArrayList<Movie>();
-        // Create a Movie reference
-        Movie movie;
+        ArrayList<Review> reviews = new ArrayList<Review>();
+        ArrayList<Video> videos = new ArrayList<Video>();
+        Movie movie = new Movie();
+        // Create a MovieDetailsBundle and initialize it
+        MovieDetailsBundle movieDetailsBundle = new MovieDetailsBundle();
 
         /*
         Try to parse the received jsonResponse. If there's a problem with the way the JSON
@@ -163,54 +155,55 @@ public class DefaultMovieQueryUtils {
         try {
             // Parse the jsonResponse string
             JSONObject movie_json_response = new JSONObject(jsonResponse);
-                Log.v("############", "JSONObject is: " + movie_json_response.toString());
-                if (movie_json_response.has("results")) {
-                    JSONArray resultsArray = movie_json_response.getJSONArray("results");
+            Log.v("############", "JSONObject is: " + movie_json_response.toString());
+            if (movie_json_response.has("reviews")) {
+                JSONObject mainReviewObject = movie_json_response.getJSONObject("reviews");
+                if (mainReviewObject.has("results")) {
+                    JSONArray resultsArray = mainReviewObject.getJSONArray("results");
                     if (resultsArray.length() > 0) {
                         for (int i = 0; i < resultsArray.length(); i++) {
-                            JSONObject movieDetail = resultsArray.getJSONObject(i);
-                            if (movieDetail.has("title")) {
-                                movieTitle = movieDetail.getString("title");
-                            }
-                            if (movieDetail.has("id")) {
-                                movieId = movieDetail.getInt("id");
-                            }
-                            if (movieDetail.has("poster_path")) {
-                                moviePosterPath = movieDetail.getString("poster_path");
-                            }
-                            if (movieDetail.has("overview")) {
-                                movieOverview = movieDetail.getString("overview");
-                            }
-                            if (movieDetail.has("original_title")) {
-                                movieOriginalTitle = movieDetail.getString("original_title");
-                            }
-                            if (movieDetail.has("backdrop_path")) {
-                                movieBackdropPath = movieDetail.getString("backdrop_path");
-                            }
-                            if (movieDetail.has("popularity")) {
-                                moviePopularity = movieDetail.getDouble("popularity");
-                            }
-                            if (movieDetail.has("vote_count")) {
-                                movieVoteCount = movieDetail.getDouble("vote_count");
-                            }
-                            if (movieDetail.has("vote_average")) {
-                                movieVoteAverage = movieDetail.getDouble("vote_average");
-                            }
-                            if (movieDetail.has("release_date")){
-                                movieReleaseDate = movieDetail.getString("release_date");
-                            }
-                            Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
-                            movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
-                                    movieVoteAverage, moviePopularity, movieBackdropPath, movieReleaseDate));
+                            JSONObject reviewObject = resultsArray.getJSONObject(i);
+                            String author = reviewObject.getString("author");
+                            String content = reviewObject.getString("content");
+                            String url = reviewObject.getString("url");
+                            reviews.add(new Review(author, content, url));
                         }
                     }
                 }
+            }
+            if (movie_json_response.has("videos")) {
+                JSONObject mainVideoObject = movie_json_response.getJSONObject("videos");
+                if (mainVideoObject.has("results")) {
+                    JSONArray videoResultsArray = mainVideoObject.getJSONArray("results");
+                    if (videoResultsArray.length() > 0) {
+                        for (int i = 0; i < videoResultsArray.length(); i++) {
+                            JSONObject videoObject = videoResultsArray.getJSONObject(i);
+                            String id = videoObject.getString("id");
+                            String key = videoObject.getString("key");
+                            String name = videoObject.getString("name");
+                            String size = videoObject.getString("size");
+                            String type = videoObject.getString("type");
+                            videos.add(new Video(id, key, name, size, type));
+                        }
+                    }
+                }
+            }
+            if (movie_json_response.has("runtime")){
+                int runTime = movie_json_response.getInt("runtime");
+                //movie = new Movie(runTime);
+                movie.setMovieRunTimeDuration(runTime);
+            }
+            Log.v("############", "Size of reviews is" + reviews.size());
+            Log.v("############", "Size of videos is" + videos.size());
+            movieDetailsBundle.setReviewArrayList(reviews);
+            movieDetailsBundle.setVideoArrayList(videos);
+            movieDetailsBundle.setMovie(movie);
         } catch (JSONException e) {
             //handle exception
         }
-        Log.v("############", "Movies returned is: " + movies.toString());
+        Log.v("############", "Movies returned is: " + movieDetailsBundle.toString());
         // Return the list of popularMovies
-        return movies;
+        return movieDetailsBundle;
     }
 }
 

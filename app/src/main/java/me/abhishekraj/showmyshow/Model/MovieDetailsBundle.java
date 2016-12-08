@@ -1,6 +1,10 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Model;
 
 import java.util.ArrayList;
+
+import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Model.Review;
+import me.abhishekraj.showmyshow.Model.Video;
 
 /**
  * Created by ABHISHEK RAJ on 12/2/2016.

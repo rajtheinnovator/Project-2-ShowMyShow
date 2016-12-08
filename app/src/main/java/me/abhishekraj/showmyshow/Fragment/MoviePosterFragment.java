@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Fragment;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -22,10 +22,17 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-import static me.abhishekraj.showmyshow.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
-import static me.abhishekraj.showmyshow.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
-import static me.abhishekraj.showmyshow.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
+import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Network.MoviePosterLoader;
+import me.abhishekraj.showmyshow.Adapter.PopularMoviesAdapter;
+import me.abhishekraj.showmyshow.R;
+import me.abhishekraj.showmyshow.Adapter.UpcomingMovieAdapter;
+import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
+
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
 
 
 /**

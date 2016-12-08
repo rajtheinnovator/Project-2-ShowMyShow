@@ -1,8 +1,11 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Network;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
+
+import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Utils.MovieDetailsQueryUtils;
 
 /**
  * Created by ABHISHEK RAJ on 12/1/2016.
@@ -16,7 +19,7 @@ public class DetailsMovieLoader extends AsyncTaskLoader {
     private String mUrl;
 
     /**
-     * Constructs a new {@link me.abhishekraj.showmyshow.DetailsMovieLoader}.
+     * Constructs a new {@link DetailsMovieLoader}.
      *
      * @param context of the activity
      * @param url     to load data from

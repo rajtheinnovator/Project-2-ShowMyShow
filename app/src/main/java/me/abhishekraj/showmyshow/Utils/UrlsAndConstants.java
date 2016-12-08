@@ -1,4 +1,6 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Utils;
+
+import me.abhishekraj.showmyshow.BuildConfig;
 
 /**
  * Created by ABHISHEK RAJ on 11/15/2016.

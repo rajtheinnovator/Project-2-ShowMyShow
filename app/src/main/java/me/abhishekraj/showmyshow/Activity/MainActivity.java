@@ -1,7 +1,10 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import me.abhishekraj.showmyshow.Fragment.MoviePosterFragment;
+import me.abhishekraj.showmyshow.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -11,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     * where I made the News app, link to @link: "https://github.com/rajtheinnovator/NewsToday",
     * Also the code related to RecyclerView has been referenced from codepath tutorial, linked to
     * @link: "https://guides.codepath.com/android/using-the-recyclerview".
-    * Also the other code uses has been given their credit throughout the project as per the ethical
+    * And the other code uses has been given their credit throughout the project as per the ethical
     * work flow culture and use of opensource projects
     */
 

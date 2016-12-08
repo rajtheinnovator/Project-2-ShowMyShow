@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import me.abhishekraj.showmyshow.Activity.MovieDetailsActivity;
+import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.R;
 
 /**
  * Created by ABHISHEK RAJ on 11/16/2016.

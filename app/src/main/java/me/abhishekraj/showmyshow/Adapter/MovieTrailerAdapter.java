@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Model.Video;
+import me.abhishekraj.showmyshow.R;
 
 /**
  * Created by ABHISHEK RAJ on 12/2/2016.

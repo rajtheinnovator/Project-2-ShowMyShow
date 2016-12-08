@@ -5,42 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="me.abhishekraj.showmyshow.MainActivity">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="me.abhishekraj.showmyshow.MainActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="POPULAR MOVIES"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:paddingLeft="4dp"/>
+    tools:context="me.abhishekraj.showmyshow.Activity.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewPopularMovies"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="UPCOMING MOVIES"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:paddingLeft="4dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="me.abhishekraj.showmyshow.Activity.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewUpcomingMovies"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical" />
-</LinearLayout>
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="4dp"
+            android:text="POPULAR MOVIES"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewPopularMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="4dp"
+            android:text="UPCOMING MOVIES"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewUpcomingMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+</ScrollView>

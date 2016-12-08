@@ -1,7 +1,11 @@
-package me.abhishekraj.showmyshow;
+package me.abhishekraj.showmyshow.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Fragment.MovieDetailsFragment;
+import me.abhishekraj.showmyshow.R;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
