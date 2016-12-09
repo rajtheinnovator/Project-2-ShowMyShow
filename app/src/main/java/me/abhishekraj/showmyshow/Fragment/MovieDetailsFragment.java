@@ -28,8 +28,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieCreditsCastAdapter;
 import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieReviewAdapter;
 import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieTrailerAdapter;
+import me.abhishekraj.showmyshow.Model.Credits;
 import me.abhishekraj.showmyshow.Model.Movie;
 import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
 import me.abhishekraj.showmyshow.Model.Review;
@@ -52,10 +54,13 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     private static final int MOVIE_DETAIL_LOADER_ID = 2;
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
+    public ArrayList<Credits> mCredits;
     MovieReviewAdapter mMovieReviewAdapter;
+    MovieCreditsCastAdapter mMovieCreditsCastAdapter;
     MovieTrailerAdapter mMovieTrailerAdapter;
     RecyclerView mMovieReviewRecyclerView;
     RecyclerView mMovieTrailerRecyclerView;
+    RecyclerView mMovieCastRecyclerView;
     Movie movie;
     TextView movieDetailTitleTextView;
     ImageView movieDetailTitleImageView;
@@ -139,16 +144,21 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             */
             mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
             mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
+            mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
 
             /* Create mPopularMoviesAdapter passing in the sample user data */
             mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
              /* Create mPopularMoviesAdapter passing in the sample user data */
             mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
+                 /* Create mPopularMoviesAdapter passing in the sample user data */
+            mMovieCreditsCastAdapter = new MovieCreditsCastAdapter(getActivity(), mMovieDetailsBundle);
 
             /* Attach the mPopularMoviesAdapter to the reviewRecyclerView to populate items */
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
             /* Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items */
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
+            /* Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items */
+            mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
 
             /*
             Setup layout manager for items with orientation
@@ -172,6 +182,17 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             /* Attach layout manager to the RecyclerView */
             mMovieTrailerRecyclerView.setLayoutManager(layoutManagerMovietrailer);
 
+               /*
+            Setup layout manager for items with orientation
+            Also supports `LinearLayoutManager.HORIZONTAL`
+            */
+            LinearLayoutManager layoutManagerMovieCast = new LinearLayoutManager(getActivity(),
+                    LinearLayoutManager.HORIZONTAL, false);
+            /* Optionally customize the position you want to default scroll to */
+            layoutManagerMovietrailer.scrollToPosition(0);
+            /* Attach layout manager to the RecyclerView */
+            mMovieCastRecyclerView.setLayoutManager(layoutManagerMovieCast);
+
 //            /*
 //            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
 //            */
@@ -184,6 +205,9 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
             SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
             snapHelperStart.attachToRecyclerView(mMovieTrailerRecyclerView);
+
+            SnapHelper snapHelperCastStart = new GravitySnapHelper(Gravity.START);
+            snapHelperCastStart.attachToRecyclerView(mMovieCastRecyclerView);
         }
         return rootView;
     }
@@ -217,16 +241,23 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             // Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items
             mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
             Log.v("############", " mPopularMoviesAdapter.setMovieDetailsBundleData(movie) finished");
+            // Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items
+            mMovieCreditsCastAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
+            Log.v("############", " mPopularMoviesAdapter.setMovieDetailsBundleData(movie) finished");
 
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
             Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
             Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
+            mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
             updateDurationTextView(mMovieDetailsBundle);
+
         }
     }
 
     public void updateDurationTextView(MovieDetailsBundle movieDetailsBundle) {
+
         mMovieDuration = movieDetailsBundle.getMovie().getMovieRuntimeDuration();
         if (mMovieDuration < 60) {
             mMovieDurationString = String.valueOf(mMovieDuration) + "mins";

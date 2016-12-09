@@ -24,59 +24,20 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
 
     // Store a member variable for the popularMovies
     private static ArrayList<Review> mReview;
-
+    MovieDetailsBundle movieDetailsBundle;
     // Store the context for easy access
     private Context mContext;
-    MovieDetailsBundle movieDetailsBundle;
-
-    // Easy access to the context object in the recyclerview
-    private Context getContext() {
-        return mContext;
-    }
-
-    /*
-     Provide a direct reference to each of the views within a data item
-     Used to cache the views within the item layout for fast access
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        /*
-        Your holder should contain a member variable
-        for any view that will be set as you render a row
-        */
-        //public final TextView movieReviewContentTextView;
-        public final TextView movieReviewAuthorTextView;
-        /*
-        * Make the review content expandable by using the code
-        * from: @link https://github.com/Manabu-GT/ExpandableTextView
-        */
-        public final ExpandableTextView expTv1;
-        private Context context;
-
-        /*
-        We also create a constructor that accepts the entire item row
-        and does the view lookups to find each subview
-        */
-        public ViewHolder(Context context, View itemView) {
-            /*
-            Stores the itemView in a public final member variable that can be used
-            to access the context from any ViewHolder instance.
-            */
-            super(itemView);
-            //set the review content on the ExpandableTextView
-
-            expTv1 = (ExpandableTextView) itemView.findViewById(R.id.expand_text_view);
-
-            // movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
-            movieReviewAuthorTextView = (TextView) itemView.findViewById(R.id.review_author);
-            this.context = context;
-        }
-    }
 
     // Pass in the popularMovies array into the constructor
     public MovieReviewAdapter(Context context, MovieDetailsBundle movies) {
         movieDetailsBundle = movies;
         mReview = new ArrayList<>();
         mContext = context;
+    }
+
+    // Easy access to the context object in the recyclerview
+    private Context getContext() {
+        return mContext;
     }
 
     @Override
@@ -117,12 +78,50 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         return mReview.size();
     }
 
-    public void setMovieDetailsBundleData(MovieDetailsBundle weatherData) {
+    public void setMovieDetailsBundleData(MovieDetailsBundle movieData) {
         Log.v("############", "setMovieDetailsBundleData Called");
-        movieDetailsBundle = weatherData;
+        movieDetailsBundle = movieData;
         mReview = movieDetailsBundle.getReviewArrayList();
         Log.v("############", "mDefaultMovie is " + mReview);
         notifyDataSetChanged();
         Log.v("############", "notifyDataSetChanged Finished");
+    }
+
+    /*
+     Provide a direct reference to each of the views within a data item
+     Used to cache the views within the item layout for fast access
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        /*
+        Your holder should contain a member variable
+        for any view that will be set as you render a row
+        */
+        //public final TextView movieReviewContentTextView;
+        public final TextView movieReviewAuthorTextView;
+        /*
+        * Make the review content expandable by using the code
+        * from: @link https://github.com/Manabu-GT/ExpandableTextView
+        */
+        public final ExpandableTextView expTv1;
+        private Context context;
+
+        /*
+        We also create a constructor that accepts the entire item row
+        and does the view lookups to find each subview
+        */
+        public ViewHolder(Context context, View itemView) {
+            /*
+            Stores the itemView in a public final member variable that can be used
+            to access the context from any ViewHolder instance.
+            */
+            super(itemView);
+            //set the review content on the ExpandableTextView
+
+            expTv1 = (ExpandableTextView) itemView.findViewById(R.id.expand_text_view);
+
+            // movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
+            movieReviewAuthorTextView = (TextView) itemView.findViewById(R.id.review_author);
+            this.context = context;
+        }
     }
 }

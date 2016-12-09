@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!-- Color of circular shape for the face of the movie cast -->
+    <color name="circularShapeBackgroundColor">#7A34BD</color>
 </resources>

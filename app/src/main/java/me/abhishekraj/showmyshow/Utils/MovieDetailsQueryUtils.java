@@ -26,6 +26,12 @@ import me.abhishekraj.showmyshow.Model.Video;
  * Created by ABHISHEK RAJ on 12/1/2016.
  */
 public class MovieDetailsQueryUtils {
+    private static String character;
+    private static String creditId;
+    private static String name;
+    private static String profilePath;
+    private static int castId;
+    private static int id;
 
     /**
      * Create a private constructor because no one should ever create a {@link DefaultMovieQueryUtils} object.
@@ -190,7 +196,7 @@ public class MovieDetailsQueryUtils {
                     }
                 }
             }
-            if (movie_json_response.has("runtime")){
+            if (movie_json_response.has("runtime")) {
                 int runTime = movie_json_response.getInt("runtime");
                 //movie = new Movie(runTime);
                 movie.setMovieRunTimeDuration(runTime);
@@ -202,8 +208,7 @@ public class MovieDetailsQueryUtils {
                     if (castArray.length() > 0) {
                         for (int i = 0; i < castArray.length(); i++) {
                             JSONObject castObject = castArray.getJSONObject(i);
-                            String character = "", creditId = "", name = "", profilePath = "";
-                            int castId = 0, id = 0;
+
                             if (castObject.has("cast_id")) {
                                 castId = castObject.getInt("cast_id");
                             }
@@ -211,16 +216,16 @@ public class MovieDetailsQueryUtils {
                                 character = castObject.getString("character");
                             }
                             if (castObject.has("credit_id")) {
-                                character = castObject.getString("credit_id");
+                                creditId = castObject.getString("credit_id");
                             }
                             if (castObject.has("id")) {
-                                castId = castObject.getInt("id");
+                                id = castObject.getInt("id");
                             }
                             if (castObject.has("name")) {
-                                character = castObject.getString("name");
+                                name = castObject.getString("name");
                             }
                             if (castObject.has("profile_path")) {
-                                character = castObject.getString("profile_path");
+                                profilePath = castObject.getString("profile_path");
                             }
                             credits.add(new Credits(castId, character, creditId, id, name, profilePath));
                         }
