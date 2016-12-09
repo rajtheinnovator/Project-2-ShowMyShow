@@ -41,7 +41,10 @@ public class UrlsAndConstants {
         public static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
         public static final String APPEND_TO_RESPONSE = "append_to_response";
         public static final String VIDEOS = "videos";
+        public static final String REVIEWS = "reviews";
+        public static final String CREDITS = "credits";
         public static final String VIDEOS_AND_REVIEWS = "videos,reviews";
+        public static final String VIDEOS_AND_REVIEWS_AND_CREDITS = "videos,reviews,credits";
 
     }
 }

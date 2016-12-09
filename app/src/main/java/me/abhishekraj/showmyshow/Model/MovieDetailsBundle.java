@@ -2,10 +2,6 @@ package me.abhishekraj.showmyshow.Model;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie;
-import me.abhishekraj.showmyshow.Model.Review;
-import me.abhishekraj.showmyshow.Model.Video;
-
 /**
  * Created by ABHISHEK RAJ on 12/2/2016.
  */
@@ -13,6 +9,7 @@ import me.abhishekraj.showmyshow.Model.Video;
 public class MovieDetailsBundle {
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
+    public ArrayList<Credits> mCredits;
     public Movie mMovie;
 
     /*
@@ -20,17 +17,37 @@ public class MovieDetailsBundle {
     */
     public MovieDetailsBundle(){
     }
-    public MovieDetailsBundle(ArrayList review, ArrayList video, Movie movie){
+
+    public MovieDetailsBundle(ArrayList review, ArrayList video, Movie movie, ArrayList credits) {
         mReview = review;
         mVideo = video;
         mMovie = movie;
+        mCredits = credits;
+    }
+
+    public ArrayList<Review> getReviewArrayList() {
+        return mReview;
     }
 
     public void setReviewArrayList(ArrayList<Review> reviews){mReview = reviews;}
-    public void setVideoArrayList(ArrayList<Video> video){mVideo = video;}
-    public void setMovie(Movie movie){mMovie = movie;}
 
-    public ArrayList<Review> getReviewArrayList(){return mReview;}
     public ArrayList<Video> getVideoArrayList(){return mVideo;}
+
+    public void setVideoArrayList(ArrayList<Video> video) {
+        mVideo = video;
+    }
+
+    public ArrayList<Credits> getCreditsArrayList() {
+        return mCredits;
+    }
+
+    public void setCreditsArrayList(ArrayList<Credits> credits) {
+        mCredits = credits;
+    }
+
     public Movie getMovie(){return mMovie;}
+
+    public void setMovie(Movie movie) {
+        mMovie = movie;
+    }
 }

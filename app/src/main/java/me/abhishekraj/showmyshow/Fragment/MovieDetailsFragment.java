@@ -28,12 +28,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieReviewAdapter;
+import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieTrailerAdapter;
 import me.abhishekraj.showmyshow.Model.Movie;
 import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
 import me.abhishekraj.showmyshow.Model.Review;
 import me.abhishekraj.showmyshow.Model.Video;
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieReviewAdapter;
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieTrailerAdapter;
 import me.abhishekraj.showmyshow.Network.DetailsMovieLoader;
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
@@ -41,7 +41,7 @@ import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.API_KEY_PARAM;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.API_KEY_PARAM_VALUE;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.APPEND_TO_RESPONSE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.VIDEOS_AND_REVIEWS;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
 
 /**
  * Created by ABHISHEK RAJ on 11/26/2016.
@@ -50,23 +50,13 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.VIDEO
 public class MovieDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<MovieDetailsBundle> {
 
     private static final int MOVIE_DETAIL_LOADER_ID = 2;
-
-    MovieReviewAdapter mMovieReviewAdapter;
-    MovieTrailerAdapter mMovieTrailerAdapter;
-
-    RecyclerView mMovieReviewRecyclerView;
-    RecyclerView mMovieTrailerRecyclerView;
-
-    Movie movie;
-    private MovieDetailsBundle mMovieDetailsBundle;
-
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
-
-    public MovieDetailsFragment() {
-        // Required empty public constructor
-    }
-
+    MovieReviewAdapter mMovieReviewAdapter;
+    MovieTrailerAdapter mMovieTrailerAdapter;
+    RecyclerView mMovieReviewRecyclerView;
+    RecyclerView mMovieTrailerRecyclerView;
+    Movie movie;
     TextView movieDetailTitleTextView;
     ImageView movieDetailTitleImageView;
     ImageView moviedetailsBackdropImageView;
@@ -75,8 +65,13 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     String backdropURL;
     TextView movieReleaseDate;
     TextView movieRunTimeDuration;
+    private MovieDetailsBundle mMovieDetailsBundle;
     private int mMovieDuration;
     private String mMovieDurationString;
+
+    public MovieDetailsFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -208,7 +203,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         Uri.Builder uriBuilder = baseUri.buildUpon();
         Log.v("############", "uriBuilder is " + uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-        uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS);
+        uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS_AND_CREDITS);
         Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
         return new DetailsMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }

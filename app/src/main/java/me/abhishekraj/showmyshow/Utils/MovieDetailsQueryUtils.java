@@ -16,6 +16,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.Model.Credits;
 import me.abhishekraj.showmyshow.Model.Movie;
 import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
 import me.abhishekraj.showmyshow.Model.Review;
@@ -143,6 +144,7 @@ public class MovieDetailsQueryUtils {
         // Create an empty ArrayList that we can start adding popularMovies to
         ArrayList<Review> reviews = new ArrayList<Review>();
         ArrayList<Video> videos = new ArrayList<Video>();
+        ArrayList<Credits> credits = new ArrayList<>();
         Movie movie = new Movie();
         // Create a MovieDetailsBundle and initialize it
         MovieDetailsBundle movieDetailsBundle = new MovieDetailsBundle();
@@ -193,10 +195,43 @@ public class MovieDetailsQueryUtils {
                 //movie = new Movie(runTime);
                 movie.setMovieRunTimeDuration(runTime);
             }
+            if (movie_json_response.has("credits")) {
+                JSONObject creditsObject = movie_json_response.getJSONObject("credits");
+                if (creditsObject.has("cast")) {
+                    JSONArray castArray = creditsObject.getJSONArray("cast");
+                    if (castArray.length() > 0) {
+                        for (int i = 0; i < castArray.length(); i++) {
+                            JSONObject castObject = castArray.getJSONObject(i);
+                            String character = "", creditId = "", name = "", profilePath = "";
+                            int castId = 0, id = 0;
+                            if (castObject.has("cast_id")) {
+                                castId = castObject.getInt("cast_id");
+                            }
+                            if (castObject.has("character")) {
+                                character = castObject.getString("character");
+                            }
+                            if (castObject.has("credit_id")) {
+                                character = castObject.getString("credit_id");
+                            }
+                            if (castObject.has("id")) {
+                                castId = castObject.getInt("id");
+                            }
+                            if (castObject.has("name")) {
+                                character = castObject.getString("name");
+                            }
+                            if (castObject.has("profile_path")) {
+                                character = castObject.getString("profile_path");
+                            }
+                            credits.add(new Credits(castId, character, creditId, id, name, profilePath));
+                        }
+                    }
+                }
+            }
             Log.v("############", "Size of reviews is" + reviews.size());
             Log.v("############", "Size of videos is" + videos.size());
             movieDetailsBundle.setReviewArrayList(reviews);
             movieDetailsBundle.setVideoArrayList(videos);
+            movieDetailsBundle.setCreditsArrayList(credits);
             movieDetailsBundle.setMovie(movie);
         } catch (JSONException e) {
             //handle exception
