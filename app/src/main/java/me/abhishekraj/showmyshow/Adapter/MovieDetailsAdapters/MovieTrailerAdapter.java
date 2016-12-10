@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Video;
+import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Model.Movie.Video;
 import me.abhishekraj.showmyshow.R;
 
 /**
@@ -25,54 +25,20 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
 
     // Store a member variable for the popularMovies
     private static ArrayList<Video> mVideo;
-
+    MovieDetailsBundle movieDetailsBundle;
     // Store the context for easy access
     private Context mContext;
-    MovieDetailsBundle movieDetailsBundle;
-
-    // Easy access to the context object in the recyclerview
-    private Context getContext() {
-        return mContext;
-    }
-
-    /*
-     Provide a direct reference to each of the views within a data item
-     Used to cache the views within the item layout for fast access
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        /*
-        Your holder should contain a member variable
-        for any view that will be set as you render a row
-        */
-        //public final TextView movieVideoContentTextView;
-        public final TextView movieVideoName;
-        public final ImageView movieVideoBanner;
-
-        private Context context;
-
-        /*
-        We also create a constructor that accepts the entire item row
-        and does the view lookups to find each subview
-        */
-        public ViewHolder(Context context, View itemView) {
-            /*
-            Stores the itemView in a public final member variable that can be used
-            to access the context from any ViewHolder instance.
-            */
-            super(itemView);
-
-            movieVideoBanner = (ImageView) itemView.findViewById(R.id.video_banner);
-            // movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
-            movieVideoName = (TextView) itemView.findViewById(R.id.video_name);
-            this.context = context;
-        }
-    }
 
     // Pass in the popularMovies array into the constructor
     public MovieTrailerAdapter(Context context, MovieDetailsBundle movies) {
         movieDetailsBundle = movies;
         mVideo = new ArrayList<>();
         mContext = context;
+    }
+
+    // Easy access to the context object in the recyclerview
+    private Context getContext() {
+        return mContext;
     }
 
     @Override
@@ -126,5 +92,38 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
         Log.v("############", "mDefaultMovie is " + mVideo);
         notifyDataSetChanged();
         Log.v("############", "notifyDataSetChanged Finished");
+    }
+
+    /*
+     Provide a direct reference to each of the views within a data item
+     Used to cache the views within the item layout for fast access
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        /*
+        Your holder should contain a member variable
+        for any view that will be set as you render a row
+        */
+        //public final TextView movieVideoContentTextView;
+        public final TextView movieVideoName;
+        public final ImageView movieVideoBanner;
+
+        private Context context;
+
+        /*
+        We also create a constructor that accepts the entire item row
+        and does the view lookups to find each subview
+        */
+        public ViewHolder(Context context, View itemView) {
+            /*
+            Stores the itemView in a public final member variable that can be used
+            to access the context from any ViewHolder instance.
+            */
+            super(itemView);
+
+            movieVideoBanner = (ImageView) itemView.findViewById(R.id.video_banner);
+            // movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
+            movieVideoName = (TextView) itemView.findViewById(R.id.video_name);
+            this.context = context;
+        }
     }
 }

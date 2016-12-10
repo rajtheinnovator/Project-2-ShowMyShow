@@ -16,13 +16,13 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Model.Movie.Movie;
 
 /**
  * Created by ABHISHEK RAJ on 11/15/2016.
  */
 
-public class DefaultMovieQueryUtils {
+public class MoviePosterQueryUtils {
     private static String movieTitle;
     private static int movieId;
     private static String moviePosterPath;
@@ -39,11 +39,11 @@ public class DefaultMovieQueryUtils {
     */
 
     /**
-     * Create a private constructor because no one should ever create a {@link DefaultMovieQueryUtils} object.
+     * Create a private constructor because no one should ever create a {@link MoviePosterQueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name DefaultMovieQueryUtils (and an object instance of DefaultMovieQueryUtils is not needed).
+     * directly from the class name MoviePosterQueryUtils (and an object instance of MoviePosterQueryUtils is not needed).
      */
-    private DefaultMovieQueryUtils() {
+    private MoviePosterQueryUtils() {
     }
 
     /**

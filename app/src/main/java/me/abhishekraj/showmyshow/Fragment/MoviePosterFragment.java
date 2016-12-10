@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.PopularMoviesAdapter;
 import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.TopRatedMoviesAdapter;
 import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.UpcomingMovieAdapter;
-import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Model.Movie.Movie;
 import me.abhishekraj.showmyshow.Network.MoviePosterLoader;
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
@@ -72,9 +72,9 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         if (savedInstanceState != null) {
             savedInstance = "not empty";
             Log.v("############******", "onCreate savedInstance is " + savedInstance);
-            popularMovies = savedInstanceState.getParcelableArrayList("popularMovies");
-            upcomingMovies = savedInstanceState.getParcelableArrayList("upcomingMovies");
-            topRatedMovies = savedInstanceState.getParcelableArrayList("topRatedMovies");
+            popularMovies = savedInstanceState.getParcelableArrayList("popularTvShows");
+            upcomingMovies = savedInstanceState.getParcelableArrayList("airedNowTvShows");
+            topRatedMovies = savedInstanceState.getParcelableArrayList("topRatedTvShows");
 
         } else {
             popularMovies = new ArrayList<>();
@@ -164,10 +164,10 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         * "https://guides.codepath.com/android/using-the-recyclerview"
         */
 
-        // Create mPopularMoviesAdapter passing in the sample user data
+        // Create mPopularTvShowAdapter passing in the sample user data
         mPopularMoviesAdapter = new PopularMoviesAdapter(getActivity(), popularMovies);
         mPopularMoviesAdapter.setMovieData(popularMovies);
-        // Attach the mPopularMoviesAdapter to the recyclerview to populate items
+        // Attach the mPopularTvShowAdapter to the recyclerview to populate items
         mPopularMovieRecyclerView.setAdapter(mPopularMoviesAdapter);
 
         // Create mUpcomingMoviesAdapter passing in the sample user data
@@ -176,10 +176,10 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         // Attach the mUpcomingMoviesAdapter to the recyclerview to populate items
         mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
 
-        // Create mTopRatedMoviesAdapter passing in the sample user data
+        // Create mTopRatedTvShowAdapter passing in the sample user data
         mTopRatedMoviesAdapter = new TopRatedMoviesAdapter(getActivity(), topRatedMovies);
         mTopRatedMoviesAdapter.setMovieData(topRatedMovies);
-        // Attach the mTopRatedMoviesAdapter to the recyclerview to populate items
+        // Attach the mTopRatedTvShowAdapter to the recyclerview to populate items
         mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
 
         return rootView;
@@ -188,9 +188,9 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onSaveInstanceState(Bundle outState) {
         Log.v("############******", "onSaveInstanceState called");
-        outState.putParcelableArrayList("popularMovies", popularMovies);
-        outState.putParcelableArrayList("upcomingMovies", upcomingMovies);
-        outState.putParcelableArrayList("topRatedMovies", topRatedMovies);
+        outState.putParcelableArrayList("popularTvShows", popularMovies);
+        outState.putParcelableArrayList("airedNowTvShows", upcomingMovies);
+        outState.putParcelableArrayList("topRatedTvShows", topRatedMovies);
         super.onSaveInstanceState(outState);
     }
 
@@ -257,7 +257,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
             case POPULAR_MOVIE_LOADER_ID:
                 Log.v("############******", "onLoadFinished called with id " + POPULAR_MOVIE_LOADER_ID);
                 if (incomingMovieArrayList.isEmpty()) {
-                    Log.v("******************", "popularMovies isEmpty");
+                    Log.v("******************", "popularTvShows isEmpty");
                     return;
                 } else {
                     popularMovies = incomingMovieArrayList;
@@ -270,7 +270,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
             case UPCOMING_MOVIE_LOADER_ID:
                 Log.v("############******", "onLoadFinished called with id " + UPCOMING_MOVIE_LOADER_ID);
                 if (incomingMovieArrayList.isEmpty()) {
-                    Log.v("******************", "popularMovies isEmpty");
+                    Log.v("******************", "popularTvShows isEmpty");
                     return;
                 } else {
                     upcomingMovies = incomingMovieArrayList;
@@ -282,7 +282,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
             case TOP_RATED_MOVIE_LOADER_ID:
                 Log.v("############******", "onLoadFinished called with id " + TOP_RATED_MOVIE_LOADER_ID);
                 if (incomingMovieArrayList.isEmpty()) {
-                    Log.v("******************", "popularMovies isEmpty");
+                    Log.v("******************", "popularTvShows isEmpty");
                     return;
                 } else {
                     topRatedMovies = incomingMovieArrayList;

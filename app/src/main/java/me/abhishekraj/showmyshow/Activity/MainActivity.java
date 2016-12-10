@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import me.abhishekraj.showmyshow.Adapter.MainActivityPagerAdapter;
+import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.MainActivityPagerAdapter;
 import me.abhishekraj.showmyshow.R;
 
 

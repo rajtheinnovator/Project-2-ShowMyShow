@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.Activity.MovieDetailsActivity;
-import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Model.Movie.Movie;
 import me.abhishekraj.showmyshow.R;
 
 /**
@@ -30,9 +30,62 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
     /* Store the context for easy access */
     private Context mContext;
 
+    /* Pass in the popularMovies array into the constructor */
+    public PopularMoviesAdapter(Context context, ArrayList<Movie> movies) {
+        mPopularMovie = movies;
+        mContext = context;
+    }
+
     /* Easy access to the context object in the recyclerview */
     private Context getContext() {
         return mContext;
+    }
+
+    @Override
+    public PopularMoviesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        /* Inflate the custom layout */
+        View moviesView = inflater.inflate(R.layout.item_movies_poster, parent, false);
+
+        /* Return a new holder instance */
+        ViewHolder viewHolder = new PopularMoviesAdapter.ViewHolder(context, moviesView);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(PopularMoviesAdapter.ViewHolder viewHolder, int position) {
+        Log.v("############", "onBindViewHolder called");
+        /* Get the data model based on position */
+        Movie currentMovie = mPopularMovie.get(position);
+        Log.v("############", "currentMovie called is " + currentMovie.toString());
+        Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
+        /*
+        Set item views based on your views and data model
+         */
+        viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
+        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMovieTitle());
+        String url = "https://image.tmdb.org/t/p/w500/" + currentMovie.getMoviePosterPath().toString();
+        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMoviePosterPath().toString());
+        Picasso.with(getContext())
+                .load(url)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(viewHolder.movieTitleImageView);
+    }
+
+    @Override
+    public int getItemCount() {
+        Log.v("############", "getItemCount called with size " + mPopularMovie.size());
+        return mPopularMovie.size();
+    }
+
+    public void setMovieData(ArrayList<Movie> movieData) {
+        Log.v("############", "setMovieDetailsBundleData Called");
+        mPopularMovie = movieData;
+        Log.v("############", "mPopularMovie is " + mPopularMovie);
+        notifyDataSetChanged();
+        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*
@@ -82,58 +135,5 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
                 context.startActivity(movieDetailIntent);
             }
         }
-    }
-
-    /* Pass in the popularMovies array into the constructor */
-    public PopularMoviesAdapter(Context context, ArrayList<Movie> movies) {
-        mPopularMovie = movies;
-        mContext = context;
-    }
-
-    @Override
-    public PopularMoviesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movies_poster, parent, false);
-
-        /* Return a new holder instance */
-        ViewHolder viewHolder = new PopularMoviesAdapter.ViewHolder(context, moviesView);
-        return viewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(PopularMoviesAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
-        /* Get the data model based on position */
-        Movie currentMovie = mPopularMovie.get(position);
-        Log.v("############", "currentMovie called is " + currentMovie.toString());
-        Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
-        /*
-        Set item views based on your views and data model
-         */
-        viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMovieTitle());
-        String url = "https://image.tmdb.org/t/p/w500/" + currentMovie.getMoviePosterPath().toString();
-        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMoviePosterPath().toString());
-        Picasso.with(getContext())
-                .load(url)
-                .placeholder(R.mipmap.ic_launcher)
-                .into(viewHolder.movieTitleImageView);
-    }
-
-    @Override
-    public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mPopularMovie.size());
-        return mPopularMovie.size();
-    }
-
-    public void setMovieData(ArrayList<Movie> movieData) {
-        Log.v("############", "setMovieDetailsBundleData Called");
-        mPopularMovie = movieData;
-        Log.v("############", "mPopularMovie is " + mPopularMovie);
-        notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 }

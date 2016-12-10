@@ -31,19 +31,19 @@ import java.util.ArrayList;
 import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieCreditsCastAdapter;
 import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieReviewAdapter;
 import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieTrailerAdapter;
-import me.abhishekraj.showmyshow.Model.Credits;
-import me.abhishekraj.showmyshow.Model.Movie;
-import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Review;
-import me.abhishekraj.showmyshow.Model.Video;
+import me.abhishekraj.showmyshow.Model.Movie.Credits;
+import me.abhishekraj.showmyshow.Model.Movie.Movie;
+import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Model.Movie.Review;
+import me.abhishekraj.showmyshow.Model.Movie.Video;
 import me.abhishekraj.showmyshow.Network.DetailsMovieLoader;
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.API_KEY_PARAM;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.APPEND_TO_RESPONSE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.APPEND_TO_RESPONSE;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
 
 /**
  * Created by ABHISHEK RAJ on 11/26/2016.
@@ -146,18 +146,18 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
             mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
 
-            /* Create mPopularMoviesAdapter passing in the sample user data */
+            /* Create mPopularTvShowAdapter passing in the sample user data */
             mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
-             /* Create mPopularMoviesAdapter passing in the sample user data */
+             /* Create mPopularTvShowAdapter passing in the sample user data */
             mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
-                 /* Create mPopularMoviesAdapter passing in the sample user data */
+                 /* Create mPopularTvShowAdapter passing in the sample user data */
             mMovieCreditsCastAdapter = new MovieCreditsCastAdapter(getActivity(), mMovieDetailsBundle);
 
-            /* Attach the mPopularMoviesAdapter to the reviewRecyclerView to populate items */
+            /* Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items */
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            /* Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items */
+            /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            /* Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items */
+            /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
             mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
 
             /*
@@ -222,7 +222,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     @Override
     public Loader<MovieDetailsBundle> onCreateLoader(int id, Bundle args) {
         Log.v("############", "onCreateLoader called");
-        Uri baseUri = Uri.parse((UrlsAndConstants.DetailQuery.DEFAULT_URL) + movie.getMovieId());
+        Uri baseUri = Uri.parse((UrlsAndConstants.MovieDetailQuery.DEFAULT_URL) + movie.getMovieId());
         Log.v("############", "baseUri is " + baseUri.toString());
         Uri.Builder uriBuilder = baseUri.buildUpon();
         Log.v("############", "uriBuilder is " + uriBuilder.toString());
@@ -236,21 +236,21 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
         if (movieDetailsBundle != null) {
             mMovieDetailsBundle = movieDetailsBundle;
-            // Attach the mPopularMoviesAdapter to the reviewRecyclerView to populate items
+            // Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items
             mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            // Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items
+            // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
             mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mPopularMoviesAdapter.setMovieDetailsBundleData(movie) finished");
-            // Attach the mPopularMoviesAdapter to the trailerRecyclerView to populate items
+            Log.v("############", " mPopularTvShowAdapter.setMovieDetailsBundleData(movie) finished");
+            // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
             mMovieCreditsCastAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mPopularMoviesAdapter.setMovieDetailsBundleData(movie) finished");
+            Log.v("############", " mPopularTvShowAdapter.setMovieDetailsBundleData(movie) finished");
 
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularMoviesAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             updateDurationTextView(mMovieDetailsBundle);
 
         }

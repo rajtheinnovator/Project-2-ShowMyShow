@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter;
+package me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

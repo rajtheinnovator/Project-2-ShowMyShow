@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model;
+package me.abhishekraj.showmyshow.Model.Movie;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,27 +12,44 @@ public class Movie implements Parcelable {
     /*
     * Codes referenced from the link, @link: "https://guides.codepath.com/android/Using-Parcelable"
     */
+    /*
+    After implementing the `Parcelable` interface, we need to create the
+    `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
+    Notice how it has our class specified as its type.
+    */
+    public static final Parcelable.Creator<Movie> CREATOR
+            = new Parcelable.Creator<Movie>() {
+
+        // This simply calls our new constructor (typically private) and
+        // passes along the unmarshalled `Parcel`, and then returns the new object!
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        // We just need to copy this and change the type to match our class.
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
     /**
      * Title of the movie
      */
     private String mMovieTitle;
-
     /**
      * posterPath of the movie
      */
     private String mMoviePosterPath;
-
+    /*Variables needed when handling recycler view is clicked*/
     /**
      * id of the movie
      */
     private int mMovieId;
-    /*Variables needed when handling recycler view is clicked*/
-
     /**
      * BackdropPosterPath of the movie
      */
     private String mMovieBackdropPath;
-
     private double mMovieVoteCount;
     private String mMovieOverview;
     private double mMovieVoteAverage;
@@ -40,13 +57,13 @@ public class Movie implements Parcelable {
     private double mMoviePopularity;
     private String mMovieReleaseDate;
     private int mMovieRunTimeDuration;
+
     /**
      * Create an empty constructor so that an empty movie's object can be referenced
      * in the MainActivity for storing movie's info
      */
     public Movie() {
     }
-
     /**
      * Constructs a new {@link Movie}.
      *
@@ -71,23 +88,22 @@ public class Movie implements Parcelable {
     public Movie(int runTimeDuration){
         mMovieRunTimeDuration = runTimeDuration;
     }
-    /**
-     * The Setters Methods
-     */
-    public void setMovieTitle(String title) {
-        mMovieTitle = title;
-    }
 
-    public void setMovieId(int id) {
-        mMovieId = id;
-    }
-
-    public void setMoviePosterPath(String path) {
-        mMoviePosterPath = path;
+    private Movie(Parcel in) {
+        mMovieTitle = in.readString();
+        mMovieId = in.readInt();
+        mMoviePosterPath = in.readString();
+        mMovieOverview = in.readString();
+        mMovieVoteCount = in.readDouble();
+        mMovieOriginalTitle = in.readString();
+        mMovieVoteAverage = in.readDouble();
+        mMoviePopularity = in.readDouble();
+        mMovieBackdropPath = in.readString();
+        mMovieReleaseDate = in.readString();
+        mMovieRunTimeDuration = in.readInt();
     }
 
     public void setMovieRunTimeDuration(int movieDuration){mMovieRunTimeDuration = movieDuration;}
-
 
     /**
      * The Getters Methods
@@ -96,12 +112,27 @@ public class Movie implements Parcelable {
         return mMovieTitle;
     }
 
+    /**
+     * The Setters Methods
+     */
+    public void setMovieTitle(String title) {
+        mMovieTitle = title;
+    }
+
     public int getMovieId() {
         return mMovieId;
     }
 
+    public void setMovieId(int id) {
+        mMovieId = id;
+    }
+
     public String getMoviePosterPath() {
         return mMoviePosterPath;
+    }
+
+    public void setMoviePosterPath(String path) {
+        mMoviePosterPath = path;
     }
 
     public String getMovieBackdropPath() {
@@ -132,8 +163,6 @@ public class Movie implements Parcelable {
 
     public int getMovieRuntimeDuration(){return mMovieRunTimeDuration;}
 
-
-
     /**
      * Make Parcelabe Work Through these methods
      */
@@ -156,40 +185,4 @@ public class Movie implements Parcelable {
         out.writeString(mMovieReleaseDate);
         out.writeInt(mMovieRunTimeDuration);
     }
-
-    private Movie(Parcel in) {
-        mMovieTitle = in.readString();
-        mMovieId = in.readInt();
-        mMoviePosterPath = in.readString();
-        mMovieOverview = in.readString();
-        mMovieVoteCount = in.readDouble();
-        mMovieOriginalTitle = in.readString();
-        mMovieVoteAverage = in.readDouble();
-        mMoviePopularity = in.readDouble();
-        mMovieBackdropPath = in.readString();
-        mMovieReleaseDate = in.readString();
-        mMovieRunTimeDuration = in.readInt();
-    }
-
-    /*
-    After implementing the `Parcelable` interface, we need to create the
-    `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
-    Notice how it has our class specified as its type.
-    */
-    public static final Parcelable.Creator<Movie> CREATOR
-            = new Parcelable.Creator<Movie>() {
-
-        // This simply calls our new constructor (typically private) and
-        // passes along the unmarshalled `Parcel`, and then returns the new object!
-        @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
-        }
-
-        // We just need to copy this and change the type to match our class.
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
 }

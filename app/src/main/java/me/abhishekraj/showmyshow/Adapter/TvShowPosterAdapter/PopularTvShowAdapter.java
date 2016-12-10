@@ -1,7 +1,6 @@
-package me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters;
+package me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,30 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Activity.MovieDetailsActivity;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
+import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
 import me.abhishekraj.showmyshow.R;
 
 /**
- * Created by ABHISHEK RAJ on 12/8/2016.
+ * Created by ABHISHEK RAJ on 12/10/2016.
  */
 
-public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAdapter.ViewHolder> {
+public class PopularTvShowAdapter extends RecyclerView.Adapter<PopularTvShowAdapter.ViewHolder> {
 
-    /* Store a member variable for the topRatedMovies */
-    private static ArrayList<Movie> mTopRatedMovie;
+    /* Store a member variable for the popularTvShows */
+    private static ArrayList<TvShow> mPopularTvShows;
     /* Store the context for easy access */
     private Context mContext;
 
-    /* Pass in the topRatedMovies array into the constructor */
-    public TopRatedMoviesAdapter(Context context, ArrayList<Movie> movies) {
-        mTopRatedMovie = movies;
+    /* Pass in the popularMTvShows array into the constructor */
+    public PopularTvShowAdapter(Context context, ArrayList<TvShow> tvShows) {
+        mPopularTvShows = tvShows;
         mContext = context;
     }
 
@@ -42,48 +39,48 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
     }
 
     @Override
-    public TopRatedMoviesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PopularTvShowAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movies_poster, parent, false);
+        View tvShowsView = inflater.inflate(R.layout.item_movies_poster, parent, false);
 
         /* Return a new holder instance */
-        TopRatedMoviesAdapter.ViewHolder viewHolder = new TopRatedMoviesAdapter.ViewHolder(context, moviesView);
+        PopularTvShowAdapter.ViewHolder viewHolder = new PopularTvShowAdapter.ViewHolder(context, tvShowsView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(TopRatedMoviesAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(PopularTvShowAdapter.ViewHolder viewHolder, int position) {
         Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
-        Movie currentMovie = mTopRatedMovie.get(position);
-        Log.v("############", "currentMovie called is " + currentMovie.toString());
-        Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
+        TvShow currentTvShow = mPopularTvShows.get(position);
+        Log.v("############", "currentTvShow called is " + currentTvShow.toString());
+        Log.v("############", "currentTvShow's name is " + currentTvShow.getTvShowName().toString());
         /*
         Set item views based on your views and data model
          */
-        viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMovieTitle());
-        String url = "https://image.tmdb.org/t/p/w500/" + currentMovie.getMoviePosterPath().toString();
-        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMoviePosterPath().toString());
+        viewHolder.tvShowTitleTextView.setText(currentTvShow.getTvShowName());
+        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentTvShow.getTvShowName());
+        String url = "https://image.tmdb.org/t/p/w500/" + currentTvShow.getTvShowPosterPath().toString();
+        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentTvShow.getTvShowPosterPath().toString());
         Picasso.with(getContext())
                 .load(url)
                 .placeholder(R.mipmap.ic_launcher)
-                .into(viewHolder.movieTitleImageView);
+                .into(viewHolder.tvShowTitleImageView);
     }
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mTopRatedMovie.size());
-        return mTopRatedMovie.size();
+        Log.v("############", "getItemCount called with size " + mPopularTvShows.size());
+        return mPopularTvShows.size();
     }
 
-    public void setMovieData(ArrayList<Movie> movieData) {
-        Log.v("############", "setMovieDetailsBundleData Called");
-        mTopRatedMovie = movieData;
-        Log.v("############", "mTopRatedMovie is " + mTopRatedMovie);
+    public void setTvShowData(ArrayList<TvShow> tvShowData) {
+        Log.v("############", "setTvShowDetailsBundleData Called");
+        mPopularTvShows = tvShowData;
+        Log.v("############", "mPopularTvShows is " + mPopularTvShows);
         notifyDataSetChanged();
         Log.v("############", "notifyDataSetChanged Finished");
     }
@@ -97,8 +94,8 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
         Your holder should contain a member variable
         for any view that will be set as you render a row
         */
-        public final TextView movieTitleTextView;
-        public final ImageView movieTitleImageView;
+        public final TextView tvShowTitleTextView;
+        public final ImageView tvShowTitleImageView;
         private Context context;
 
         /*
@@ -111,12 +108,13 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
-            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
+            tvShowTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
+            tvShowTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
             this.context = context;
             /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);
         }
+
         /*The codes below and at some other places throughout the app related to RecyclerView has been
         * taken from multiple sources on the web including from the following @link:
         * "https://guides.codepath.com/android/using-the-recyclerview
@@ -126,13 +124,13 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Movie currentMovie = mTopRatedMovie.get(position);
+                TvShow currentTvShow = mPopularTvShows.get(position);
                 // We can access the data within the views
-                Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
-                Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
-                movieDetailIntent.putExtra("movie", currentMovie);
-
-                context.startActivity(movieDetailIntent);
+//                Toast.makeText(context, "" + currentTvShow.getTvShowName(), Toast.LENGTH_SHORT).show();
+//                Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
+//                movieDetailIntent.putExtra("movie", currentTvShow);
+//
+//                context.startActivity(movieDetailIntent);
             }
         }
     }

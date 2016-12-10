@@ -29,7 +29,8 @@ public class UrlsAndConstants {
         public static final String DESCENDING = ".desc";
         public static final String ASCENDING = ".asc";
     }
-    public class  DetailQuery{
+
+    public class MovieDetailQuery {
         /*
         * General URL for discovering a movie details by making use of its id from the TheMovieDb API
         * @link" "https://api.themoviedb.org/3/movie/284052?api_key=4182aa25bab27d06344e404f65c4ae76&append_to_response=videos,reviews"
@@ -46,5 +47,9 @@ public class UrlsAndConstants {
         public static final String VIDEOS_AND_REVIEWS = "videos,reviews";
         public static final String VIDEOS_AND_REVIEWS_AND_CREDITS = "videos,reviews,credits";
 
+    }
+
+    public class TvPosterQuery {
+        public static final String DISCOVER_TV_SHOW_DEFAULT_URL = "https://api.themoviedb.org/3/discover/tv";
     }
 }

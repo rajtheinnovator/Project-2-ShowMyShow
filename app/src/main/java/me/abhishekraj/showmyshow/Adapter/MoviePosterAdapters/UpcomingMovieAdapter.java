@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.Activity.MovieDetailsActivity;
-import me.abhishekraj.showmyshow.Model.Movie;
+import me.abhishekraj.showmyshow.Model.Movie.Movie;
 import me.abhishekraj.showmyshow.R;
 
 /**
@@ -30,63 +30,15 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
     /* Store the context for easy access */
     private Context mContext;
 
-    /* Easy access to the context object in the recyclerview */
-    private Context getContext() {
-        return mContext;
-    }
-
-    /*
-     Provide a direct reference to each of the views within a data item
-     Used to cache the views within the item layout for fast access
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        /*
-        Your holder should contain a member variable
-        for any view that will be set as you render a row
-        */
-        public final TextView movieTitleTextView;
-        public final ImageView movieTitleImageView;
-        private Context context;
-
-        /*
-        We also create a constructor that accepts the entire item row
-        and does the view lookups to find each subview
-        */
-        public ViewHolder(Context context, View itemView) {
-            /*
-            Stores the itemView in a public final member variable that can be used
-            to access the context from any ViewHolder instance.
-            */
-            super(itemView);
-            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
-            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
-            this.context = context;
-            /* Attach a click listener to the entire row view */
-            itemView.setOnClickListener(this);
-        }
-        /*The codes below and at some other places throughout the app related to RecyclerView has been
-        * taken from multiple sources on the web including from the following @link:
-        * "https://guides.codepath.com/android/using-the-recyclerview
-        */
-        /* Handles the row being being clicked */
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition(); // gets item position
-            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Movie currentMovie = mUpcomingMovie.get(position);
-                // We can access the data within the views
-                Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
-                Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
-                movieDetailIntent.putExtra("movie", currentMovie);
-                context.startActivity(movieDetailIntent);
-            }
-        }
-    }
-
     /* Pass in the popularMovies array into the constructor */
     public UpcomingMovieAdapter(Context context, ArrayList<Movie> movies) {
         mUpcomingMovie = movies;
         mContext = context;
+    }
+
+    /* Easy access to the context object in the recyclerview */
+    private Context getContext() {
+        return mContext;
     }
 
     @Override
@@ -134,5 +86,54 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         Log.v("############", "mUpcomingMovie is " + mUpcomingMovie);
         notifyDataSetChanged();
         Log.v("############", "notifyDataSetChanged Finished");
+    }
+
+    /*
+     Provide a direct reference to each of the views within a data item
+     Used to cache the views within the item layout for fast access
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        /*
+        Your holder should contain a member variable
+        for any view that will be set as you render a row
+        */
+        public final TextView movieTitleTextView;
+        public final ImageView movieTitleImageView;
+        private Context context;
+
+        /*
+        We also create a constructor that accepts the entire item row
+        and does the view lookups to find each subview
+        */
+        public ViewHolder(Context context, View itemView) {
+            /*
+            Stores the itemView in a public final member variable that can be used
+            to access the context from any ViewHolder instance.
+            */
+            super(itemView);
+            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
+            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
+            this.context = context;
+            /* Attach a click listener to the entire row view */
+            itemView.setOnClickListener(this);
+        }
+
+        /*The codes below and at some other places throughout the app related to RecyclerView has been
+        * taken from multiple sources on the web including from the following @link:
+        * "https://guides.codepath.com/android/using-the-recyclerview
+        */
+        /* Handles the row being being clicked */
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Movie currentMovie = mUpcomingMovie.get(position);
+                // We can access the data within the views
+                Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
+                Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
+                movieDetailIntent.putExtra("movie", currentMovie);
+                context.startActivity(movieDetailIntent);
+            }
+        }
     }
 }

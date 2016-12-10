@@ -13,11 +13,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Credits;
-import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Model.Movie.Credits;
+import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
 import me.abhishekraj.showmyshow.R;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.DetailQuery.BASE_IMAGE_URL;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.BASE_IMAGE_URL;
 
 /**
  * Created by ABHISHEK RAJ on 12/9/2016.

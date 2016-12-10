@@ -12,8 +12,8 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Review;
+import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.Model.Movie.Review;
 import me.abhishekraj.showmyshow.R;
 
 /**

@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model;
+package me.abhishekraj.showmyshow.Model.Movie;
 
 import android.os.Parcel;
 import android.os.Parcelable;
