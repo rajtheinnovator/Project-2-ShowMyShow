@@ -9,9 +9,11 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -88,6 +90,14 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         tvShowDetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
         tvShowReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
         tvShowRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
+
+         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar for this Fragment
+        *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
+        *  @link http://stackoverflow.com/a/32858049/5770629
+        */
+        final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /*Creating a collapsing toolbar, defined in the fragment_movie_details.xml  */
         collapsingToolbar =

@@ -81,8 +81,14 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mVideo.size());
-        return mVideo.size();
+        int size = 0;
+        if (mVideo.isEmpty()) {
+            size = 0;
+        } else {
+            size = mVideo.size();
+        }
+        Log.v("############", "getItemCount called with size " + size);
+        return size;
     }
 
     public void setTvShowDetailsBundleData(TvShowDetailsBundle tvShowBundledData) {

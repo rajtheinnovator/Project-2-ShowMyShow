@@ -232,6 +232,8 @@ public class TvShowDetailsQueryUtils {
                         }
                     }
                 }
+            } else {
+                videos.add(new Video());
             }
             if (tv_show_json_response.has("credits")) {
                 JSONObject creditsObject = tv_show_json_response.getJSONObject("credits");
@@ -272,6 +274,10 @@ public class TvShowDetailsQueryUtils {
             tvShowDetailsBundle.setTvShow(tvShow);
         } catch (JSONException e) {
             //handle exception
+            tvShowDetailsBundle.setTvShow(new TvShow());
+            tvShowDetailsBundle.setCreditsArrayList(new ArrayList<Credits>());
+            tvShowDetailsBundle.setReviewArrayList(new ArrayList<Review>());
+            tvShowDetailsBundle.setVideoArrayList(new ArrayList<Video>());
         }
         Log.v("############", "TvShow returned is: " + tvShowDetailsBundle.toString());
         // Return the list of popularTvShows

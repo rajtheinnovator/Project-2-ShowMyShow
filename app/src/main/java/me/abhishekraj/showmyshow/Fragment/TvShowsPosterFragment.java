@@ -36,7 +36,7 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.SORT_BY_FIRST_AIR_DATES_DESCENDING;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.SORT_BY_FIRST_AIR_DATES_ASCENDING;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -237,8 +237,8 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
-            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
-            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_FIRST_AIR_DATES_DESCENDING);
+            Log.v("############***##", "uriBuilder.toString() is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_FIRST_AIR_DATES_ASCENDING);
         } else if (id == TOP_RATED_TV_SHOW_LOADER_ID) {
             Log.v("############", "onCreateLoader called with id " + TOP_RATED_TV_SHOW_LOADER_ID);
             Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
@@ -249,7 +249,9 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
         }
+        Log.v("########*****##", "URL IS " + uriBuilder.toString());
         return new TvShowPosterLoader(getActivity().getApplicationContext(), uriBuilder.toString());
+
     }
 
     @Override

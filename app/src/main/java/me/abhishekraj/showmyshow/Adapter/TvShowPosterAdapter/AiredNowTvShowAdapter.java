@@ -25,7 +25,7 @@ import me.abhishekraj.showmyshow.R;
 
 public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAdapter.ViewHolder> {
 
-    /* Store a member variable for the popularMovies */
+    /* Store a member variable for the JustAiredTvShow */
     private static ArrayList<TvShow> mAiredNowTvShows;
     /* Store the context for easy access */
     private Context mContext;
@@ -47,10 +47,10 @@ public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAd
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movies_poster, parent, false);
+        View tvShowsView = inflater.inflate(R.layout.item_movies_poster, parent, false);
 
         /* Return a new holder instance */
-        AiredNowTvShowAdapter.ViewHolder viewHolder = new AiredNowTvShowAdapter.ViewHolder(context, moviesView);
+        AiredNowTvShowAdapter.ViewHolder viewHolder = new AiredNowTvShowAdapter.ViewHolder(context, tvShowsView);
         return viewHolder;
     }
 

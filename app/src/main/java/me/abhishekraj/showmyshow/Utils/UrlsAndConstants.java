@@ -56,6 +56,6 @@ public class UrlsAndConstants {
 
     public class TvPosterQuery {
         public static final String DISCOVER_TV_SHOW_DEFAULT_URL = "https://api.themoviedb.org/3/discover/tv";
-        public static final String SORT_BY_FIRST_AIR_DATES_DESCENDING = "first_air_dates.desc";
+        public static final String SORT_BY_FIRST_AIR_DATES_ASCENDING = "first_air_dates.asc";
     }
 }
