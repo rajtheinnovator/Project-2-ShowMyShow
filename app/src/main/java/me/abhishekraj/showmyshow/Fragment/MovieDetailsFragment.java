@@ -109,7 +109,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         }
 
         if ((bundle != null)) {
-            movie = getArguments().getParcelable("tvShow");
+            movie = getArguments().getParcelable("movie");
             movieDetailTitleTextView.setText(movie.getMovieTitle());
             movieReleaseDate.setText(movie.getMovieReleaseDate());
             posterURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + movie.getMoviePosterPath();
@@ -146,18 +146,18 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
             mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
 
-            /* Create mPopularTvShowAdapter passing in the sample user data */
+            /* Create mPopularMovieAdapter passing in the sample user data */
             mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
-             /* Create mPopularTvShowAdapter passing in the sample user data */
+             /* Create mPopularMovieAdapter passing in the sample user data */
             mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
-                 /* Create mPopularTvShowAdapter passing in the sample user data */
+                 /* Create mPopularMovieAdapter passing in the sample user data */
             mMovieCreditsCastAdapter = new MovieCreditsCastAdapter(getActivity(), mMovieDetailsBundle);
 
-            /* Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items */
+            /* Attach the mPopularMovieAdapter to the reviewRecyclerView to populate items */
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
+            /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
+            /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
             mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
 
             /*
@@ -197,7 +197,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 //            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
 //            */
 //            SnapHelper snapHelper = new LinearSnapHelper();
-//            snapHelper.attachToRecyclerView(mTvShowTrailerRecyclerView);
+//            snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
 
             /*Snap code for trailer review taken from
             * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
@@ -228,7 +228,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         Log.v("############", "uriBuilder is " + uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS_AND_CREDITS);
-        Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+        Log.v("############***##", "uriBuilder.toString() is " + uriBuilder.toString());
         return new DetailsMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 
@@ -236,21 +236,21 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
         if (movieDetailsBundle != null) {
             mMovieDetailsBundle = movieDetailsBundle;
-            // Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items
+            // Attach the mPopularMovieAdapter to the reviewRecyclerView to populate items
             mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
+            // Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items
             mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mPopularTvShowAdapter.setMovieDetailsBundleData(tvShow) finished");
-            // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
+            Log.v("############", " mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle) finished");
+            // Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items
             mMovieCreditsCastAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mPopularTvShowAdapter.setMovieDetailsBundleData(tvShow) finished");
+            Log.v("############", " mMovieCreditsCastAdapter.setMovieDetailsBundleData(mMovieDetailsBundle) finished");
 
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
+            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter) finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
+            Log.v("############", " mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter) finished");
             mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
-            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
+            Log.v("############", "  mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter) finished");
             updateDurationTextView(mMovieDetailsBundle);
 
         }

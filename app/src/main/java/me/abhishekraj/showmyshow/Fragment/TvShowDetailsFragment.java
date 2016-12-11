@@ -96,6 +96,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         if (savedInstanceState == null) {
             mReview = new ArrayList<>();
             mVideo = new ArrayList<>();
+            mCredits = new ArrayList<>();
             mTvShowDetailsBundle = new TvShowDetailsBundle();
         }
 
@@ -242,7 +243,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
-            updateDurationTextView(mTvShowDetailsBundle);
+            //updateDurationTextView(mTvShowDetailsBundle);
 
         }
     }

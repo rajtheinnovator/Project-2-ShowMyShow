@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import me.abhishekraj.showmyshow.Fragment.MoviePosterFragment;
-import me.abhishekraj.showmyshow.Fragment.TvShowsFragment;
+import me.abhishekraj.showmyshow.Fragment.TvShowsPosterFragment;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -26,7 +26,7 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return new MoviePosterFragment();
         } else {
-            return new TvShowsFragment();
+            return new TvShowsPosterFragment();
         }
     }
 

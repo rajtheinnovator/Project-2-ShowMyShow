@@ -33,16 +33,16 @@ import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
 
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.DESCENDING;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.SORT_BY_FIRST_AIR_DATES_DESCENDING;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
  */
 
-public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<TvShow>> {
+public class TvShowsPosterFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<TvShow>> {
 
     private static final int POPULAR_TV_SHOW_LOADER_ID = 7777;
     private static final int AIRED_NOW_TV_SHOW_LOADER_ID = 8888;
@@ -62,7 +62,7 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
     LinearLayoutManager layoutManagerAiredNowTvShowPoster;
     LinearLayoutManager layoutManagerTopRatedTvShowPoster;
 
-    public TvShowsFragment() {
+    public TvShowsPosterFragment() {
         // Required empty public constructor
     }
 
@@ -238,7 +238,7 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
-            uriBuilder.appendQueryParameter(SORT_BY_KEY, DESCENDING);
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_FIRST_AIR_DATES_DESCENDING);
         } else if (id == TOP_RATED_TV_SHOW_LOADER_ID) {
             Log.v("############", "onCreateLoader called with id " + TOP_RATED_TV_SHOW_LOADER_ID);
             Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
