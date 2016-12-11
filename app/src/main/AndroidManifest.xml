@@ -24,6 +24,7 @@
             android:name=".Activity.MovieDetailsActivity"
             android:parentActivityName=".Activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.TvShowDetailsActivity"></activity>
     </application>
 
 </manifest>

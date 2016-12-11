@@ -22,7 +22,7 @@ import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
  * Created by ABHISHEK RAJ on 12/10/2016.
  */
 
-public class TvPosterQueryDetails {
+public class TvShowPosterQueryDetails {
     private static String posterPath;
     private static Double popularity;
     private static int id;
@@ -38,11 +38,11 @@ public class TvPosterQueryDetails {
     */
 
     /**
-     * Create a private constructor because no one should ever create a {@link TvPosterQueryDetails} object.
+     * Create a private constructor because no one should ever create a {@link TvShowPosterQueryDetails} object.
      * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name TvPosterQueryDetails (and an object instance of TvPosterQueryDetails is not needed).
+     * directly from the class name TvShowPosterQueryDetails (and an object instance of TvShowPosterQueryDetails is not needed).
      */
-    private TvPosterQueryDetails() {
+    private TvShowPosterQueryDetails() {
     }
 
     /**

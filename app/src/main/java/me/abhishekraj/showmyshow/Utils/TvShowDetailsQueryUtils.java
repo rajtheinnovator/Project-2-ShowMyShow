@@ -16,16 +16,17 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie.Credits;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
-import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Movie.Review;
-import me.abhishekraj.showmyshow.Model.Movie.Video;
+import me.abhishekraj.showmyshow.Model.TvShow.Credits;
+import me.abhishekraj.showmyshow.Model.TvShow.Review;
+import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
+import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
+import me.abhishekraj.showmyshow.Model.TvShow.Video;
 
 /**
- * Created by ABHISHEK RAJ on 12/1/2016.
+ * Created by ABHISHEK RAJ on 12/10/2016.
  */
-public class MovieDetailsQueryUtils {
+
+public class TvShowDetailsQueryUtils {
     private static String character;
     private static String creditId;
     private static String name;
@@ -34,17 +35,18 @@ public class MovieDetailsQueryUtils {
     private static int id;
 
     /**
-     * Create a private constructor because no one should ever create a {@link MoviePosterQueryUtils} object.
+     * Create a private constructor because no one should ever create a {@link TvShowDetailsQueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name MoviePosterQueryUtils (and an object instance of MoviePosterQueryUtils is not needed).
+     * directly from the class name TvShowDetailsQueryUtils (and an object instance of TvShowDetailsQueryUtils is not needed).
      */
-    private MovieDetailsQueryUtils() {
+    private TvShowDetailsQueryUtils() {
     }
 
     /**
-     * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
+     * Query the TheMovieDb dataset and return an {@link me.abhishekraj.showmyshow.Model.TvShow.TvShow}
+     * ArrayList to represent a single TvShow.
      */
-    public static MovieDetailsBundle fetchMovieData(String requestUrl) {
+    public static TvShowDetailsBundle fetchTvShowData(String requestUrl) {
         Log.v("############", "fetchTvShowData called");
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -58,10 +60,10 @@ public class MovieDetailsQueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create an {@link Event} object
-        MovieDetailsBundle movieDetailsBundle = extractFeatureFromJson(jsonResponse);
+        TvShowDetailsBundle tvShowDetailsBundle = extractFeatureFromJson(jsonResponse);
 
         // Return the {@link Event}
-        return movieDetailsBundle;
+        return tvShowDetailsBundle;
     }
 
     /**
@@ -140,20 +142,20 @@ public class MovieDetailsQueryUtils {
     }
 
     /**
-     * Return a list of {@link Movie} objects that has been built up from
+     * Return a list of {@link me.abhishekraj.showmyshow.Model.TvShow.TvShow} objects that has been built up from
      * parsing a JSON response.
      */
-    public static MovieDetailsBundle extractFeatureFromJson(String jsonResponse) {
+    public static TvShowDetailsBundle extractFeatureFromJson(String jsonResponse) {
         Log.v("############", "extractFeatureFromJson called");
         Log.v("############", "jsonResponse" + jsonResponse);
 
-        // Create an empty ArrayList that we can start adding popularMovies to
+        // Create an empty ArrayList that we can start adding tvShows to
         ArrayList<Review> reviews = new ArrayList<Review>();
         ArrayList<Video> videos = new ArrayList<Video>();
         ArrayList<Credits> credits = new ArrayList<>();
-        Movie movie = new Movie();
-        // Create a MovieDetailsBundle and initialize it
-        MovieDetailsBundle movieDetailsBundle = new MovieDetailsBundle();
+        TvShow tvShow = new TvShow();
+        // Create a TvShowDetailsBundle and initialize it
+        TvShowDetailsBundle tvShowDetailsBundle = new TvShowDetailsBundle();
 
         /*
         Try to parse the received jsonResponse. If there's a problem with the way the JSON
@@ -162,10 +164,10 @@ public class MovieDetailsQueryUtils {
         */
         try {
             // Parse the jsonResponse string
-            JSONObject movie_json_response = new JSONObject(jsonResponse);
-            Log.v("############", "JSONObject is: " + movie_json_response.toString());
-            if (movie_json_response.has("reviews")) {
-                JSONObject mainReviewObject = movie_json_response.getJSONObject("reviews");
+            JSONObject tv_show_json_response = new JSONObject(jsonResponse);
+            Log.v("############", "JSONObject is: " + tv_show_json_response.toString());
+            if (tv_show_json_response.has("reviews")) {
+                JSONObject mainReviewObject = tv_show_json_response.getJSONObject("reviews");
                 if (mainReviewObject.has("results")) {
                     JSONArray resultsArray = mainReviewObject.getJSONArray("results");
                     if (resultsArray.length() > 0) {
@@ -179,8 +181,8 @@ public class MovieDetailsQueryUtils {
                     }
                 }
             }
-            if (movie_json_response.has("videos")) {
-                JSONObject mainVideoObject = movie_json_response.getJSONObject("videos");
+            if (tv_show_json_response.has("videos")) {
+                JSONObject mainVideoObject = tv_show_json_response.getJSONObject("videos");
                 if (mainVideoObject.has("results")) {
                     JSONArray videoResultsArray = mainVideoObject.getJSONArray("results");
                     if (videoResultsArray.length() > 0) {
@@ -196,13 +198,8 @@ public class MovieDetailsQueryUtils {
                     }
                 }
             }
-            if (movie_json_response.has("runtime")) {
-                int runTime = movie_json_response.getInt("runtime");
-                //movie = new Movie(runTime);
-                movie.setMovieRunTimeDuration(runTime);
-            }
-            if (movie_json_response.has("credits")) {
-                JSONObject creditsObject = movie_json_response.getJSONObject("credits");
+            if (tv_show_json_response.has("credits")) {
+                JSONObject creditsObject = tv_show_json_response.getJSONObject("credits");
                 if (creditsObject.has("cast")) {
                     JSONArray castArray = creditsObject.getJSONArray("cast");
                     if (castArray.length() > 0) {
@@ -234,16 +231,16 @@ public class MovieDetailsQueryUtils {
             }
             Log.v("############", "Size of reviews is" + reviews.size());
             Log.v("############", "Size of videos is" + videos.size());
-            movieDetailsBundle.setReviewArrayList(reviews);
-            movieDetailsBundle.setVideoArrayList(videos);
-            movieDetailsBundle.setCreditsArrayList(credits);
-            movieDetailsBundle.setMovie(movie);
+            tvShowDetailsBundle.setReviewArrayList(reviews);
+            tvShowDetailsBundle.setVideoArrayList(videos);
+            tvShowDetailsBundle.setCreditsArrayList(credits);
+            tvShowDetailsBundle.setTvShow(tvShow);
         } catch (JSONException e) {
             //handle exception
         }
-        Log.v("############", "Movies returned is: " + movieDetailsBundle.toString());
-        // Return the list of popularMovies
-        return movieDetailsBundle;
+        Log.v("############", "TvShow returned is: " + tvShowDetailsBundle.toString());
+        // Return the list of popularTvShows
+        return tvShowDetailsBundle;
     }
 }
 

@@ -9,11 +9,9 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,15 +26,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieCreditsCastAdapter;
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieReviewAdapter;
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieTrailerAdapter;
-import me.abhishekraj.showmyshow.Model.Movie.Credits;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
-import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Movie.Review;
-import me.abhishekraj.showmyshow.Model.Movie.Video;
-import me.abhishekraj.showmyshow.Network.DetailsMovieLoader;
+import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowCreditsCastAdapter;
+import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowReviewAdapter;
+import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowTrailerAdapter;
+import me.abhishekraj.showmyshow.Model.TvShow.Credits;
+import me.abhishekraj.showmyshow.Model.TvShow.Review;
+import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
+import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
+import me.abhishekraj.showmyshow.Model.TvShow.Video;
+import me.abhishekraj.showmyshow.Network.DetailsTvShowLoader;
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
 
@@ -45,36 +43,37 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.APPEND_TO_RESPONSE;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
 
+
 /**
- * Created by ABHISHEK RAJ on 11/26/2016.
+ * Created by ABHISHEK RAJ on 12/10/2016.
  */
 
-public class MovieDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<MovieDetailsBundle> {
+public class TvShowDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<TvShowDetailsBundle> {
 
-    private static final int MOVIE_DETAIL_LOADER_ID = 2;
+    private static final int TV_SHOW_DETAIL_LOADER_ID = 3;
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
     public ArrayList<Credits> mCredits;
-    MovieReviewAdapter mMovieReviewAdapter;
-    MovieCreditsCastAdapter mMovieCreditsCastAdapter;
-    MovieTrailerAdapter mMovieTrailerAdapter;
-    RecyclerView mMovieReviewRecyclerView;
-    RecyclerView mMovieTrailerRecyclerView;
-    RecyclerView mMovieCastRecyclerView;
-    Movie movie;
-    TextView movieDetailTitleTextView;
-    ImageView movieDetailTitleImageView;
-    ImageView moviedetailsBackdropImageView;
+    TvShowReviewAdapter mTvShowReviewAdapter;
+    TvShowCreditsCastAdapter mTvShowCreditsCastAdapter;
+    TvShowTrailerAdapter mTvShowTrailerAdapter;
+    RecyclerView mTvShowReviewRecyclerView;
+    RecyclerView mTvShowTrailerRecyclerView;
+    RecyclerView mTvShowCastRecyclerView;
+    TvShow tvShow;
+    TextView tvShowDetailTitleTextView;
+    ImageView tvShowDetailTitleImageView;
+    ImageView tvShowDetailsBackdropImageView;
     CollapsingToolbarLayout collapsingToolbar;
     String posterURL;
     String backdropURL;
-    TextView movieReleaseDate;
-    TextView movieRunTimeDuration;
-    private MovieDetailsBundle mMovieDetailsBundle;
-    private int mMovieDuration;
-    private String mMovieDurationString;
+    TextView tvShowReleaseDate;
+    TextView tvShowRunTimeDuration;
+    private TvShowDetailsBundle mTvShowDetailsBundle;
+    private int mTvShowDuration;
+    private String mTvShowDurationString;
 
-    public MovieDetailsFragment() {
+    public TvShowDetailsFragment() {
         // Required empty public constructor
     }
 
@@ -84,19 +83,11 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
         Bundle bundle = getArguments();
-        movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.movie_detail_title_text_view);
-        movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
-        moviedetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
-        movieReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
-        movieRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
-
-        /* As there is no actionbar defined in the Style for this activity, so creating one toolbar for this Fragment
-        *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
-        *  @link http://stackoverflow.com/a/32858049/5770629
-        */
-        final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tvShowDetailTitleTextView = (TextView) rootView.findViewById(R.id.movie_detail_title_text_view);
+        tvShowDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
+        tvShowDetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
+        tvShowReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
+        tvShowRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
 
         /*Creating a collapsing toolbar, defined in the fragment_movie_details.xml  */
         collapsingToolbar =
@@ -105,28 +96,28 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         if (savedInstanceState == null) {
             mReview = new ArrayList<>();
             mVideo = new ArrayList<>();
-            mMovieDetailsBundle = new MovieDetailsBundle();
+            mTvShowDetailsBundle = new TvShowDetailsBundle();
         }
 
         if ((bundle != null)) {
-            movie = getArguments().getParcelable("tvShow");
-            movieDetailTitleTextView.setText(movie.getMovieTitle());
-            movieReleaseDate.setText(movie.getMovieReleaseDate());
-            posterURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + movie.getMoviePosterPath();
-            backdropURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + movie.getMovieBackdropPath();
-            collapsingToolbar.setTitle(movie.getMovieTitle());
+            tvShow = getArguments().getParcelable("tvShow");
+            tvShowDetailTitleTextView.setText(tvShow.getTvShowName());
+            tvShowReleaseDate.setText(tvShow.getTvShowFirstAirDate());
+            posterURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + tvShow.getTvShowPosterPath();
+            backdropURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + tvShow.getTvShowBackdropPath();
+            collapsingToolbar.setTitle(tvShow.getTvShowName());
             Picasso.with(getContext())
                     .load(posterURL)
                     .placeholder(R.mipmap.ic_launcher)
-                    .into(movieDetailTitleImageView);
+                    .into(tvShowDetailTitleImageView);
             Picasso.with(getContext())
                     .load(backdropURL)
                     .placeholder(R.mipmap.ic_launcher)
-                    .into(moviedetailsBackdropImageView);
+                    .into(tvShowDetailsBackdropImageView);
 
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
             SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
-            simpleRatingBar.setRating((float) (movie.getMovieVoteAverage()) / 2);
+            simpleRatingBar.setRating((float) (tvShow.getTvShowVoteAverage()) / 2);
 
              /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
@@ -142,56 +133,56 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             RecyclerView Codes are referenced from the @link: "https://guides.codepath.com/android/using-the-recyclerview"
             Lookup the recyclerview in activity layout
             */
-            mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
-            mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
-            mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
+            mTvShowReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
+            mTvShowTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
+            mTvShowCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
 
             /* Create mPopularTvShowAdapter passing in the sample user data */
-            mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
+            mTvShowReviewAdapter = new TvShowReviewAdapter(getActivity(), mTvShowDetailsBundle);
              /* Create mPopularTvShowAdapter passing in the sample user data */
-            mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
+            mTvShowTrailerAdapter = new TvShowTrailerAdapter(getActivity(), mTvShowDetailsBundle);
                  /* Create mPopularTvShowAdapter passing in the sample user data */
-            mMovieCreditsCastAdapter = new MovieCreditsCastAdapter(getActivity(), mMovieDetailsBundle);
+            mTvShowCreditsCastAdapter = new TvShowCreditsCastAdapter(getActivity(), mTvShowDetailsBundle);
 
             /* Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items */
-            mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
+            mTvShowReviewRecyclerView.setAdapter(mTvShowReviewAdapter);
             /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
-            mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
+            mTvShowTrailerRecyclerView.setAdapter(mTvShowTrailerAdapter);
             /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
-            mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
+            mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
 
             /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-            LinearLayoutManager layoutManagerMovieReview = new LinearLayoutManager(getActivity(),
+            LinearLayoutManager layoutManagerTvShowReview = new LinearLayoutManager(getActivity(),
                     LinearLayoutManager.VERTICAL, false);
             /* Optionally customize the position you want to default scroll to */
-            layoutManagerMovieReview.scrollToPosition(0);
+            layoutManagerTvShowReview.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-            mMovieReviewRecyclerView.setLayoutManager(layoutManagerMovieReview);
+            mTvShowReviewRecyclerView.setLayoutManager(layoutManagerTvShowReview);
 
             /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-            LinearLayoutManager layoutManagerMovietrailer = new LinearLayoutManager(getActivity(),
+            LinearLayoutManager layoutManagerTvShowtrailer = new LinearLayoutManager(getActivity(),
                     LinearLayoutManager.HORIZONTAL, false);
             /* Optionally customize the position you want to default scroll to */
-            layoutManagerMovietrailer.scrollToPosition(0);
+            layoutManagerTvShowtrailer.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-            mMovieTrailerRecyclerView.setLayoutManager(layoutManagerMovietrailer);
+            mTvShowTrailerRecyclerView.setLayoutManager(layoutManagerTvShowtrailer);
 
                /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-            LinearLayoutManager layoutManagerMovieCast = new LinearLayoutManager(getActivity(),
+            LinearLayoutManager layoutManagerTvShowCast = new LinearLayoutManager(getActivity(),
                     LinearLayoutManager.HORIZONTAL, false);
             /* Optionally customize the position you want to default scroll to */
-            layoutManagerMovietrailer.scrollToPosition(0);
+            layoutManagerTvShowtrailer.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-            mMovieCastRecyclerView.setLayoutManager(layoutManagerMovieCast);
+            mTvShowCastRecyclerView.setLayoutManager(layoutManagerTvShowCast);
 
 //            /*
 //            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
@@ -204,10 +195,10 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             */
 
             SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
-            snapHelperStart.attachToRecyclerView(mMovieTrailerRecyclerView);
+            snapHelperStart.attachToRecyclerView(mTvShowTrailerRecyclerView);
 
             SnapHelper snapHelperCastStart = new GravitySnapHelper(Gravity.START);
-            snapHelperCastStart.attachToRecyclerView(mMovieCastRecyclerView);
+            snapHelperCastStart.attachToRecyclerView(mTvShowCastRecyclerView);
         }
         return rootView;
     }
@@ -215,63 +206,64 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     private void startLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
         Log.v("############", "startLoaderManager started");
-        loaderManager.initLoader(MOVIE_DETAIL_LOADER_ID, null, this);
+        loaderManager.initLoader(TV_SHOW_DETAIL_LOADER_ID, null, this);
         Log.v("############", "startLoaderManager finished");
     }
 
     @Override
-    public Loader<MovieDetailsBundle> onCreateLoader(int id, Bundle args) {
+    public Loader<TvShowDetailsBundle> onCreateLoader(int id, Bundle args) {
         Log.v("############", "onCreateLoader called");
-        Uri baseUri = Uri.parse((UrlsAndConstants.MovieDetailQuery.DEFAULT_URL) + movie.getMovieId());
+        Uri baseUri = Uri.parse((UrlsAndConstants.TvShowDetailQuery.DEFAULT_URL) + tvShow.getTvShowId());
         Log.v("############", "baseUri is " + baseUri.toString());
         Uri.Builder uriBuilder = baseUri.buildUpon();
         Log.v("############", "uriBuilder is " + uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS_AND_CREDITS);
         Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
-        return new DetailsMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
+        return new DetailsTvShowLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 
     @Override
-    public void onLoadFinished(Loader<MovieDetailsBundle> loader, MovieDetailsBundle movieDetailsBundle) {
-        if (movieDetailsBundle != null) {
-            mMovieDetailsBundle = movieDetailsBundle;
+    public void onLoadFinished(Loader<TvShowDetailsBundle> loader, TvShowDetailsBundle tvShowDetailsBundle) {
+        if (tvShowDetailsBundle != null) {
+            mTvShowDetailsBundle = tvShowDetailsBundle;
             // Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items
-            mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
+            mTvShowReviewAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
             // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
-            mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mPopularTvShowAdapter.setMovieDetailsBundleData(tvShow) finished");
+            mTvShowTrailerAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
+            Log.v("############", " mPopularTvShowAdapter.setTvShowDetailsBundleData(tvShow) finished");
             // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
-            mMovieCreditsCastAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mPopularTvShowAdapter.setMovieDetailsBundleData(tvShow) finished");
+            mTvShowCreditsCastAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
+            Log.v("############", " mPopularTvShowAdapter.setTvShowDetailsBundleData(tvShow) finished");
 
-            mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
+            mTvShowReviewRecyclerView.setAdapter(mTvShowReviewAdapter);
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
-            mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
+            mTvShowTrailerRecyclerView.setAdapter(mTvShowTrailerAdapter);
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
-            mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
+            mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
-            updateDurationTextView(mMovieDetailsBundle);
+            updateDurationTextView(mTvShowDetailsBundle);
 
         }
     }
 
-    public void updateDurationTextView(MovieDetailsBundle movieDetailsBundle) {
+    public void updateDurationTextView(TvShowDetailsBundle tvShowDetailsBundle) {
 
-        mMovieDuration = movieDetailsBundle.getMovie().getMovieRuntimeDuration();
-        if (mMovieDuration < 60) {
-            mMovieDurationString = String.valueOf(mMovieDuration) + "mins";
-        } else if (60 < mMovieDuration && mMovieDuration < 120) {
-            mMovieDurationString = "1 Hrs " + String.valueOf(mMovieDuration - 60) + "mins";
-        } else if (120 < mMovieDuration && mMovieDuration < 180) {
-            mMovieDurationString = "2 Hrs " + String.valueOf(mMovieDuration - 120) + "mins";
+        mTvShowDuration = tvShowDetailsBundle.getTvShow().getTvShowId();
+        if (mTvShowDuration < 60) {
+            mTvShowDurationString = String.valueOf(mTvShowDuration) + "mins";
+        } else if (60 < mTvShowDuration && mTvShowDuration < 120) {
+            mTvShowDurationString = "1 Hrs " + String.valueOf(mTvShowDuration - 60) + "mins";
+        } else if (120 < mTvShowDuration && mTvShowDuration < 180) {
+            mTvShowDurationString = "2 Hrs " + String.valueOf(mTvShowDuration - 120) + "mins";
         } else {
-            mMovieDurationString = "3 Hrs " + String.valueOf(mMovieDuration - 180) + "mins";
+            mTvShowDurationString = "3 Hrs " + String.valueOf(mTvShowDuration - 180) + "mins";
         }
-        movieRunTimeDuration.setText(mMovieDurationString);
+        tvShowRunTimeDuration.setText(mTvShowDurationString);
     }
 
     @Override
-    public void onLoaderReset(Loader<MovieDetailsBundle> loader) {
+    public void onLoaderReset(Loader<TvShowDetailsBundle> loader) {
     }
 }
+

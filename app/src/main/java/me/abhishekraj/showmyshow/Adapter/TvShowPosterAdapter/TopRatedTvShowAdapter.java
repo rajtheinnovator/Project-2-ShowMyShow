@@ -1,6 +1,7 @@
 package me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.Activity.TvShowDetailsActivity;
 import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
 import me.abhishekraj.showmyshow.R;
 
@@ -124,13 +127,13 @@ public class TopRatedTvShowAdapter extends RecyclerView.Adapter<TopRatedTvShowAd
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-//                Movie currentMovie = mTopRatedMovie.get(position);
-//                // We can access the data within the views
-//                Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
-//                Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
-//                movieDetailIntent.putExtra("movie", currentMovie);
-//
-//                context.startActivity(movieDetailIntent);
+                TvShow currentTvShow = mTopRatedTvShows.get(position);
+                // We can access the data within the views
+                Toast.makeText(context, "" + currentTvShow.getTvShowName(), Toast.LENGTH_SHORT).show();
+                Intent tvShowDetailIntent = new Intent(context, TvShowDetailsActivity.class);
+                tvShowDetailIntent.putExtra("tvShow", currentTvShow);
+
+                context.startActivity(tvShowDetailIntent);
             }
         }
     }

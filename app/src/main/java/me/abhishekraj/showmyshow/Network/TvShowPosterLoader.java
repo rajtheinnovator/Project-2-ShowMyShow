@@ -7,13 +7,13 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
-import me.abhishekraj.showmyshow.Utils.TvPosterQueryDetails;
+import me.abhishekraj.showmyshow.Utils.TvShowPosterQueryDetails;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
  */
 
-public class TvPosterLoader extends AsyncTaskLoader {
+public class TvShowPosterLoader extends AsyncTaskLoader {
 
     /**
      * Query URL
@@ -21,13 +21,13 @@ public class TvPosterLoader extends AsyncTaskLoader {
     private String mUrl;
 
     /**
-     * Constructs a new {@link TvPosterLoader}.
+     * Constructs a new {@link TvShowPosterLoader}.
      *
      * @param context of the activity
      * @param url     to load data from
      */
 
-    public TvPosterLoader(Context context, String url) {
+    public TvShowPosterLoader(Context context, String url) {
         super(context);
         mUrl = url;
         Log.v("############", "url is " + mUrl);
@@ -50,7 +50,7 @@ public class TvPosterLoader extends AsyncTaskLoader {
         }
         Log.v("############", "loadInBackground called");
         // Perform the network request, parse the response, and extract a list of news.
-        ArrayList<TvShow> tvShows = TvPosterQueryDetails.fetchTvShowData(mUrl);
+        ArrayList<TvShow> tvShows = TvShowPosterQueryDetails.fetchTvShowData(mUrl);
         Log.v("############", "loadInBackground finished");
         return tvShows;
     }

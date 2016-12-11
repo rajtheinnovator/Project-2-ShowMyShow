@@ -50,7 +50,7 @@ public class MoviePosterQueryUtils {
      * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
      */
     public static ArrayList<Movie> fetchMovieData(String requestUrl) {
-        Log.v("############", "fetchMovieData called");
+        Log.v("############", "fetchTvShowData called");
         // Create URL object
         URL url = createUrl(requestUrl);
 

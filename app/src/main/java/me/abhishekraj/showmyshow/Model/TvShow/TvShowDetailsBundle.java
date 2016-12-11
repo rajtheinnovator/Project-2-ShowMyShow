@@ -7,7 +7,9 @@ import java.util.ArrayList;
  */
 
 public class TvShowDetailsBundle {
-    public ArrayList<TvShow> mTvShowArrayList;
+    public ArrayList<Review> mReview;
+    public ArrayList<Video> mVideo;
+    public ArrayList<Credits> mCredits;
     public TvShow mTvShow;
 
     /*
@@ -16,17 +18,35 @@ public class TvShowDetailsBundle {
     public TvShowDetailsBundle() {
     }
 
-    public TvShowDetailsBundle(ArrayList tvShowArrayList, TvShow tvShow) {
-        mTvShowArrayList = tvShowArrayList;
-        mTvShow = tvShow;
+    public TvShowDetailsBundle(ArrayList review, ArrayList video, TvShow movie, ArrayList credits) {
+        mReview = review;
+        mVideo = video;
+        mTvShow = movie;
+        mCredits = credits;
     }
 
-    public ArrayList<TvShow> getTvShowArrayList() {
-        return mTvShowArrayList;
+    public ArrayList<Review> getReviewArrayList() {
+        return mReview;
     }
 
-    public void setTvShowArrayList(ArrayList<TvShow> tvShows) {
-        mTvShowArrayList = tvShows;
+    public void setReviewArrayList(ArrayList<Review> reviews) {
+        mReview = reviews;
+    }
+
+    public ArrayList<Video> getVideoArrayList() {
+        return mVideo;
+    }
+
+    public void setVideoArrayList(ArrayList<Video> video) {
+        mVideo = video;
+    }
+
+    public ArrayList<Credits> getCreditsArrayList() {
+        return mCredits;
+    }
+
+    public void setCreditsArrayList(ArrayList<Credits> credits) {
+        mCredits = credits;
     }
 
     public TvShow getTvShow() {

@@ -7,6 +7,11 @@ import me.abhishekraj.showmyshow.BuildConfig;
  */
 
 public class UrlsAndConstants {
+    public static class TvShowDetailQuery {
+        public static final String DEFAULT_URL =
+                "https://api.themoviedb.org/3/tv/";
+    }
+
     public class MoviePosterQuery {
         /*
         * General URL for discovering a movie from the TheMovieDb API

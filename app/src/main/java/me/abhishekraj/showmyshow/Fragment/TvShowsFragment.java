@@ -27,7 +27,7 @@ import me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter.AiredNowTvShowAdapt
 import me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter.PopularTvShowAdapter;
 import me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter.TopRatedTvShowAdapter;
 import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
-import me.abhishekraj.showmyshow.Network.TvPosterLoader;
+import me.abhishekraj.showmyshow.Network.TvShowPosterLoader;
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
 
@@ -249,7 +249,7 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
         }
-        return new TvPosterLoader(getActivity().getApplicationContext(), uriBuilder.toString());
+        return new TvShowPosterLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 
     @Override
