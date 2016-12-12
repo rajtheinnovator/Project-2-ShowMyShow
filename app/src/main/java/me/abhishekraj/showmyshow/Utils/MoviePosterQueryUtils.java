@@ -34,6 +34,8 @@ public class MoviePosterQueryUtils {
     private static String movieBackdropPath;
     private static String movieReleaseDate;
 
+    private static ArrayList<Movie> movies;
+
     /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
     * and the reference link on the github for that project is @link: https://github.com/rajtheinnovator/NewsToday
     */
@@ -153,7 +155,7 @@ public class MoviePosterQueryUtils {
         Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding popularMovies to
-        ArrayList<Movie> movies = new ArrayList<Movie>();
+        movies = new ArrayList<Movie>();
         // Create a Movie reference
         Movie movie;
 
@@ -165,50 +167,54 @@ public class MoviePosterQueryUtils {
         try {
             // Parse the jsonResponse string
             JSONObject movie_json_response = new JSONObject(jsonResponse);
-                Log.v("############", "JSONObject is: " + movie_json_response.toString());
-                if (movie_json_response.has("results")) {
-                    JSONArray resultsArray = movie_json_response.getJSONArray("results");
-                    if (resultsArray.length() > 0) {
-                        for (int i = 0; i < resultsArray.length(); i++) {
-                            JSONObject movieDetail = resultsArray.getJSONObject(i);
-                            if (movieDetail.has("title")) {
-                                movieTitle = movieDetail.getString("title");
-                            }
-                            if (movieDetail.has("id")) {
-                                movieId = movieDetail.getInt("id");
-                            }
-                            if (movieDetail.has("poster_path")) {
-                                moviePosterPath = movieDetail.getString("poster_path");
-                            }
-                            if (movieDetail.has("overview")) {
-                                movieOverview = movieDetail.getString("overview");
-                            }
-                            if (movieDetail.has("original_title")) {
-                                movieOriginalTitle = movieDetail.getString("original_title");
-                            }
-                            if (movieDetail.has("backdrop_path")) {
-                                movieBackdropPath = movieDetail.getString("backdrop_path");
-                            }
-                            if (movieDetail.has("popularity")) {
-                                moviePopularity = movieDetail.getDouble("popularity");
-                            }
-                            if (movieDetail.has("vote_count")) {
-                                movieVoteCount = movieDetail.getDouble("vote_count");
-                            }
-                            if (movieDetail.has("vote_average")) {
-                                movieVoteAverage = movieDetail.getDouble("vote_average");
-                            }
-                            if (movieDetail.has("release_date")){
-                                movieReleaseDate = movieDetail.getString("release_date");
-                            }
-                            Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
-                            movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
-                                    movieVoteAverage, moviePopularity, movieBackdropPath, movieReleaseDate));
+            Log.v("############", "JSONObject is: " + movie_json_response.toString());
+            if (movie_json_response.has("results")) {
+                JSONArray resultsArray = movie_json_response.getJSONArray("results");
+                if (resultsArray.length() > 0) {
+                    for (int i = 0; i < resultsArray.length(); i++) {
+                        JSONObject movieDetail = resultsArray.getJSONObject(i);
+                        if (movieDetail.has("title")) {
+                            movieTitle = movieDetail.getString("title");
                         }
+                        if (movieDetail.has("id")) {
+                            movieId = movieDetail.getInt("id");
+                        }
+                        if (movieDetail.has("poster_path")) {
+                            moviePosterPath = movieDetail.getString("poster_path");
+                        }
+                        if (movieDetail.has("overview")) {
+                            movieOverview = movieDetail.getString("overview");
+                        }
+                        if (movieDetail.has("original_title")) {
+                            movieOriginalTitle = movieDetail.getString("original_title");
+                        }
+                        if (movieDetail.has("backdrop_path")) {
+                            movieBackdropPath = movieDetail.getString("backdrop_path");
+                        }
+                        if (movieDetail.has("popularity")) {
+                            moviePopularity = movieDetail.getDouble("popularity");
+                        }
+                        if (movieDetail.has("vote_count")) {
+                            movieVoteCount = movieDetail.getDouble("vote_count");
+                        }
+                        if (movieDetail.has("vote_average")) {
+                            movieVoteAverage = movieDetail.getDouble("vote_average");
+                        }
+                        if (movieDetail.has("release_date")) {
+                            movieReleaseDate = movieDetail.getString("release_date");
+                        }
+                        Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
+                        movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
+                                movieVoteAverage, moviePopularity, movieBackdropPath, movieReleaseDate));
                     }
                 }
+            }
         } catch (JSONException e) {
-            //handle exception
+            /* handle exception */
+            /* if no useful JSON response is returned, then create an empty MoviesArrayList so that
+             * null point exception can be avoided
+             */
+            movies = new ArrayList<Movie>();
         }
         Log.v("############", "Movies returned is: " + movies.toString());
         // Return the list of popularMovies

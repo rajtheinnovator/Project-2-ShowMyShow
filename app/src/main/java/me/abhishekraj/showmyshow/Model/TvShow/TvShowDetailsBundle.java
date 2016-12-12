@@ -16,6 +16,10 @@ public class TvShowDetailsBundle {
     * Create an empty constructor so that no NullPontException occur during the JSON parsing
     */
     public TvShowDetailsBundle() {
+        mTvShow = new TvShow();
+        mReview = new ArrayList<>();
+        mCredits = new ArrayList<>();
+        mVideo = new ArrayList<>();
     }
 
     public TvShowDetailsBundle(ArrayList review, ArrayList video, TvShow movie, ArrayList credits) {

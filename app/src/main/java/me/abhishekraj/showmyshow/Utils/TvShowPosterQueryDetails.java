@@ -33,6 +33,8 @@ public class TvShowPosterQueryDetails {
     private static int voteCount;
     private static String name;
     private static String originalName;
+
+    private static ArrayList<TvShow> tvShowsArrayList;
   /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
     * and the reference link on the github for that project is @link: https://github.com/rajtheinnovator/NewsToday
     */
@@ -152,7 +154,7 @@ public class TvShowPosterQueryDetails {
         Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding tvShow to
-        ArrayList<TvShow> tvShowsArrayList = new ArrayList<TvShow>();
+        tvShowsArrayList = new ArrayList<TvShow>();
         // Create a TvShow reference
         TvShow tvShow;
 
@@ -207,7 +209,11 @@ public class TvShowPosterQueryDetails {
                 }
             }
         } catch (JSONException e) {
-            //handle exception
+            /* handle exception */
+            /* if no useful JSON response is returned, then create an empty TvShowArrayList so that
+             * null point exception can be avoided
+             */
+            tvShowsArrayList = new ArrayList<TvShow>();
         }
         Log.v("############", "TvShow returned is: " + tvShowsArrayList.toString());
         // Return the list of TvShow

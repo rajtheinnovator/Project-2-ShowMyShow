@@ -273,11 +273,13 @@ public class TvShowDetailsQueryUtils {
             tvShowDetailsBundle.setCreditsArrayList(credits);
             tvShowDetailsBundle.setTvShow(tvShow);
         } catch (JSONException e) {
-            //handle exception
-            tvShowDetailsBundle.setTvShow(new TvShow());
-            tvShowDetailsBundle.setCreditsArrayList(new ArrayList<Credits>());
-            tvShowDetailsBundle.setReviewArrayList(new ArrayList<Review>());
-            tvShowDetailsBundle.setVideoArrayList(new ArrayList<Video>());
+            /* handle exception */
+            /*if no useful JSON response is returned because of any reason like unavailability of
+            * Reviews or Credits or Videos or due to any other network/API query error, then create a
+            * new TvShowDetailsBundle so that
+            * null point exception can be avoided
+            */
+            tvShowDetailsBundle = new TvShowDetailsBundle();
         }
         Log.v("############", "TvShow returned is: " + tvShowDetailsBundle.toString());
         // Return the list of popularTvShows
