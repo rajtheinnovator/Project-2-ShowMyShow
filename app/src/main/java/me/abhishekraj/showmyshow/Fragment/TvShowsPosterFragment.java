@@ -36,7 +36,12 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
 import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.SORT_BY_FIRST_AIR_DATES_ASCENDING;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.AIR_DATE_GREATER_THAN;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.AIR_DATE_GREATER_THAN_VALUE_NOVEMBER_START;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.PAGE_OF_RESULT_TO_QUERY;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.SORT_BY_FIRST_AIR_DATES_DESCENDING;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.VOTE_AVERAGE_GREATER_THAN;
+import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.WITH_RUNTIME_GREATER_THAN;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -227,6 +232,9 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
+            uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
+            uriBuilder.appendQueryParameter(WITH_RUNTIME_GREATER_THAN, "20");
+            uriBuilder.appendQueryParameter(VOTE_AVERAGE_GREATER_THAN, "2");
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
 
         } else if (id == AIRED_NOW_TV_SHOW_LOADER_ID) {
@@ -236,9 +244,11 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             uriBuilder = baseUri.buildUpon();
             Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
-            Log.v("############***##", "uriBuilder.toString() is " + uriBuilder.toString());
-            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_FIRST_AIR_DATES_ASCENDING);
+            uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
+            uriBuilder.appendQueryParameter(AIR_DATE_GREATER_THAN, AIR_DATE_GREATER_THAN_VALUE_NOVEMBER_START);
+            uriBuilder.appendQueryParameter(WITH_RUNTIME_GREATER_THAN, "20");
+            uriBuilder.appendQueryParameter(VOTE_AVERAGE_GREATER_THAN, "2");
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_FIRST_AIR_DATES_DESCENDING);
         } else if (id == TOP_RATED_TV_SHOW_LOADER_ID) {
             Log.v("############", "onCreateLoader called with id " + TOP_RATED_TV_SHOW_LOADER_ID);
             Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
@@ -246,6 +256,9 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             uriBuilder = baseUri.buildUpon();
             Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
+            uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
+            uriBuilder.appendQueryParameter(WITH_RUNTIME_GREATER_THAN, "20");
+            uriBuilder.appendQueryParameter(VOTE_AVERAGE_GREATER_THAN, "2");
             Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
         }
