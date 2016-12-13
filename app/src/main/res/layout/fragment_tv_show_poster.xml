@@ -20,7 +20,7 @@
             android:paddingBottom="4dp"
             android:paddingLeft="4dp"
             android:paddingTop="4dp"
-            android:text="POPULAR TV SHOWS"
+            android:text="@string/popular_tv_show"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
             android:paddingBottom="4dp"
             android:paddingLeft="4dp"
             android:paddingTop="4dp"
-            android:text="JUST AIRED TV SHOWS"
+            android:text="@string/just_aired_tv_show"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -52,7 +52,7 @@
             android:paddingBottom="4dp"
             android:paddingLeft="4dp"
             android:paddingTop="4dp"
-            android:text="TOP RATED TV SHOWS"
+            android:text="@string/top_rated_tv_show"
             android:textSize="14sp"
             android:textStyle="bold" />
 

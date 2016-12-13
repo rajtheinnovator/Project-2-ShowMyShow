@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_movies_poster"
     android:layout_width="128dp"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_margin"
-    android:id="@+id/item_movies_poster">
+    android:layout_margin="@dimen/card_margin">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -24,9 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:gravity="center_horizontal"
             android:ellipsize="end"
-            android:hint="@string/movieTitleHint"
+            android:gravity="center_horizontal"
+            android:hint="@string/hint_movie_title"
             android:maxLines="1" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

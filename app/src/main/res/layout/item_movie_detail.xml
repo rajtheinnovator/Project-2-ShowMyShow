@@ -42,7 +42,7 @@
                 android:layout_margin="@dimen/text_margin"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="large_text"
+                android:text="@string/movie_title"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left|start|center_vertical"
-                    android:hint="movie_release_date"
+                    android:hint="@string/hint_movie_release_date"
                     android:paddingRight="8dp"
                     android:textSize="12sp" />
 
@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right|end|center_vertical"
-                    android:hint="movie_duration"
+                    android:hint="@string/hint_movie_duration"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

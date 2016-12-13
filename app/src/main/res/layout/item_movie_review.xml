@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_movie_review"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:layout_margin="4dp"
     android:orientation="vertical"
-    android:layout_gravity="center_horizontal"
-    android:textAlignment="center"
-    android:id="@+id/item_movie_review">
+    android:textAlignment="center">
 
     <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
         android:id="@+id/expand_text_view"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom|end"
-        android:hint="review_author"
+        android:hint="@string/hint_review_author"
         android:paddingRight="24dp"
         android:textStyle="bold" />
     <View

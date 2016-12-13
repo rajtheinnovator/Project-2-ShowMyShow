@@ -46,7 +46,7 @@
                 android:layout_margin="@dimen/text_margin"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="tv show name"
+                android:text="@string/tv_show_name"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -73,13 +73,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Votes: " />
+                    android:text="@string/total_votes" />
 
                 <TextView
                     android:id="@+id/tvShowTotalVotesValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="value" />
+                    android:hint="@string/hint_value" />
 
             </LinearLayout>
 
@@ -97,13 +97,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Episodes: " />
+                        android:text="@string/episode" />
 
                     <TextView
                         android:id="@+id/tvShowTotalEpisodesValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="value" />
+                        android:hint="@string/hint_value" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -114,13 +114,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Seasons: " />
+                        android:text="@string/seasons" />
 
                     <TextView
                         android:id="@+id/tvShowTotalSeasonsValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="value" />
+                        android:hint="@string/hint_value" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -142,14 +142,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Last Aired: " />
+                        android:text="@string/last_aired" />
 
                     <TextView
                         android:id="@+id/tv_show_last_air_date_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left|start|center_vertical"
-                        android:hint="last air date"
+                        android:hint="@string/last_air_date"
                         android:paddingRight="8dp"
                         android:textSize="8sp" />
 
@@ -163,14 +163,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Runtime: " />
+                        android:text="@string/runtime" />
 
                     <TextView
                         android:id="@+id/tv_show_duration_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right|end|center_vertical"
-                        android:hint="tv show_duration"
+                        android:hint="@string/tv_show_duration"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -191,13 +191,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="type" />
+                        android:text="@string/type" />
 
                     <TextView
                         android:id="@+id/typeTvShowValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="value" />
+                        android:hint="@string/hint_value" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -209,15 +209,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="popularity"
-                        android:text="popularity"
+                        android:text="@string/popularity"
                         android:textSize="8sp" />
 
                     <TextView
                         android:id="@+id/popularityTvShowValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="value" />
+                        android:hint="@string/hint_value" />
                 </LinearLayout>
 
 
@@ -228,7 +227,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Overview"
+        android:text="@string/overview"
         android:textSize="14sp" />
 
     <LinearLayout
