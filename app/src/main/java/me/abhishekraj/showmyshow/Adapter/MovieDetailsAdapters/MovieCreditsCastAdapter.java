@@ -2,7 +2,6 @@ package me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,15 +57,12 @@ public class MovieCreditsCastAdapter extends RecyclerView.Adapter<MovieCreditsCa
 
     @Override
     public void onBindViewHolder(MovieCreditsCastAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Credits currentCast = mCredits.get(position);
-        Log.v("############", "currentCredits called is " + currentCast.toString());
         /*
         Set item views based on your views and data model
         */
         String url = BASE_IMAGE_URL + currentCast.getMovieCastProfilePath();
-        Log.v("#######***##", "URL of movie is " + url);
         viewHolder.movieCastName.setText(currentCast.getMovieCastName());
         viewHolder.movieCastCharacter.setText(currentCast.getMovieCastCharacter());
         Picasso.with(getContext())
@@ -79,17 +75,13 @@ public class MovieCreditsCastAdapter extends RecyclerView.Adapter<MovieCreditsCa
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mCredits.size());
         return mCredits.size();
     }
 
     public void setMovieDetailsBundleData(MovieDetailsBundle movieData) {
-        Log.v("############", "setMovieDetailsBundleData Called");
         movieDetailsBundle = movieData;
         mCredits = movieDetailsBundle.getCreditsArrayList();
-        Log.v("############", "mDefaultMovie is " + mCredits);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

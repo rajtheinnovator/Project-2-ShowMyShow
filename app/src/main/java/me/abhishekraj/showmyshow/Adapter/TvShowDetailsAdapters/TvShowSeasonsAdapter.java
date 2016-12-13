@@ -2,7 +2,6 @@ package me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,24 +55,17 @@ public class TvShowSeasonsAdapter extends RecyclerView.Adapter<TvShowSeasonsAdap
 
     @Override
     public void onBindViewHolder(TvShowSeasonsAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Seasons currentSeason = mSeason.get(position);
-        Log.v("############", "currentSeason called is " + currentSeason.toString());
-        Log.v("############", "currentSeason's title is " + currentSeason.getTvShowSeasonAirDate().toString());
         /*
         Set item views based on your views and data model
         TextView tvShowDetailTitleTextView = viewHolder.tvShowReviewContentTextView;
         */
         viewHolder.tvShowSeasonAirDate.setText(currentSeason.getTvShowSeasonAirDate());
-        Log.v("############", "season air date is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentSeason.getTvShowSeasonAirDate());
         viewHolder.tvSeasonEpisodeCount.setText(String.valueOf(currentSeason.getTvShowSeasonEpisodeCount()));
 
         //Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629"
         String url = "https://image.tmdb.org/t/p/w500/" + currentSeason.getTvShowSeasonPosterPath();
-        Log.v("########**#**###", "season url is :>>>>>>>>>>>****>>>>>>>>" + url);
-
-
         Picasso.with(getContext())
                 .load(url)
                 .placeholder(R.mipmap.ic_launcher)
@@ -89,17 +81,13 @@ public class TvShowSeasonsAdapter extends RecyclerView.Adapter<TvShowSeasonsAdap
         } else {
             size = mSeason.size();
         }
-        Log.v("############", "getItemCount called with size " + size);
         return size;
     }
 
     public void setTvShowDetailsBundleData(TvShowDetailsBundle tvShowBundledData) {
-        Log.v("############", "setTvShowDetailsBundleData Called");
         tvShowDetailsBundle = tvShowBundledData;
         mSeason = tvShowDetailsBundle.getSeasonsArrayList();
-        Log.v("############", "mDefaultTvShow is " + mSeason);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

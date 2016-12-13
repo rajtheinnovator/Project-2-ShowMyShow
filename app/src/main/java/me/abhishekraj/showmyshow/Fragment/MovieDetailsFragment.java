@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,7 +135,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
              /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
                 startLoaderManager();
-                Log.v("############", "startLoaderManager called");
             }
             /*
             RecyclerView Codes are referenced from the @link: "https://guides.codepath.com/android/using-the-recyclerview"
@@ -214,21 +212,15 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
     private void startLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
-        Log.v("############", "startLoaderManager started");
         loaderManager.initLoader(MOVIE_DETAIL_LOADER_ID, null, this);
-        Log.v("############", "startLoaderManager finished");
     }
 
     @Override
     public Loader<MovieDetailsBundle> onCreateLoader(int id, Bundle args) {
-        Log.v("############", "onCreateLoader called");
         Uri baseUri = Uri.parse((UrlsAndConstants.MovieDetailQuery.DEFAULT_URL) + movie.getMovieId());
-        Log.v("############", "baseUri is " + baseUri.toString());
         Uri.Builder uriBuilder = baseUri.buildUpon();
-        Log.v("############", "uriBuilder is " + uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS_AND_CREDITS);
-        Log.v("############***##", "uriBuilder.toString() is " + uriBuilder.toString());
         return new DetailsMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 
@@ -240,17 +232,12 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieReviewAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
             // Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items
             mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mMovieTrailerAdapter.setMovieDetailsBundleData(mMovieDetailsBundle) finished");
             // Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items
             mMovieCreditsCastAdapter.setMovieDetailsBundleData(mMovieDetailsBundle);
-            Log.v("############", " mMovieCreditsCastAdapter.setMovieDetailsBundleData(mMovieDetailsBundle) finished");
 
             mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            Log.v("############", " mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter) finished");
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            Log.v("############", " mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter) finished");
             mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
-            Log.v("############", "  mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter) finished");
             updateDurationTextView(mMovieDetailsBundle);
 
         }

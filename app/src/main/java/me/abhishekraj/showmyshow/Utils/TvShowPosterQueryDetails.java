@@ -1,7 +1,5 @@
 package me.abhishekraj.showmyshow.Utils;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +47,6 @@ public class TvShowPosterQueryDetails {
      * Query the TheMovieDb dataset and return an {@link TvShow} ArrayList to represent a single TvShow.
      */
     public static ArrayList<TvShow> fetchTvShowData(String requestUrl) {
-        Log.v("############", "fetchTvShowData called");
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -85,7 +82,6 @@ public class TvShowPosterQueryDetails {
      * Make an HTTP request to the given URL and return a String as the response.
      */
     private static String makeHttpRequest(URL url) throws IOException {
-        Log.v("############", "makeHttpRequest called");
         String jsonResponse = "";
 
         // If the URL is null, then return early.
@@ -148,8 +144,6 @@ public class TvShowPosterQueryDetails {
      * parsing a JSON response.
      */
     public static ArrayList<TvShow> extractFeatureFromJson(String jsonResponse) {
-        Log.v("############", "extractFeatureFromJson called");
-        Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding tvShow to
         ArrayList<TvShow> tvShowsArrayList = new ArrayList<TvShow>();
@@ -164,7 +158,6 @@ public class TvShowPosterQueryDetails {
         try {
             // Parse the jsonResponse string
             JSONObject tv_show_json_response = new JSONObject(jsonResponse);
-            Log.v("############", "JSONObject is: " + tv_show_json_response.toString());
             if (tv_show_json_response.has("results")) {
                 JSONArray resultsArray = tv_show_json_response.getJSONArray("results");
                 if (resultsArray.length() > 0) {
@@ -200,7 +193,6 @@ public class TvShowPosterQueryDetails {
                         if (tvShowDetail.has("first_air_date")) {
                             firstAirDate = tvShowDetail.getString("first_air_date");
                         }
-                        Log.v("############", " name is " + name + "############ id is" + id + " ############ poster path is " + posterPath);
                         tvShowsArrayList.add(new TvShow(posterPath, popularity, id, backdropPath, voteAverage, overview,
                                 firstAirDate, voteCount, name, originalName));
                     }
@@ -209,7 +201,6 @@ public class TvShowPosterQueryDetails {
         } catch (JSONException e) {
             //handle exception
         }
-        Log.v("############", "TvShow returned is: " + tvShowsArrayList.toString());
         // Return the list of TvShow
         return tvShowsArrayList;
     }

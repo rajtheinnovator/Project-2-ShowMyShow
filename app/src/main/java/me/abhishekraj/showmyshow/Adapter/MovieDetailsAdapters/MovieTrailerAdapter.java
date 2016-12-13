@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,17 +57,14 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
 
     @Override
     public void onBindViewHolder(MovieTrailerAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Video currentVideo = mVideo.get(position);
-        Log.v("############", "currentVideo called is " + currentVideo.toString());
-        Log.v("############", "currentVideo's title is " + currentVideo.getMovieVideoName().toString());
+
         /*
         Set item views based on your views and data model
         TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
         */
         viewHolder.movieVideoName.setText(currentVideo.getMovieVideoName());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentVideo.getMovieVideoName());
 
         //Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629"
         String url = "http://img.youtube.com/vi/" + currentVideo.getMovieVideoKey();
@@ -77,23 +73,17 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
                 .load(completeUrl)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(viewHolder.movieVideoBanner);
-        Log.v("############", "trailer url is :>>>>>>>>>>>****>>>>>>>>" + completeUrl);
-
     }
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mVideo.size());
         return mVideo.size();
     }
 
     public void setMovieDetailsBundleData(MovieDetailsBundle movieBundledData) {
-        Log.v("############", "setMovieDetailsBundleData Called");
         movieDetailsBundle = movieBundledData;
         mVideo = movieDetailsBundle.getVideoArrayList();
-        Log.v("############", "mDefaultMovie is " + mVideo);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

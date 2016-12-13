@@ -3,7 +3,6 @@ package me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,18 +55,13 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
     @Override
     public void onBindViewHolder(UpcomingMovieAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
         Movie currentMovie = mUpcomingMovie.get(position);
-        Log.v("############", "currentMovie called is " + currentMovie.toString());
-        Log.v("############", "currentMovie's title is " + currentMovie.getMovieTitle().toString());
         /*
         Set item views based on your views and data model
          */
         viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMovieTitle());
         String url = "https://image.tmdb.org/t/p/w500/" + currentMovie.getMoviePosterPath().toString();
-        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentMovie.getMoviePosterPath().toString());
         Picasso.with(getContext())
                 .load(url)
                 .placeholder(R.mipmap.ic_launcher)
@@ -76,16 +70,12 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mUpcomingMovie.size());
         return mUpcomingMovie.size();
     }
 
     public void setMovieData(ArrayList<Movie> movieData) {
-        Log.v("############", "setMovieDetailsBundleData Called");
         mUpcomingMovie = movieData;
-        Log.v("############", "mUpcomingMovie is " + mUpcomingMovie);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

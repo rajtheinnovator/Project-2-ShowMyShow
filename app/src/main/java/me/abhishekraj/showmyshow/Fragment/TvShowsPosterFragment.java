@@ -13,7 +13,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,10 +73,8 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("############******", "onCreate called");
         if (savedInstanceState != null) {
             savedInstance = "not empty";
-            Log.v("############******", "onCreate savedInstance is " + savedInstance);
             popularTvShows = savedInstanceState.getParcelableArrayList("popularTvShows");
             airedNowTvShows = savedInstanceState.getParcelableArrayList("airedNowTvShows");
             topRatedTvShows = savedInstanceState.getParcelableArrayList("topRatedTvShows");
@@ -87,7 +84,6 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             airedNowTvShows = new ArrayList<>();
             topRatedTvShows = new ArrayList<>();
             savedInstance = "empty";
-            Log.v("############******", "onCreate savedInstance is " + savedInstance);
             //First of all check if network is connected or not then only start the loader
             ConnectivityManager connMgr = (ConnectivityManager)
                     getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -96,11 +92,8 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                 /*
                  *fetch data. Get a reference to the LoaderManager, in order to interact with loaders.
                 */
-                Log.v("############******", "startPopularTvShowsLoaderManager called");
                 startPopularTvShowsLoaderManager();
-                Log.v("############******", "startAiredNowTvShowsLoaderManager called");
                 startAiredNowTvShowsLoaderManager();
-                Log.v("############******", "startTopRatedTvShowsLoaderManager called");
                 startTopRatedTvShowsLoaderManager();
             }
 
@@ -110,7 +103,6 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.v("############******", "onCreateView savedInstance is " + savedInstanceState);
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tv_show_poster, container, false);
 
@@ -193,7 +185,6 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.v("############******", "onSaveInstanceState called");
         outState.putParcelableArrayList("popularTvShows", popularTvShows);
         outState.putParcelableArrayList("airedNowTvShows", airedNowTvShows);
         outState.putParcelableArrayList("topRatedTvShows", topRatedTvShows);
@@ -203,46 +194,33 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
 
     private void startPopularTvShowsLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
-        Log.v("############******", "initLoader called with id " + POPULAR_TV_SHOW_LOADER_ID);
         loaderManager.initLoader(POPULAR_TV_SHOW_LOADER_ID, null, this);
-        Log.v("############******", "startPopularTvShowsLoaderManager finished");
     }
 
     private void startAiredNowTvShowsLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
-        Log.v("############******", "initLoader called with id " + AIRED_NOW_TV_SHOW_LOADER_ID);
         loaderManager.initLoader(AIRED_NOW_TV_SHOW_LOADER_ID, null, this);
-        Log.v("############******", "startAiredNowTvShowsLoaderManager finished");
     }
 
     private void startTopRatedTvShowsLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
-        Log.v("############******", "initLoader called with id " + TOP_RATED_TV_SHOW_LOADER_ID);
         loaderManager.initLoader(TOP_RATED_TV_SHOW_LOADER_ID, null, this);
-        Log.v("############******", "startTopRatedTvShowsLoaderManager finished");
     }
 
     @Override
     public Loader<ArrayList<TvShow>> onCreateLoader(int id, Bundle args) {
         if (id == POPULAR_TV_SHOW_LOADER_ID) {
-            Log.v("############******", "onCreateLoader called with id " + POPULAR_TV_SHOW_LOADER_ID);
             Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
-            Log.v("############", "baseUri is " + baseUri.toString());
             uriBuilder = baseUri.buildUpon();
-            Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
             uriBuilder.appendQueryParameter(WITH_RUNTIME_GREATER_THAN, "20");
             uriBuilder.appendQueryParameter(VOTE_AVERAGE_GREATER_THAN, "2");
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
 
         } else if (id == AIRED_NOW_TV_SHOW_LOADER_ID) {
-            Log.v("############", "onCreateLoader called with id " + AIRED_NOW_TV_SHOW_LOADER_ID);
             Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
-            Log.v("############", "baseUri is " + baseUri.toString());
             uriBuilder = baseUri.buildUpon();
-            Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
             uriBuilder.appendQueryParameter(AIR_DATE_GREATER_THAN, AIR_DATE_GREATER_THAN_VALUE_NOVEMBER_START);
@@ -250,19 +228,14 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             uriBuilder.appendQueryParameter(VOTE_AVERAGE_GREATER_THAN, "2");
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_FIRST_AIR_DATES_DESCENDING);
         } else if (id == TOP_RATED_TV_SHOW_LOADER_ID) {
-            Log.v("############", "onCreateLoader called with id " + TOP_RATED_TV_SHOW_LOADER_ID);
             Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
-            Log.v("############", "baseUri is " + baseUri.toString());
             uriBuilder = baseUri.buildUpon();
-            Log.v("############", "uriBuilder is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
             uriBuilder.appendQueryParameter(WITH_RUNTIME_GREATER_THAN, "20");
             uriBuilder.appendQueryParameter(VOTE_AVERAGE_GREATER_THAN, "2");
-            Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
         }
-        Log.v("########*****##", "URL IS " + uriBuilder.toString());
         return new TvShowPosterLoader(getActivity().getApplicationContext(), uriBuilder.toString());
 
     }
@@ -271,9 +244,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     public void onLoadFinished(Loader<ArrayList<TvShow>> loader, ArrayList<TvShow> incomingTvShowArrayList) {
         switch (loader.getId()) {
             case POPULAR_TV_SHOW_LOADER_ID:
-                Log.v("############******", "onLoadFinished called with id " + POPULAR_TV_SHOW_LOADER_ID);
                 if (incomingTvShowArrayList.isEmpty()) {
-                    Log.v("******************", "popularTvShows isEmpty");
                     return;
                 } else {
                     popularTvShows = incomingTvShowArrayList;
@@ -284,9 +255,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                 }
                 break;
             case AIRED_NOW_TV_SHOW_LOADER_ID:
-                Log.v("############******", "onLoadFinished called with id " + AIRED_NOW_TV_SHOW_LOADER_ID);
                 if (incomingTvShowArrayList.isEmpty()) {
-                    Log.v("******************", "popularTvShows isEmpty");
                     return;
                 } else {
                     airedNowTvShows = incomingTvShowArrayList;
@@ -296,9 +265,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                 }
                 break;
             case TOP_RATED_TV_SHOW_LOADER_ID:
-                Log.v("############******", "onLoadFinished called with id " + TOP_RATED_TV_SHOW_LOADER_ID);
                 if (incomingTvShowArrayList.isEmpty()) {
-                    Log.v("******************", "popularTvShows isEmpty");
                     return;
                 } else {
                     topRatedTvShows = incomingTvShowArrayList;
@@ -312,6 +279,5 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<ArrayList<TvShow>> loader) {
-        Log.v("############******", "onLoaderReset called ");
     }
 }

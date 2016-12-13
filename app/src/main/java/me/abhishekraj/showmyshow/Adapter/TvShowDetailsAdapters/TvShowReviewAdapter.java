@@ -2,7 +2,6 @@ package me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,36 +54,26 @@ public class TvShowReviewAdapter extends RecyclerView.Adapter<TvShowReviewAdapte
 
     @Override
     public void onBindViewHolder(TvShowReviewAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Review currentReview = mReview.get(position);
-        Log.v("############", "currentReview called is " + currentReview.toString());
-        Log.v("############", "currentReview's title is " + currentReview.getTvShowReviewAuthor().toString());
         /*
         Set item views based on your views and data model
         TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
         */
         viewHolder.expTv1.setText(currentReview.getTvShowReviewContent().trim());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getTvShowReviewContent());
-        String url = "https://image.tmdb.org/t/p/w500/" + currentReview.getTvShowReviewAuthor().toString().trim();
-        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getTvShowReviewAuthor().toString());
         viewHolder.tvShowReviewAuthorTextView.setText(currentReview.getTvShowReviewAuthor().trim());
 
     }
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mReview.size());
         return mReview.size();
     }
 
     public void setTvShowDetailsBundleData(TvShowDetailsBundle tvShowData) {
-        Log.v("############", "setTvShowDetailsBundleData Called");
         tvShowDetailsBundle = tvShowData;
         mReview = tvShowDetailsBundle.getReviewArrayList();
-        Log.v("############", "mDefaultTvShow is " + mReview);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

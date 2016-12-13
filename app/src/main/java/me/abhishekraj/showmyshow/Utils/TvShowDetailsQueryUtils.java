@@ -1,7 +1,5 @@
 package me.abhishekraj.showmyshow.Utils;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,7 +79,6 @@ public class TvShowDetailsQueryUtils {
      * ArrayList to represent a single TvShow.
      */
     public static TvShowDetailsBundle fetchTvShowData(String requestUrl) {
-        Log.v("############", "fetchTvShowData called");
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -117,7 +114,6 @@ public class TvShowDetailsQueryUtils {
      * Make an HTTP request to the given URL and return a String as the response.
      */
     private static String makeHttpRequest(URL url) throws IOException {
-        Log.v("############", "makeHttpRequest called");
         String jsonResponse = "";
 
         // If the URL is null, then return early.
@@ -180,8 +176,6 @@ public class TvShowDetailsQueryUtils {
      * parsing a JSON response.
      */
     public static TvShowDetailsBundle extractFeatureFromJson(String jsonResponse) {
-        Log.v("############", "extractFeatureFromJson called");
-        Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding tvShows to
         reviews = new ArrayList<Review>();
@@ -200,7 +194,6 @@ public class TvShowDetailsQueryUtils {
         try {
             // Parse the jsonResponse string
             JSONObject tv_show_json_response = new JSONObject(jsonResponse);
-            Log.v("############", "JSONObject is: " + tv_show_json_response.toString());
             if (tv_show_json_response.has("reviews")) {
                 JSONObject mainReviewObject = tv_show_json_response.getJSONObject("reviews");
                 if (mainReviewObject.has("results")) {
@@ -324,9 +317,6 @@ public class TvShowDetailsQueryUtils {
                     }
                 }
             }
-
-            Log.v("############", "Size of reviews is" + reviews.size());
-            Log.v("############", "Size of videos is" + videos.size());
             tvShowDetailsBundle.setReviewArrayList(reviews);
             tvShowDetailsBundle.setVideoArrayList(videos);
             tvShowDetailsBundle.setCreditsArrayList(credits);
@@ -341,7 +331,6 @@ public class TvShowDetailsQueryUtils {
             */
             //tvShowDetailsBundle = new TvShowDetailsBundle();
         }
-        Log.v("############", "TvShow returned is: " + tvShowDetailsBundle.toString());
         // Return the list of all details
         return tvShowDetailsBundle;
     }

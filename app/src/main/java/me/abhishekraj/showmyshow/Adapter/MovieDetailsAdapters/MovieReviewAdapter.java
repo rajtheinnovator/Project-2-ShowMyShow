@@ -2,7 +2,6 @@ package me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,36 +54,26 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
 
     @Override
     public void onBindViewHolder(MovieReviewAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Review currentReview = mReview.get(position);
-        Log.v("############", "currentReview called is " + currentReview.toString());
-        Log.v("############", "currentReview's title is " + currentReview.getMovieReviewAuthor().toString());
         /*
         Set item views based on your views and data model
         TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
         */
         viewHolder.expTv1.setText(currentReview.getMovieReviewContent().trim());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getMovieReviewContent());
-        String url = "https://image.tmdb.org/t/p/w500/" + currentReview.getMovieReviewAuthor().toString().trim();
-        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentReview.getMovieReviewAuthor().toString());
         viewHolder.movieReviewAuthorTextView.setText(currentReview.getMovieReviewAuthor().trim());
 
     }
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mReview.size());
         return mReview.size();
     }
 
     public void setMovieDetailsBundleData(MovieDetailsBundle movieData) {
-        Log.v("############", "setMovieDetailsBundleData Called");
         movieDetailsBundle = movieData;
         mReview = movieDetailsBundle.getReviewArrayList();
-        Log.v("############", "mDefaultMovie is " + mReview);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

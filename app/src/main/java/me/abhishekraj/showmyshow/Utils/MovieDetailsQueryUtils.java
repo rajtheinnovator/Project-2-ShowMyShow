@@ -1,7 +1,5 @@
 package me.abhishekraj.showmyshow.Utils;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +43,6 @@ public class MovieDetailsQueryUtils {
      * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
      */
     public static MovieDetailsBundle fetchMovieData(String requestUrl) {
-        Log.v("############", "fetchMovieData called");
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -81,7 +78,6 @@ public class MovieDetailsQueryUtils {
      * Make an HTTP request to the given URL and return a String as the response.
      */
     private static String makeHttpRequest(URL url) throws IOException {
-        Log.v("############", "makeHttpRequest called");
         String jsonResponse = "";
 
         // If the URL is null, then return early.
@@ -144,8 +140,6 @@ public class MovieDetailsQueryUtils {
      * parsing a JSON response.
      */
     public static MovieDetailsBundle extractFeatureFromJson(String jsonResponse) {
-        Log.v("############", "extractFeatureFromJson called");
-        Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding popularMovies to
         ArrayList<Review> reviews = new ArrayList<Review>();
@@ -163,7 +157,6 @@ public class MovieDetailsQueryUtils {
         try {
             // Parse the jsonResponse string
             JSONObject movie_json_response = new JSONObject(jsonResponse);
-            Log.v("############", "JSONObject is: " + movie_json_response.toString());
             if (movie_json_response.has("reviews")) {
                 JSONObject mainReviewObject = movie_json_response.getJSONObject("reviews");
                 if (mainReviewObject.has("results")) {
@@ -232,8 +225,6 @@ public class MovieDetailsQueryUtils {
                     }
                 }
             }
-            Log.v("############", "Size of reviews is" + reviews.size());
-            Log.v("############", "Size of videos is" + videos.size());
             movieDetailsBundle.setReviewArrayList(reviews);
             movieDetailsBundle.setVideoArrayList(videos);
             movieDetailsBundle.setCreditsArrayList(credits);
@@ -241,7 +232,6 @@ public class MovieDetailsQueryUtils {
         } catch (JSONException e) {
             //handle exception
         }
-        Log.v("############", "Movies returned is: " + movieDetailsBundle.toString());
         // Return the list of popularMovies
         return movieDetailsBundle;
     }

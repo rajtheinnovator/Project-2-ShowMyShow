@@ -2,7 +2,6 @@ package me.abhishekraj.showmyshow.Network;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
 import me.abhishekraj.showmyshow.Utils.TvShowDetailsQueryUtils;
@@ -28,13 +27,11 @@ public class DetailsTvShowLoader extends AsyncTaskLoader {
     public DetailsTvShowLoader(Context context, String url) {
         super(context);
         mUrl = url;
-        Log.v("############", "url is " + mUrl);
     }
 
     @Override
     protected void onStartLoading() {
         forceLoad();
-        Log.v("############", "onStartLoading called");
     }
 
     /**
@@ -46,10 +43,8 @@ public class DetailsTvShowLoader extends AsyncTaskLoader {
         if (mUrl == null) {
             return null;
         }
-        Log.v("############", "loadInBackground called");
         // Perform the network request, parse the response, and extract a list of news.
         TvShowDetailsBundle tvShows = TvShowDetailsQueryUtils.fetchTvShowData(mUrl);
-        Log.v("############", "loadInBackground finished");
         return tvShows;
     }
 }

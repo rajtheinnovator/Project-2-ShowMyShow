@@ -2,7 +2,6 @@ package me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,15 +57,12 @@ public class TvShowCreditsCastAdapter extends RecyclerView.Adapter<TvShowCredits
 
     @Override
     public void onBindViewHolder(TvShowCreditsCastAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Credits currentCast = mCredits.get(position);
-        Log.v("############", "currentCredits called is " + currentCast.toString());
         /*
         Set item views based on your views and data model
         */
         String url = BASE_IMAGE_URL + currentCast.getTvShowCastProfilePath();
-        Log.v("#######***##", "URL of TvShow is " + url);
         viewHolder.tvShowCastName.setText(currentCast.getTvShowCastName());
         viewHolder.tvShowCastCharacter.setText(currentCast.getTvShowCastCharacter());
         Picasso.with(getContext())
@@ -79,17 +75,13 @@ public class TvShowCreditsCastAdapter extends RecyclerView.Adapter<TvShowCredits
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mCredits.size());
         return mCredits.size();
     }
 
     public void setTvShowDetailsBundleData(TvShowDetailsBundle tvShowData) {
-        Log.v("############", "setTvShowDetailsBundleData Called");
         tvShowDetailsBundle = tvShowData;
         mCredits = tvShowDetailsBundle.getCreditsArrayList();
-        Log.v("############", "mDefaultTvShow is " + mCredits);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*
@@ -117,7 +109,6 @@ public class TvShowCreditsCastAdapter extends RecyclerView.Adapter<TvShowCredits
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-
             tvShowCastImageView = (ImageView) itemView.findViewById(R.id.castImageView);
             tvShowCastName = (TextView) itemView.findViewById(R.id.castName);
             tvShowCastCharacter = (TextView) itemView.findViewById(R.id.castCharacter);

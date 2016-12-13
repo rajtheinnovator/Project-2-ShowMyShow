@@ -3,7 +3,6 @@ package me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,18 +55,13 @@ public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAd
 
     @Override
     public void onBindViewHolder(AiredNowTvShowAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         /* Get the data model based on position */
         TvShow currentTvShow = mAiredNowTvShows.get(position);
-        Log.v("############", "currentTvShow called is " + currentTvShow.toString());
-        Log.v("############", "currentTvShow's title is " + currentTvShow.getTvShowName().toString());
         /*
         Set item views based on your views and data model
          */
         viewHolder.tvShowTitleTextView.setText(currentTvShow.getTvShowName());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentTvShow.getTvShowName());
         String url = "https://image.tmdb.org/t/p/w500/" + currentTvShow.getTvShowPosterPath().toString();
-        Log.v("############", "poster path is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentTvShow.getTvShowPosterPath().toString());
         Picasso.with(getContext())
                 .load(url)
                 .placeholder(R.mipmap.ic_launcher)
@@ -76,16 +70,12 @@ public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAd
 
     @Override
     public int getItemCount() {
-        Log.v("############", "getItemCount called with size " + mAiredNowTvShows.size());
         return mAiredNowTvShows.size();
     }
 
     public void setTvShowData(ArrayList<TvShow> tvShowData) {
-        Log.v("############", "setTvShowDetailsBundleData Called");
         mAiredNowTvShows = tvShowData;
-        Log.v("############", "mAiredNowTvShows is " + mAiredNowTvShows);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

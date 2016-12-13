@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,7 +163,6 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
 
              /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
                 startLoaderManager();
-                Log.v("############", "startLoaderManager called");
             }
             /*
             RecyclerView Codes are referenced from the @link: "https://guides.codepath.com/android/using-the-recyclerview"
@@ -261,21 +259,15 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
 
     private void startLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
-        Log.v("############", "startLoaderManager started");
         loaderManager.initLoader(TV_SHOW_DETAIL_LOADER_ID, null, this);
-        Log.v("############", "startLoaderManager finished");
     }
 
     @Override
     public Loader<TvShowDetailsBundle> onCreateLoader(int id, Bundle args) {
-        Log.v("############", "onCreateLoader called");
         Uri baseUri = Uri.parse((UrlsAndConstants.TvShowDetailQuery.DEFAULT_URL) + tvShow.getTvShowId());
-        Log.v("############", "baseUri is " + baseUri.toString());
         Uri.Builder uriBuilder = baseUri.buildUpon();
-        Log.v("############", "uriBuilder is " + uriBuilder.toString());
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS_AND_CREDITS);
-        Log.v("############", "uriBuilder.toString() is " + uriBuilder.toString());
         return new DetailsTvShowLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 
@@ -287,22 +279,15 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             mTvShowReviewAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
             // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
             mTvShowTrailerAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
-            Log.v("############", " mPopularTvShowAdapter.setTvShowDetailsBundleData(tvShow) finished");
             // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
             mTvShowCreditsCastAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
-            Log.v("############", " mPopularTvShowAdapter.setTvShowDetailsBundleData(tvShow) finished");
             // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
             mTvShowSeasonsAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
-            Log.v("############", " mPopularTvShowAdapter.setTvShowDetailsBundleData(tvShow) finished");
 
             mTvShowReviewRecyclerView.setAdapter(mTvShowReviewAdapter);
-            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mTvShowTrailerRecyclerView.setAdapter(mTvShowTrailerAdapter);
-            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
-            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mTvShowSeasonsRecyclerView.setAdapter(mTvShowSeasonsAdapter);
-            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             updateExtraDetailsTextView(mTvShowDetailsBundle);
         }
     }

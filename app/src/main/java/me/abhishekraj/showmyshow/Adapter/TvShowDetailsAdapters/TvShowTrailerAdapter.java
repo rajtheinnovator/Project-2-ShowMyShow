@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,18 +57,13 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
 
     @Override
     public void onBindViewHolder(TvShowTrailerAdapter.ViewHolder viewHolder, int position) {
-        Log.v("############", "onBindViewHolder called");
         // Get the data model based on position
         Video currentVideo = mVideo.get(position);
-        Log.v("############", "currentVideo called is " + currentVideo.toString());
-        Log.v("############", "currentVideo's title is " + currentVideo.getTvShowVideoName().toString());
         /*
         Set item views based on your views and data model
         TextView tvShowDetailTitleTextView = viewHolder.tvShowReviewContentTextView;
         */
         viewHolder.tvShowVideoName.setText(currentVideo.getTvShowVideoName());
-        Log.v("############", "title is :>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + currentVideo.getTvShowVideoName());
-
         //Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629"
         String url = "http://img.youtube.com/vi/" + currentVideo.getTvShowVideoKey();
         String completeUrl = url + "/0.jpg";
@@ -77,8 +71,6 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
                 .load(completeUrl)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(viewHolder.tvShowVideoBanner);
-        Log.v("############", "trailer url is :>>>>>>>>>>>****>>>>>>>>" + completeUrl);
-
     }
 
     @Override
@@ -89,17 +81,13 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
         } else {
             size = mVideo.size();
         }
-        Log.v("############", "getItemCount called with size " + size);
         return size;
     }
 
     public void setTvShowDetailsBundleData(TvShowDetailsBundle tvShowBundledData) {
-        Log.v("############", "setTvShowDetailsBundleData Called");
         tvShowDetailsBundle = tvShowBundledData;
         mVideo = tvShowDetailsBundle.getVideoArrayList();
-        Log.v("############", "mDefaultTvShow is " + mVideo);
         notifyDataSetChanged();
-        Log.v("############", "notifyDataSetChanged Finished");
     }
 
     /*

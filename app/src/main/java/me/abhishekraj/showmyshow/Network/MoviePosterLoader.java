@@ -3,7 +3,6 @@ package me.abhishekraj.showmyshow.Network;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -30,13 +29,11 @@ public class MoviePosterLoader extends AsyncTaskLoader {
     public MoviePosterLoader(Context context, String url) {
         super(context);
         mUrl = url;
-        Log.v("############", "url is " + mUrl);
     }
 
     @Override
     protected void onStartLoading() {
         forceLoad();
-        Log.v("############", "onStartLoading called");
     }
 
     /**
@@ -48,10 +45,8 @@ public class MoviePosterLoader extends AsyncTaskLoader {
         if (mUrl == null) {
             return null;
         }
-        Log.v("############", "loadInBackground called");
         // Perform the network request, parse the response, and extract a list of news.
         ArrayList<Movie> movies = MoviePosterQueryUtils.fetchMovieData(mUrl);
-        Log.v("############", "loadInBackground finished");
         return movies;
     }
 }

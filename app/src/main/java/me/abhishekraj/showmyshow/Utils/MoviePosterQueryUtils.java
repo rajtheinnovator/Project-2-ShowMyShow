@@ -1,7 +1,5 @@
 package me.abhishekraj.showmyshow.Utils;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,7 +48,6 @@ public class MoviePosterQueryUtils {
      * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
      */
     public static ArrayList<Movie> fetchMovieData(String requestUrl) {
-        Log.v("############", "fetchMovieData called");
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -86,7 +83,6 @@ public class MoviePosterQueryUtils {
      * Make an HTTP request to the given URL and return a String as the response.
      */
     private static String makeHttpRequest(URL url) throws IOException {
-        Log.v("############", "makeHttpRequest called");
         String jsonResponse = "";
 
         // If the URL is null, then return early.
@@ -149,8 +145,6 @@ public class MoviePosterQueryUtils {
      * parsing a JSON response.
      */
     public static ArrayList<Movie> extractFeatureFromJson(String jsonResponse) {
-        Log.v("############", "extractFeatureFromJson called");
-        Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding popularMovies to
         ArrayList<Movie> movies = new ArrayList<Movie>();
@@ -165,7 +159,6 @@ public class MoviePosterQueryUtils {
         try {
             // Parse the jsonResponse string
             JSONObject movie_json_response = new JSONObject(jsonResponse);
-            Log.v("############", "JSONObject is: " + movie_json_response.toString());
             if (movie_json_response.has("results")) {
                 JSONArray resultsArray = movie_json_response.getJSONArray("results");
                 if (resultsArray.length() > 0) {
@@ -201,16 +194,14 @@ public class MoviePosterQueryUtils {
                         if (movieDetail.has("release_date")) {
                             movieReleaseDate = movieDetail.getString("release_date");
                         }
-                        Log.v("############", " title is " + movies + "############ id is" + movieId + " ############ poster path is " + moviePosterPath);
-                        movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount, movieOriginalTitle,
-                                movieVoteAverage, moviePopularity, movieBackdropPath, movieReleaseDate));
+                        movies.add(new Movie(movieTitle, movieId, moviePosterPath, movieOverview, movieVoteCount,
+                                movieOriginalTitle, movieVoteAverage, moviePopularity, movieBackdropPath, movieReleaseDate));
                     }
                 }
             }
         } catch (JSONException e) {
             //handle exception
         }
-        Log.v("############", "Movies returned is: " + movies.toString());
         // Return the list of popularMovies
         return movies;
     }
