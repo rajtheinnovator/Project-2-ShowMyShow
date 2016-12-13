@@ -1,6 +1,8 @@
 package me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -104,7 +106,7 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
      Provide a direct reference to each of the views within a data item
      Used to cache the views within the item layout for fast access
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         /*
         Your holder should contain a member variable
         for any view that will be set as you render a row
@@ -130,6 +132,25 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
             // tvShowReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
             tvShowVideoName = (TextView) itemView.findViewById(R.id.video_name);
             this.context = context;
+            itemView.setOnClickListener(this);
+        }
+
+        /*The codes below and at some other places throughout the app related to RecyclerView has been
+     * taken from multiple sources on the web including from the following @link:
+     * "https://guides.codepath.com/android/using-the-recyclerview
+     */
+        /* Handles the row being being clicked */
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Video currentVideo = mVideo.get(position);
+                // We can access the data within the views
+                Intent goToUrl = new Intent(Intent.ACTION_VIEW);
+                String videoPlaybackUrl = "https://www.youtube.com/watch?v=" + currentVideo.getTvShowVideoKey();
+                goToUrl.setData(Uri.parse(videoPlaybackUrl));
+                context.startActivity(goToUrl);
+            }
         }
     }
 }

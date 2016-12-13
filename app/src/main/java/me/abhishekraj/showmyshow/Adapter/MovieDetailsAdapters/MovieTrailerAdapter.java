@@ -1,6 +1,8 @@
 package me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,7 +72,7 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
 
         //Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629"
         String url = "http://img.youtube.com/vi/" + currentVideo.getMovieVideoKey();
-        String completeUrl = url+"/0.jpg";
+        String completeUrl = url + "/0.jpg";
         Picasso.with(getContext())
                 .load(completeUrl)
                 .placeholder(R.mipmap.ic_launcher)
@@ -98,7 +100,7 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
      Provide a direct reference to each of the views within a data item
      Used to cache the views within the item layout for fast access
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         /*
         Your holder should contain a member variable
         for any view that will be set as you render a row
@@ -124,6 +126,25 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
             // movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
             movieVideoName = (TextView) itemView.findViewById(R.id.video_name);
             this.context = context;
+            itemView.setOnClickListener(this);
+        }
+
+        /*The codes below and at some other places throughout the app related to RecyclerView has been
+  * taken from multiple sources on the web including from the following @link:
+  * "https://guides.codepath.com/android/using-the-recyclerview
+  */
+        /* Handles the row being being clicked */
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Video currentVideo = mVideo.get(position);
+                // We can access the data within the views
+                Intent goToUrl = new Intent(Intent.ACTION_VIEW);
+                String videoPlaybackUrl = "https://www.youtube.com/watch?v=" + currentVideo.getMovieVideoKey();
+                goToUrl.setData(Uri.parse(videoPlaybackUrl));
+                context.startActivity(goToUrl);
+            }
         }
     }
 }
