@@ -26,31 +26,12 @@ import me.abhishekraj.showmyshow.Model.Movie.Video;
  * Created by ABHISHEK RAJ on 12/1/2016.
  */
 public class MovieDetailsQueryUtils {
-    /*Variables for handling Movie Cast Details*/
-    private static String characterCast;
-    private static String creditIdCast;
-    private static String nameCast;
-    private static String profilePathCast;
-    private static int castIdCast;
-    private static int idCast;
-
-    /*Variables for handling Movie Videos Details*/
-    private static String idVideo;
-    private static String keyVideo;
-    private static String nameVideo;
-    private static String sizeVideo;
-    private static String typeVideo;
-
-    /* Variables for handling Movie Reviews */
-    private static String author;
-    private static String content;
-    private static String url;
-
-    /* Main ArrayList and Object variables */
-    private static ArrayList<me.abhishekraj.showmyshow.Model.Movie.Review> reviews;
-    private static ArrayList<me.abhishekraj.showmyshow.Model.Movie.Video> videos;
-    private static ArrayList<me.abhishekraj.showmyshow.Model.Movie.Credits> credits;
-    private static Movie movie;
+    private static String character;
+    private static String creditId;
+    private static String name;
+    private static String profilePath;
+    private static int castId;
+    private static int id;
 
     /**
      * Create a private constructor because no one should ever create a {@link MoviePosterQueryUtils} object.
@@ -167,10 +148,10 @@ public class MovieDetailsQueryUtils {
         Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding popularMovies to
-        reviews = new ArrayList<Review>();
-        videos = new ArrayList<Video>();
-        credits = new ArrayList<>();
-        movie = new Movie();
+        ArrayList<Review> reviews = new ArrayList<Review>();
+        ArrayList<Video> videos = new ArrayList<Video>();
+        ArrayList<Credits> credits = new ArrayList<>();
+        Movie movie = new Movie();
         // Create a MovieDetailsBundle and initialize it
         MovieDetailsBundle movieDetailsBundle = new MovieDetailsBundle();
 
@@ -190,15 +171,9 @@ public class MovieDetailsQueryUtils {
                     if (resultsArray.length() > 0) {
                         for (int i = 0; i < resultsArray.length(); i++) {
                             JSONObject reviewObject = resultsArray.getJSONObject(i);
-                            if (reviewObject.has("author")) {
-                                author = reviewObject.getString("author");
-                            }
-                            if (reviewObject.has("content")) {
-                                content = reviewObject.getString("content");
-                            }
-                            if (reviewObject.has("url")) {
-                                url = reviewObject.getString("url");
-                            }
+                            String author = reviewObject.getString("author");
+                            String content = reviewObject.getString("content");
+                            String url = reviewObject.getString("url");
                             reviews.add(new Review(author, content, url));
                         }
                     }
@@ -211,22 +186,12 @@ public class MovieDetailsQueryUtils {
                     if (videoResultsArray.length() > 0) {
                         for (int i = 0; i < videoResultsArray.length(); i++) {
                             JSONObject videoObject = videoResultsArray.getJSONObject(i);
-                            if (videoObject.has("id")) {
-                                idVideo = videoObject.getString("id");
-                            }
-                            if (videoObject.has("key")) {
-                                keyVideo = videoObject.getString("key");
-                            }
-                            if (videoObject.has("name")) {
-                                nameVideo = videoObject.getString("name");
-                            }
-                            if (videoObject.has("size")) {
-                                sizeVideo = videoObject.getString("size");
-                            }
-                            if (videoObject.has("type")) {
-                                typeVideo = videoObject.getString("type");
-                            }
-                            videos.add(new Video(idVideo, keyVideo, nameVideo, sizeVideo, typeVideo));
+                            String id = videoObject.getString("id");
+                            String key = videoObject.getString("key");
+                            String name = videoObject.getString("name");
+                            String size = videoObject.getString("size");
+                            String type = videoObject.getString("type");
+                            videos.add(new Video(id, key, name, size, type));
                         }
                     }
                 }
@@ -245,24 +210,24 @@ public class MovieDetailsQueryUtils {
                             JSONObject castObject = castArray.getJSONObject(i);
 
                             if (castObject.has("cast_id")) {
-                                castIdCast = castObject.getInt("cast_id");
+                                castId = castObject.getInt("cast_id");
                             }
                             if (castObject.has("character")) {
-                                characterCast = castObject.getString("character");
+                                character = castObject.getString("character");
                             }
                             if (castObject.has("credit_id")) {
-                                creditIdCast = castObject.getString("credit_id");
+                                creditId = castObject.getString("credit_id");
                             }
                             if (castObject.has("id")) {
-                                idCast = castObject.getInt("id");
+                                id = castObject.getInt("id");
                             }
                             if (castObject.has("name")) {
-                                nameCast = castObject.getString("name");
+                                name = castObject.getString("name");
                             }
                             if (castObject.has("profile_path")) {
-                                profilePathCast = castObject.getString("profile_path");
+                                profilePath = castObject.getString("profile_path");
                             }
-                            credits.add(new Credits(castIdCast, characterCast, creditIdCast, idCast, nameCast, profilePathCast));
+                            credits.add(new Credits(castId, character, creditId, id, name, profilePath));
                         }
                     }
                 }
@@ -274,17 +239,10 @@ public class MovieDetailsQueryUtils {
             movieDetailsBundle.setCreditsArrayList(credits);
             movieDetailsBundle.setMovie(movie);
         } catch (JSONException e) {
-             /* handle exception */
-            /* if no useful JSON response is returned because of any reason like unavailability of
-             * Reviews or Credits or Videos or due to any other network/API query error, then create a
-             * new MovieDetailsBundle so that
-             * null point exception can be avoided
-             */
-            movieDetailsBundle = new MovieDetailsBundle();
+            //handle exception
         }
         Log.v("############", "Movies returned is: " + movieDetailsBundle.toString());
         // Return the list of popularMovies
         return movieDetailsBundle;
     }
 }
-

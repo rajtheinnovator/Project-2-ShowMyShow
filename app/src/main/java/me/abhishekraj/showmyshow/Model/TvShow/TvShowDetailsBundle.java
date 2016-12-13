@@ -10,6 +10,7 @@ public class TvShowDetailsBundle {
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
     public ArrayList<Credits> mCredits;
+    public ArrayList<Seasons> mSeasons;
     public TvShow mTvShow;
 
     /*
@@ -19,14 +20,16 @@ public class TvShowDetailsBundle {
         mTvShow = new TvShow();
         mReview = new ArrayList<>();
         mCredits = new ArrayList<>();
+        mSeasons = new ArrayList<>();
         mVideo = new ArrayList<>();
     }
 
-    public TvShowDetailsBundle(ArrayList review, ArrayList video, TvShow movie, ArrayList credits) {
+    public TvShowDetailsBundle(ArrayList review, ArrayList video, TvShow movie, ArrayList credits, ArrayList seasons) {
         mReview = review;
         mVideo = video;
         mTvShow = movie;
         mCredits = credits;
+        mSeasons = seasons;
     }
 
     public ArrayList<Review> getReviewArrayList() {
@@ -51,6 +54,14 @@ public class TvShowDetailsBundle {
 
     public void setCreditsArrayList(ArrayList<Credits> credits) {
         mCredits = credits;
+    }
+
+    public ArrayList<Seasons> getSeasonsArrayList() {
+        return mSeasons;
+    }
+
+    public void setSeasonsArrayList(ArrayList<Seasons> seasons) {
+        mSeasons = seasons;
     }
 
     public TvShow getTvShow() {

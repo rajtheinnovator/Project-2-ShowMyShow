@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class Video implements Parcelable {
+
     /*
     After implementing the `Parcelable` interface, we need to create the
     `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
@@ -91,14 +92,6 @@ public class Video implements Parcelable {
         return mType;
     }
 
-    /**
-     * Make Parcelabe Work Through these methods
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(mId);
@@ -106,5 +99,13 @@ public class Video implements Parcelable {
         out.writeString(mName);
         out.writeString(mSize);
         out.writeString(mType);
+    }
+
+    /**
+     * Make Parcelabe Work Through these methods
+     */
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

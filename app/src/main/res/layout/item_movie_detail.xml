@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_movie_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="8dp"
-    android:id="@+id/item_movie_detail"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="me.abhishekraj.showmyshow.Activity.MovieDetailsActivity">
 
@@ -18,7 +18,7 @@
         android:paddingRight="16dp">
 
         <ImageView
-            android:id="@+id/movie_detail_title_image_view"
+            android:id="@+id/tv_show_detail_title_image_view"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_weight="3"
@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/movie_detail_title_text_view"
+                android:id="@+id/tv_show_detail_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="end"
@@ -47,7 +47,7 @@
                 android:textStyle="bold" />
 
             <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                android:id="@+id/movieRatingInsideMovieDetailsFragment"
+                android:id="@+id/tvShowRatingInsideTvShowDetailsFragment"
                 android:layout_width="162dp"
                 android:layout_height="0dp"
                 android:layout_gravity="end|right"
@@ -71,7 +71,7 @@
                 android:paddingTop="8dp">
 
                 <TextView
-                    android:id="@+id/movie_release_date_text_view"
+                    android:id="@+id/tv_show_last_air_date_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left|start|center_vertical"
@@ -80,7 +80,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/movie_duration_text_view"
+                    android:id="@+id/tv_show_duration_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right|end|center_vertical"

@@ -8,16 +8,17 @@ import android.os.Parcelable;
  */
 
 public class Review implements Parcelable {
+
     /*
     After implementing the `Parcelable` interface, we need to create the
-    `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
+ `  Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
     Notice how it has our class specified as its type.
     */
     public static final Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Review> CREATOR
             = new Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Review>() {
 
         // This simply calls our new constructor (typically private) and
-// passes along the unmarshalled `Parcel`, and then returns the new object!
+        // passes along the unmarshalled `Parcel`, and then returns the new object!
         @Override
         public me.abhishekraj.showmyshow.Model.TvShow.Review createFromParcel(Parcel in) {
             return new me.abhishekraj.showmyshow.Model.TvShow.Review(in);
@@ -77,18 +78,18 @@ public class Review implements Parcelable {
         return mURL;
     }
 
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(mAuthor);
+        out.writeString(mContent);
+        out.writeString(mURL);
+    }
+
     /**
      * Make Parcelabe Work Through these methods
      */
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(mAuthor);
-        out.writeString(mContent);
-        out.writeString(mURL);
     }
 }

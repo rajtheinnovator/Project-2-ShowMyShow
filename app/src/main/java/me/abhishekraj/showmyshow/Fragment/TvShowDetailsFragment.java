@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -69,11 +70,16 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     CollapsingToolbarLayout collapsingToolbar;
     String posterURL;
     String backdropURL;
-    TextView tvShowReleaseDate;
-    TextView tvShowRunTimeDuration;
+    TextView tvShowLastAirDateTextView;
+    TextView tvShowRunTimeDurationTextView;
+    TextView tvShowNumberOfEpisodesTextView;
+    TextView tvShowNumberOfSeasonsTextView;
+    TextView tvShowTotalVotesTextView;
+    TextView tvShowTypeTextView;
+    TextView tvShowPopularityTextView;
+    ExpandableTextView tvShowOverviewExpandableTextView;
     private TvShowDetailsBundle mTvShowDetailsBundle;
     private int mTvShowDuration;
-    private String mTvShowDurationString;
 
     public TvShowDetailsFragment() {
         // Required empty public constructor
@@ -82,26 +88,32 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tv_show_detail, container, false);
 
         Bundle bundle = getArguments();
-        tvShowDetailTitleTextView = (TextView) rootView.findViewById(R.id.movie_detail_title_text_view);
-        tvShowDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
-        tvShowDetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
-        tvShowReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
-        tvShowRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
+        tvShowDetailTitleTextView = (TextView) rootView.findViewById(R.id.tv_show_detail_title_text_view);
+        tvShowDetailTitleImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view);
+        tvShowDetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view_backdrop);
+        tvShowLastAirDateTextView = (TextView) rootView.findViewById(R.id.tv_show_last_air_date_text_view);
+        tvShowRunTimeDurationTextView = (TextView) rootView.findViewById(R.id.tv_show_duration_text_view);
+        tvShowTotalVotesTextView = (TextView) rootView.findViewById(R.id.tvShowTotalVotesValue);
+        tvShowTypeTextView = (TextView) rootView.findViewById(R.id.typeTvShowValue);
+        tvShowPopularityTextView = (TextView) rootView.findViewById(R.id.popularityTvShowValue);
+        tvShowOverviewExpandableTextView = (ExpandableTextView) rootView.findViewById(R.id.expand_text_viewTvShowOverview);
+        tvShowNumberOfEpisodesTextView = (TextView) rootView.findViewById(R.id.tvShowTotalEpisodesValue);
+        tvShowNumberOfSeasonsTextView = (TextView) rootView.findViewById(R.id.tvShowTotalSeasonsValue);
 
-         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar for this Fragment
+         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_tv_show_detail for this Fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
         *  @link http://stackoverflow.com/a/32858049/5770629
         */
-        final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_tv_show_detail);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*Creating a collapsing toolbar, defined in the fragment_movie_details.xml  */
+        /*Creating a collapsing toolbar_tv_show_detail, defined in the fragment_movie_details.xml  */
         collapsingToolbar =
-                (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
+                (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar_tv_show_detail);
 
         if (savedInstanceState == null) {
             mReview = new ArrayList<>();
@@ -112,8 +124,9 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
 
         if ((bundle != null)) {
             tvShow = getArguments().getParcelable("tvShow");
+            /*inflate the details of tv show*/
             tvShowDetailTitleTextView.setText(tvShow.getTvShowName());
-            tvShowReleaseDate.setText(tvShow.getTvShowFirstAirDate());
+            tvShowLastAirDateTextView.setText(tvShow.getTvShowLastAirDate());
             posterURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + tvShow.getTvShowPosterPath();
             backdropURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + tvShow.getTvShowBackdropPath();
             collapsingToolbar.setTitle(tvShow.getTvShowName());
@@ -127,8 +140,13 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
                     .into(tvShowDetailsBackdropImageView);
 
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
-            SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
+            SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.tvShowRatingInsideTvShowDetailsFragment);
             simpleRatingBar.setRating((float) (tvShow.getTvShowVoteAverage()) / 2);
+
+            tvShowOverviewExpandableTextView.setText(tvShow.getTvShowOverview());
+            tvShowTotalVotesTextView.setText(String.valueOf(tvShow.getTvShowVoteCount()));
+            tvShowPopularityTextView.setText(String.valueOf(tvShow.getTvShowPopularity()));
+
 
              /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
@@ -144,9 +162,9 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             RecyclerView Codes are referenced from the @link: "https://guides.codepath.com/android/using-the-recyclerview"
             Lookup the recyclerview in activity layout
             */
-            mTvShowReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
-            mTvShowTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieTrailers);
-            mTvShowCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
+            mTvShowReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowReviews);
+            mTvShowTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowTrailers);
+            mTvShowCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowCast);
 
             /* Create mPopularTvShowAdapter passing in the sample user data */
             mTvShowReviewAdapter = new TvShowReviewAdapter(getActivity(), mTvShowDetailsBundle);
@@ -253,24 +271,18 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
-            //updateDurationTextView(mTvShowDetailsBundle);
+            updateExtraDetailsTextView(mTvShowDetailsBundle);
 
         }
     }
 
-    public void updateDurationTextView(TvShowDetailsBundle tvShowDetailsBundle) {
-
-        mTvShowDuration = tvShowDetailsBundle.getTvShow().getTvShowId();
-        if (mTvShowDuration < 60) {
-            mTvShowDurationString = String.valueOf(mTvShowDuration) + "mins";
-        } else if (60 < mTvShowDuration && mTvShowDuration < 120) {
-            mTvShowDurationString = "1 Hrs " + String.valueOf(mTvShowDuration - 60) + "mins";
-        } else if (120 < mTvShowDuration && mTvShowDuration < 180) {
-            mTvShowDurationString = "2 Hrs " + String.valueOf(mTvShowDuration - 120) + "mins";
-        } else {
-            mTvShowDurationString = "3 Hrs " + String.valueOf(mTvShowDuration - 180) + "mins";
-        }
-        tvShowRunTimeDuration.setText(mTvShowDurationString);
+    public void updateExtraDetailsTextView(TvShowDetailsBundle tvShowDetailsBundle) {
+        TvShow detail = tvShowDetailsBundle.getTvShow();
+        tvShowRunTimeDurationTextView.setText(String.valueOf(detail.getTvShowRuntime()));
+        tvShowLastAirDateTextView.setText(detail.getTvShowLastAirDate());
+        tvShowNumberOfEpisodesTextView.setText(String.valueOf(detail.getTvShowNumberEpisodes()));
+        tvShowNumberOfSeasonsTextView.setText(String.valueOf(detail.getTvShowNumberOfSeasons()));
+        tvShowTypeTextView.setText(detail.getTvShowType());
     }
 
     @Override

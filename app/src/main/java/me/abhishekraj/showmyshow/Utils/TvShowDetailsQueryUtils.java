@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.Model.TvShow.Credits;
 import me.abhishekraj.showmyshow.Model.TvShow.Review;
+import me.abhishekraj.showmyshow.Model.TvShow.Seasons;
 import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
 import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
 import me.abhishekraj.showmyshow.Model.TvShow.Video;
@@ -27,12 +28,18 @@ import me.abhishekraj.showmyshow.Model.TvShow.Video;
  */
 
 public class TvShowDetailsQueryUtils {
+    /*TvShow Details Text*/
+    private static int runtime;
+    private static int numberOfSeasons;
+    private static int numberOfEpisodes;
+    private static String TvShowType;
+    private static String lastAirDate;
+
     /*Variables for handling TvShow Cast Details*/
     private static String characterCast;
     private static String creditIdCast;
     private static String nameCast;
     private static String profilePathCast;
-    private static int castIdCast;
     private static int idCast;
 
     /*Variables for handling TvShow Videos Details*/
@@ -47,10 +54,18 @@ public class TvShowDetailsQueryUtils {
     private static String content;
     private static String url;
 
+    /* Variables for handling TvShow Seasons */
+    private static String seasonAirDate;
+    private static String seasonPosterPath;
+    private static int seasonEpisodeCount;
+    private static int seasonId;
+    private static int seasonNumber;
+
     /* Main ArrayList and Object variables */
     private static ArrayList<Review> reviews;
     private static ArrayList<Video> videos;
     private static ArrayList<Credits> credits;
+    private static ArrayList<Seasons> seasons;
     private static TvShow tvShow;
 
     /**
@@ -172,6 +187,7 @@ public class TvShowDetailsQueryUtils {
         reviews = new ArrayList<Review>();
         videos = new ArrayList<Video>();
         credits = new ArrayList<Credits>();
+        seasons = new ArrayList<Seasons>();
         tvShow = new TvShow();
         // Create a TvShowDetailsBundle and initialize it
         TvShowDetailsBundle tvShowDetailsBundle = new TvShowDetailsBundle();
@@ -206,6 +222,26 @@ public class TvShowDetailsQueryUtils {
                     }
                 }
             }
+            /* get extra details for TvShowDetailsFragment */
+            if (tv_show_json_response.has("episode_run_time")) {
+                JSONArray runTimeArray = tv_show_json_response.getJSONArray("episode_run_time");
+                runtime = runTimeArray.getInt(0);
+            }
+            if (tv_show_json_response.has("last_air_date")) {
+                lastAirDate = tv_show_json_response.getString("last_air_date");
+            }
+            if (tv_show_json_response.has("number_of_episodes")) {
+                numberOfEpisodes = tv_show_json_response.getInt("number_of_episodes");
+            }
+            if (tv_show_json_response.has("number_of_seasons")) {
+                numberOfSeasons = tv_show_json_response.getInt("number_of_seasons");
+            }
+            if (tv_show_json_response.has("type")) {
+                TvShowType = tv_show_json_response.getString("type");
+            }
+            tvShow = new TvShow(runtime, lastAirDate, numberOfEpisodes, numberOfSeasons, typeVideo);
+
+            /* get details for tvShow video */
             if (tv_show_json_response.has("videos")) {
                 JSONObject mainVideoObject = tv_show_json_response.getJSONObject("videos");
                 if (mainVideoObject.has("results")) {
@@ -243,9 +279,6 @@ public class TvShowDetailsQueryUtils {
                         for (int i = 0; i < castArray.length(); i++) {
                             JSONObject castObject = castArray.getJSONObject(i);
 
-                            if (castObject.has("cast_id")) {
-                                castIdCast = castObject.getInt("cast_id");
-                            }
                             if (castObject.has("character")) {
                                 characterCast = castObject.getString("character");
                             }
@@ -261,16 +294,43 @@ public class TvShowDetailsQueryUtils {
                             if (castObject.has("profile_path")) {
                                 profilePathCast = castObject.getString("profile_path");
                             }
-                            credits.add(new Credits(castIdCast, characterCast, creditIdCast, idCast, nameCast, profilePathCast));
+                            credits.add(new Credits(characterCast, creditIdCast, idCast, nameCast, profilePathCast));
                         }
                     }
                 }
             }
+            /* details of TvShow Season */
+            if (tv_show_json_response.has("seasons")) {
+                JSONArray seasonArray = tv_show_json_response.getJSONArray("seasons");
+                if (seasonArray.length() > 0) {
+                    for (int i = 0; i < seasonArray.length(); i++) {
+                        JSONObject seasonObject = seasonArray.getJSONObject(i);
+                        if (seasonObject.has("air_date")) {
+                            seasonAirDate = seasonObject.getString("air_date");
+                        }
+                        if (seasonObject.has("episode_count")) {
+                            seasonEpisodeCount = seasonObject.getInt("episode_count");
+                        }
+                        if (seasonObject.has("id")) {
+                            seasonId = seasonObject.getInt("id");
+                        }
+                        if (seasonObject.has("poster_path")) {
+                            seasonPosterPath = seasonObject.getString("poster_path");
+                        }
+                        if (seasonObject.has("season_number")) {
+                            seasonNumber = seasonObject.getInt("season_number");
+                        }
+                        seasons.add(new Seasons(seasonAirDate, seasonEpisodeCount, seasonId, seasonPosterPath, seasonNumber));
+                    }
+                }
+            }
+
             Log.v("############", "Size of reviews is" + reviews.size());
             Log.v("############", "Size of videos is" + videos.size());
             tvShowDetailsBundle.setReviewArrayList(reviews);
             tvShowDetailsBundle.setVideoArrayList(videos);
             tvShowDetailsBundle.setCreditsArrayList(credits);
+            tvShowDetailsBundle.setSeasonsArrayList(seasons);
             tvShowDetailsBundle.setTvShow(tvShow);
         } catch (JSONException e) {
             /* handle exception */
@@ -279,10 +339,10 @@ public class TvShowDetailsQueryUtils {
             * new TvShowDetailsBundle so that
             * null point exception can be avoided
             */
-            tvShowDetailsBundle = new TvShowDetailsBundle();
+            //tvShowDetailsBundle = new TvShowDetailsBundle();
         }
         Log.v("############", "TvShow returned is: " + tvShowDetailsBundle.toString());
-        // Return the list of popularTvShows
+        // Return the list of all details
         return tvShowDetailsBundle;
     }
 }

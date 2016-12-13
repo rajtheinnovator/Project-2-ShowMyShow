@@ -34,8 +34,6 @@ public class MoviePosterQueryUtils {
     private static String movieBackdropPath;
     private static String movieReleaseDate;
 
-    private static ArrayList<Movie> movies;
-
     /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
     * and the reference link on the github for that project is @link: https://github.com/rajtheinnovator/NewsToday
     */
@@ -155,7 +153,7 @@ public class MoviePosterQueryUtils {
         Log.v("############", "jsonResponse" + jsonResponse);
 
         // Create an empty ArrayList that we can start adding popularMovies to
-        movies = new ArrayList<Movie>();
+        ArrayList<Movie> movies = new ArrayList<Movie>();
         // Create a Movie reference
         Movie movie;
 
@@ -210,15 +208,10 @@ public class MoviePosterQueryUtils {
                 }
             }
         } catch (JSONException e) {
-            /* handle exception */
-            /* if no useful JSON response is returned, then create an empty MoviesArrayList so that
-             * null point exception can be avoided
-             */
-            movies = new ArrayList<Movie>();
+            //handle exception
         }
         Log.v("############", "Movies returned is: " + movies.toString());
         // Return the list of popularMovies
         return movies;
     }
 }
-

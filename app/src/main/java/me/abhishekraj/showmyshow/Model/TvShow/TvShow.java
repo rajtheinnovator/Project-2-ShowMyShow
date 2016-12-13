@@ -13,6 +13,11 @@ public class TvShow implements Parcelable {
     * Codes referenced from the link, @link: "https://guides.codepath.com/android/Using-Parcelable"
     */
 
+    /*Variables needed when handling recycler view clicked*/
+
+    /**
+     * Make Parcelabe Work Through these methods
+     */
     /*
     After implementing the `Parcelable` interface, we need to create the
     `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
@@ -35,28 +40,26 @@ public class TvShow implements Parcelable {
         }
     };
     /**
-     * posterPath of the tvShow
-     */
-    private String mTvShowPosterPath;
-    private double mTvShowPopularity;
-    /*Variables needed when handling recycler view is clicked*/
-    /**
-     * id of the tvShow
-     */
-    private int mTvShowId;
-    /**
      * BackdropPosterPath of the tvShow
      */
     private String mTvShowBackdropPath;
-    private double mTvShowVoteAverage;
-    private String mTvShowOverview;
+    private int mTvShowRunTime;
     private String mTvShowFirstAirDate;
-    private int mTvShowVoteCount;
-    /**
-     * Name of the tvShow
-     */
+    /* id of the tvShow */
+    private int mTvShowId;
+    private String mTvShowLastAirDate;
+    /* Name of the tvShow */
     private String mTvShowName;
+    private int mTvShowNoOfEpisodes;
+    private int mTvShowNoOfSeasons;
     private String mTvShowOriginalName;
+    private String mTvShowOverview;
+    private double mTvShowPopularity;
+    /* posterPath of the tvShow */
+    private String mTvShowPosterPath;
+    private String mTvShowType;
+    private double mTvShowVoteAverage;
+    private int mTvShowVoteCount;
 
     /**
      * Create an empty constructor so that an empty tvShow's object can be referenced
@@ -64,7 +67,6 @@ public class TvShow implements Parcelable {
      */
     public TvShow() {
     }
-
     /**
      * Constructs a new {@link TvShow}.
      *
@@ -85,7 +87,15 @@ public class TvShow implements Parcelable {
         mTvShowVoteCount = tvShowVoteCount;
         mTvShowName = tvShowName;
         mTvShowOriginalName = tvShowOriginalName;
+    }
 
+    /*For movie details*/
+    public TvShow(int runTime, String lastAirDate, int numberOfEpisodes, int numberOfSeasons, String type) {
+        mTvShowRunTime = runTime;
+        mTvShowLastAirDate = lastAirDate;
+        mTvShowNoOfEpisodes = numberOfEpisodes;
+        mTvShowNoOfSeasons = numberOfSeasons;
+        mTvShowType = type;
     }
 
     private TvShow(Parcel in) {
@@ -99,6 +109,11 @@ public class TvShow implements Parcelable {
         mTvShowVoteCount = in.readInt();
         mTvShowName = in.readString();
         mTvShowOriginalName = in.readString();
+        mTvShowRunTime = in.readInt();
+        mTvShowLastAirDate = in.readString();
+        mTvShowNoOfEpisodes = in.readInt();
+        mTvShowNoOfSeasons = in.readInt();
+        mTvShowType = in.readString();
     }
 
     /**
@@ -163,7 +178,7 @@ public class TvShow implements Parcelable {
         mTvShowFirstAirDate = firstAirDate;
     }
 
-    public double getTvShowVoteCount() {
+    public int getTvShowVoteCount() {
         return mTvShowVoteCount;
     }
 
@@ -187,9 +202,46 @@ public class TvShow implements Parcelable {
         mTvShowOriginalName = originalName;
     }
 
-    /**
-     * Make Parcelabe Work Through these methods
-     */
+    public int getTvShowRuntime() {
+        return mTvShowRunTime;
+    }
+
+    public void setTvShowTvShowRuntime(int runtime) {
+        mTvShowRunTime = runtime;
+    }
+
+    public int getTvShowNumberEpisodes() {
+        return mTvShowNoOfEpisodes;
+    }
+
+    public void setTvShowTvShowNumberOfEpisodes(int numberOfEpisodes) {
+        mTvShowNoOfEpisodes = numberOfEpisodes;
+    }
+
+    public int getTvShowNumberOfSeasons() {
+        return mTvShowNoOfSeasons;
+    }
+
+    public void setTvShowTvShowNumberOfSeasons(int numberOfSeasons) {
+        mTvShowNoOfSeasons = numberOfSeasons;
+    }
+
+    public String getTvShowType() {
+        return mTvShowType;
+    }
+
+    public void setTvShowTvShowType(String type) {
+        mTvShowType = type;
+    }
+
+    public String getTvShowLastAirDate() {
+        return mTvShowLastAirDate;
+    }
+
+    public void setTvShowTvShowLastAirDate(String lastAirDate) {
+        mTvShowLastAirDate = lastAirDate;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -208,4 +260,5 @@ public class TvShow implements Parcelable {
         out.writeString(mTvShowName);
         out.writeString(mTvShowOriginalName);
     }
+
 }
