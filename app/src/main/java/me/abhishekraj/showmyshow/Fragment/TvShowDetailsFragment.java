@@ -31,9 +31,11 @@ import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowCreditsCastAdapter;
 import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowReviewAdapter;
+import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowSeasonsAdapter;
 import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowTrailerAdapter;
 import me.abhishekraj.showmyshow.Model.TvShow.Credits;
 import me.abhishekraj.showmyshow.Model.TvShow.Review;
+import me.abhishekraj.showmyshow.Model.TvShow.Seasons;
 import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
 import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
 import me.abhishekraj.showmyshow.Model.TvShow.Video;
@@ -57,12 +59,18 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
     public ArrayList<Credits> mCredits;
+    public ArrayList<Seasons> mSeasons;
+
     TvShowReviewAdapter mTvShowReviewAdapter;
     TvShowCreditsCastAdapter mTvShowCreditsCastAdapter;
     TvShowTrailerAdapter mTvShowTrailerAdapter;
+    TvShowSeasonsAdapter mTvShowSeasonsAdapter;
+
     RecyclerView mTvShowReviewRecyclerView;
     RecyclerView mTvShowTrailerRecyclerView;
     RecyclerView mTvShowCastRecyclerView;
+    RecyclerView mTvShowSeasonsRecyclerView;
+
     TvShow tvShow;
     TextView tvShowDetailTitleTextView;
     ImageView tvShowDetailTitleImageView;
@@ -79,7 +87,6 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     TextView tvShowPopularityTextView;
     ExpandableTextView tvShowOverviewExpandableTextView;
     private TvShowDetailsBundle mTvShowDetailsBundle;
-    private int mTvShowDuration;
 
     public TvShowDetailsFragment() {
         // Required empty public constructor
@@ -111,7 +118,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*Creating a collapsing toolbar_tv_show_detail, defined in the fragment_movie_details.xml  */
+        /*Creating a collapsing toolbar_tv_show_detail, defined in the fragment_tv_show_details.xml  */
         collapsingToolbar =
                 (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar_tv_show_detail);
 
@@ -119,6 +126,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             mReview = new ArrayList<>();
             mVideo = new ArrayList<>();
             mCredits = new ArrayList<>();
+            mSeasons = new ArrayList<>();
             mTvShowDetailsBundle = new TvShowDetailsBundle();
         }
 
@@ -163,8 +171,9 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             Lookup the recyclerview in activity layout
             */
             mTvShowReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowReviews);
-            mTvShowTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowTrailers);
+            mTvShowTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowsTrailers);
             mTvShowCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowCast);
+            mTvShowSeasonsRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowsSeasons);
 
             /* Create mPopularTvShowAdapter passing in the sample user data */
             mTvShowReviewAdapter = new TvShowReviewAdapter(getActivity(), mTvShowDetailsBundle);
@@ -172,6 +181,8 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             mTvShowTrailerAdapter = new TvShowTrailerAdapter(getActivity(), mTvShowDetailsBundle);
                  /* Create mPopularTvShowAdapter passing in the sample user data */
             mTvShowCreditsCastAdapter = new TvShowCreditsCastAdapter(getActivity(), mTvShowDetailsBundle);
+             /* Create mPopularTvShowAdapter passing in the sample user data */
+            mTvShowSeasonsAdapter = new TvShowSeasonsAdapter(getActivity(), mTvShowDetailsBundle);
 
             /* Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items */
             mTvShowReviewRecyclerView.setAdapter(mTvShowReviewAdapter);
@@ -179,6 +190,8 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             mTvShowTrailerRecyclerView.setAdapter(mTvShowTrailerAdapter);
             /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
             mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
+            /* Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items */
+            mTvShowSeasonsRecyclerView.setAdapter(mTvShowSeasonsAdapter);
 
             /*
             Setup layout manager for items with orientation
@@ -213,6 +226,17 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             /* Attach layout manager to the RecyclerView */
             mTvShowCastRecyclerView.setLayoutManager(layoutManagerTvShowCast);
 
+                 /*
+            Setup layout manager for items with orientation
+            Also supports `LinearLayoutManager.HORIZONTAL`
+            */
+            LinearLayoutManager layoutManagerTvShowSeason = new LinearLayoutManager(getActivity(),
+                    LinearLayoutManager.HORIZONTAL, false);
+            /* Optionally customize the position you want to default scroll to */
+            layoutManagerTvShowtrailer.scrollToPosition(0);
+            /* Attach layout manager to the RecyclerView */
+            mTvShowSeasonsRecyclerView.setLayoutManager(layoutManagerTvShowSeason);
+
 //            /*
 //            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
 //            */
@@ -228,6 +252,9 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
 
             SnapHelper snapHelperCastStart = new GravitySnapHelper(Gravity.START);
             snapHelperCastStart.attachToRecyclerView(mTvShowCastRecyclerView);
+
+            SnapHelper snapHelperSeasonsStart = new GravitySnapHelper(Gravity.START);
+            snapHelperCastStart.attachToRecyclerView(mTvShowSeasonsRecyclerView);
         }
         return rootView;
     }
@@ -264,6 +291,9 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
             mTvShowCreditsCastAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
             Log.v("############", " mPopularTvShowAdapter.setTvShowDetailsBundleData(tvShow) finished");
+            // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
+            mTvShowSeasonsAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
+            Log.v("############", " mPopularTvShowAdapter.setTvShowDetailsBundleData(tvShow) finished");
 
             mTvShowReviewRecyclerView.setAdapter(mTvShowReviewAdapter);
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
@@ -271,8 +301,9 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
             Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
+            mTvShowSeasonsRecyclerView.setAdapter(mTvShowSeasonsAdapter);
+            Log.v("############", " mTvShowReviewRecyclerView.setAdapter(mPopularTvShowAdapter); finished");
             updateExtraDetailsTextView(mTvShowDetailsBundle);
-
         }
     }
 

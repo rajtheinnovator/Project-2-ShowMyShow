@@ -84,23 +84,23 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
         Bundle bundle = getArguments();
-        movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.tv_show_detail_title_text_view);
-        movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view);
-        moviedetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view_backdrop);
-        movieReleaseDate = (TextView) rootView.findViewById(R.id.tv_show_last_air_date_text_view);
-        movieRunTimeDuration = (TextView) rootView.findViewById(R.id.tv_show_duration_text_view);
+        movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.moivie_detail_title_text_view);
+        movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
+        moviedetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
+        movieReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
+        movieRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
 
-        /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_tv_show_detail for this Fragment
+        /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_movie_detail for this Fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
         *  @link http://stackoverflow.com/a/32858049/5770629
         */
-        final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_tv_show_detail);
+        final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_movie_detail);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*Creating a collapsing toolbar_tv_show_detail, defined in the fragment_movie_details.xml  */
+        /*Creating a collapsing collapsing_toolbar_movie_detail, defined in the fragment_movie_details.xml  */
         collapsingToolbar =
-                (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar_tv_show_detail);
+                (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar_movie_detail);
 
         if (savedInstanceState == null) {
             mReview = new ArrayList<>();
@@ -125,7 +125,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     .into(moviedetailsBackdropImageView);
 
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
-            SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.tvShowRatingInsideTvShowDetailsFragment);
+            SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
             simpleRatingBar.setRating((float) (movie.getMovieVoteAverage()) / 2);
 
              /* First of all check if network is connected or not then only start the loader */
@@ -142,9 +142,9 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             RecyclerView Codes are referenced from the @link: "https://guides.codepath.com/android/using-the-recyclerview"
             Lookup the recyclerview in activity layout
             */
-            mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowReviews);
-            mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowTrailers);
-            mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowCast);
+            mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
+            mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesTrailers);
+            mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
 
             /* Create mPopularMovieAdapter passing in the sample user data */
             mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);

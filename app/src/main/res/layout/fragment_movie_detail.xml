@@ -16,20 +16,20 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content_tv_show_detail"
+    android:id="@+id/main_content_movie_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_tv_show_detail"
+        android:id="@+id/appbar_movie_detail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_backdrop_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_tv_show_detail"
+            android:id="@+id/collapsing_toolbar_movie_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -39,7 +39,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-                android:id="@+id/tv_show_detail_title_image_view_backdrop"
+                android:id="@+id/movie_detail_title_image_view_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -47,7 +47,7 @@
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_tv_show_detail"
+                android:id="@+id/toolbar_movie_detail"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
@@ -91,7 +91,7 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerViewTvShowTrailers"
+                    android:id="@+id/recyclerViewMoviesTrailers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -115,7 +115,7 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerViewTvShowCast"
+                    android:id="@+id/recyclerViewMovieCast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="horizontal" />
@@ -131,7 +131,7 @@
                 android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewTvShowReviews"
+                android:id="@+id/recyclerViewMovieReviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal" />

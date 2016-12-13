@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     * Also the code related to RecyclerView has been referenced from codepath tutorial, linked to
     * @link: "https://guides.codepath.com/android/using-the-recyclerview".
     * And the other code uses has been given their credit throughout the project as per the ethical
-    * work flow culture and use of opensource projects
+    * work flow culture and use of open source projects
     */
 
     /*
