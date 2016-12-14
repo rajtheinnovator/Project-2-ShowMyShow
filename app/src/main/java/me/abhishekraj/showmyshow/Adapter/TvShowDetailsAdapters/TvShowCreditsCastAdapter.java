@@ -67,7 +67,7 @@ public class TvShowCreditsCastAdapter extends RecyclerView.Adapter<TvShowCredits
         viewHolder.tvShowCastCharacter.setText(currentCast.getTvShowCastCharacter());
         Picasso.with(getContext())
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.castplaceholder)
                 .into(viewHolder.tvShowCastImageView);
 
 

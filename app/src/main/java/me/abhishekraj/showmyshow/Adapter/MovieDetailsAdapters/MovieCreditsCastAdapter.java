@@ -67,7 +67,7 @@ public class MovieCreditsCastAdapter extends RecyclerView.Adapter<MovieCreditsCa
         viewHolder.movieCastCharacter.setText(currentCast.getMovieCastCharacter());
         Picasso.with(getContext())
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.castplaceholder)
                 .into(viewHolder.movieCastImageView);
 
 

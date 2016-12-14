@@ -68,7 +68,7 @@ public class TvShowSeasonsAdapter extends RecyclerView.Adapter<TvShowSeasonsAdap
         String url = "https://image.tmdb.org/t/p/w500/" + currentSeason.getTvShowSeasonPosterPath();
         Picasso.with(getContext())
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.posterplaceholder)
                 .into(viewHolder.tvShowSeasonBaner);
 
     }

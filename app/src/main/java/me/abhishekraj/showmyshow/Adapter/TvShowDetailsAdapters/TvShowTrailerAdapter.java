@@ -69,7 +69,7 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
         String completeUrl = url + "/0.jpg";
         Picasso.with(getContext())
                 .load(completeUrl)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.placeholdercinema)
                 .into(viewHolder.tvShowVideoBanner);
     }
 

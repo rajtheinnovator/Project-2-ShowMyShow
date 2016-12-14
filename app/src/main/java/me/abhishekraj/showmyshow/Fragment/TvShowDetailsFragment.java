@@ -154,11 +154,11 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             collapsingToolbar.setTitle(tvShow.getTvShowName());
             Picasso.with(getContext())
                     .load(posterURL)
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.posterplaceholder)
                     .into(tvShowDetailTitleImageView);
             Picasso.with(getContext())
                     .load(backdropURL)
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.backdropimage)
                     .into(tvShowDetailsBackdropImageView);
 
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/

@@ -134,11 +134,11 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             collapsingToolbar.setTitle(movie.getMovieTitle());
             Picasso.with(getContext())
                     .load(posterURL)
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.posterplaceholder)
                     .into(movieDetailTitleImageView);
             Picasso.with(getContext())
                     .load(backdropURL)
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.backdropimage)
                     .into(moviedetailsBackdropImageView);
 
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/

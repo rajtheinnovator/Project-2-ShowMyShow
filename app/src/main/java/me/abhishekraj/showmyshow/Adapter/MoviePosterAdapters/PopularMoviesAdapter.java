@@ -65,7 +65,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
         String url = "https://image.tmdb.org/t/p/w500/" + currentMovie.getMoviePosterPath().toString();
         Picasso.with(getContext())
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.posterplaceholder)
                 .into(viewHolder.movieTitleImageView);
     }
 

@@ -65,7 +65,7 @@ public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAd
         String url = "https://image.tmdb.org/t/p/w500/" + currentTvShow.getTvShowPosterPath().toString();
         Picasso.with(getContext())
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.posterplaceholder)
                 .into(viewHolder.tvShowTitleImageView);
     }
 
