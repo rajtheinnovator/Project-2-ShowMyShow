@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -85,6 +87,12 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     TextView tvShowTypeTextView;
     TextView tvShowPopularityTextView;
     ExpandableTextView tvShowOverviewExpandableTextView;
+    /*Add containers of recycler view for empty view setup*/
+    LinearLayout containerTvShowTrailer;
+    LinearLayout containerTvShowCast;
+    LinearLayout containerTvShowReviews;
+    LinearLayout containerTvShowSeasons;
+    ProgressBar loadingIndicatorTvShowDetail;
     private TvShowDetailsBundle mTvShowDetailsBundle;
 
     public TvShowDetailsFragment() {
@@ -108,6 +116,13 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         tvShowOverviewExpandableTextView = (ExpandableTextView) rootView.findViewById(R.id.expand_text_viewTvShowOverview);
         tvShowNumberOfEpisodesTextView = (TextView) rootView.findViewById(R.id.tvShowTotalEpisodesValue);
         tvShowNumberOfSeasonsTextView = (TextView) rootView.findViewById(R.id.tvShowTotalSeasonsValue);
+
+                /*search recyclerview containers for the purpose of empty view */
+        containerTvShowCast = (LinearLayout) rootView.findViewById(R.id.containerTvShowCast);
+        containerTvShowReviews = (LinearLayout) rootView.findViewById(R.id.containerTvShowReviews);
+        containerTvShowSeasons = (LinearLayout) rootView.findViewById(R.id.containerTvShowSeasons);
+        containerTvShowTrailer = (LinearLayout) rootView.findViewById(R.id.containerTvShowTrailer);
+        loadingIndicatorTvShowDetail = (ProgressBar) rootView.findViewById(R.id.loading_indicator_tv_show_detail);
 
          /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_tv_show_detail for this Fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
@@ -252,7 +267,22 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             snapHelperCastStart.attachToRecyclerView(mTvShowCastRecyclerView);
 
             SnapHelper snapHelperSeasonsStart = new GravitySnapHelper(Gravity.START);
-            snapHelperCastStart.attachToRecyclerView(mTvShowSeasonsRecyclerView);
+            snapHelperSeasonsStart.attachToRecyclerView(mTvShowSeasonsRecyclerView);
+
+                /*get loading indicator to work*/
+            if (mTvShowDetailsBundle.getReviewArrayList().isEmpty() && mTvShowDetailsBundle.getCreditsArrayList().isEmpty()
+                    && mTvShowDetailsBundle.getVideoArrayList().isEmpty() && mTvShowDetailsBundle.getSeasonsArrayList().isEmpty()) {
+                loadingIndicatorTvShowDetail.setVisibility(View.VISIBLE);
+                containerTvShowSeasons.setVisibility(View.GONE);
+                containerTvShowTrailer.setVisibility(View.GONE);
+                containerTvShowReviews.setVisibility(View.GONE);
+                containerTvShowCast.setVisibility(View.GONE);
+            } else if ((!(mTvShowDetailsBundle.getReviewArrayList().isEmpty()) ||
+                    !(mTvShowDetailsBundle.getCreditsArrayList().isEmpty()) || !(mTvShowDetailsBundle.getVideoArrayList().isEmpty()
+                    || !(mTvShowDetailsBundle.getSeasonsArrayList().isEmpty())))) {
+                loadingIndicatorTvShowDetail.setVisibility(View.GONE);
+            }
+
         }
         return rootView;
     }
@@ -289,6 +319,37 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
             mTvShowSeasonsRecyclerView.setAdapter(mTvShowSeasonsAdapter);
             updateExtraDetailsTextView(mTvShowDetailsBundle);
+
+            if (!tvShowDetailsBundle.getVideoArrayList().isEmpty()) {
+                containerTvShowTrailer.setVisibility(View.VISIBLE);
+                loadingIndicatorTvShowDetail.setVisibility(View.GONE);
+            } else {
+                containerTvShowTrailer.setVisibility(View.GONE);
+            }
+
+            if (!tvShowDetailsBundle.getCreditsArrayList().isEmpty()) {
+                containerTvShowCast.setVisibility(View.VISIBLE);
+                loadingIndicatorTvShowDetail.setVisibility(View.GONE);
+            } else {
+                containerTvShowCast.setVisibility(View.GONE);
+            }
+
+            if (!tvShowDetailsBundle.getReviewArrayList().isEmpty()) {
+                containerTvShowReviews.setVisibility(View.VISIBLE);
+                loadingIndicatorTvShowDetail.setVisibility(View.GONE);
+            } else {
+                containerTvShowReviews.setVisibility(View.GONE);
+            }
+            if (!tvShowDetailsBundle.getSeasonsArrayList().isEmpty()) {
+                containerTvShowSeasons.setVisibility(View.VISIBLE);
+                loadingIndicatorTvShowDetail.setVisibility(View.GONE);
+            } else {
+                containerTvShowSeasons.setVisibility(View.GONE);
+            }
+            if (!tvShowDetailsBundle.getReviewArrayList().isEmpty() || !tvShowDetailsBundle.getVideoArrayList().isEmpty()
+                    || !tvShowDetailsBundle.getCreditsArrayList().isEmpty() || !tvShowDetailsBundle.getSeasonsArrayList().isEmpty()) {
+                loadingIndicatorTvShowDetail.setVisibility(View.GONE);
+            }
         }
     }
 

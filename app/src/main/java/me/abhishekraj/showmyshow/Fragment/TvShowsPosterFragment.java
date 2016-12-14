@@ -17,6 +17,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
@@ -65,6 +67,11 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     LinearLayoutManager layoutManagerPopularTvShowPoster;
     LinearLayoutManager layoutManagerAiredNowTvShowPoster;
     LinearLayoutManager layoutManagerTopRatedTvShowPoster;
+
+    LinearLayout containerTvShowPosterPopularTvShow;
+    LinearLayout containerTvShowPosterTopRatedTvShow;
+    LinearLayout containerTvShowPosterAiredNowTvShow;
+    ProgressBar loadingIndicatorTvShowPoster;
 
     public TvShowsPosterFragment() {
         // Required empty public constructor
@@ -115,6 +122,12 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
         mPopularTvShowRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewPopularTvShows);
         mAiredNowTvShowRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewAiredNowTvShows);
         mTopRatedTvShowRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTopRatedTvShows);
+
+        /*search recyclerview containers for the purpose of empty view */
+        containerTvShowPosterPopularTvShow = (LinearLayout) rootView.findViewById(R.id.containerTvShowPosterPopularTvShow);
+        containerTvShowPosterAiredNowTvShow = (LinearLayout) rootView.findViewById(R.id.containerTvShowPosterAiredNowTvShow);
+        containerTvShowPosterTopRatedTvShow = (LinearLayout) rootView.findViewById(R.id.containerTvShowPosterTopRatedTvShow);
+        loadingIndicatorTvShowPoster = (ProgressBar) rootView.findViewById(R.id.loading_indicator_tv_show_poster);
 
          /*
           * Setup layout manager for items with orientation
@@ -179,6 +192,16 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
         mTopRatedTvShowAdapter.setTvShowData(topRatedTvShows);
         // Attach the mTopRatedTvShowAdapter to the recyclerview to populate items
         mTopRatedTvShowRecyclerView.setAdapter(mTopRatedTvShowAdapter);
+
+           /*get loading indicator to work*/
+        if (popularTvShows.isEmpty() && airedNowTvShows.isEmpty() && topRatedTvShows.isEmpty()) {
+            loadingIndicatorTvShowPoster.setVisibility(View.VISIBLE);
+            containerTvShowPosterTopRatedTvShow.setVisibility(View.GONE);
+            containerTvShowPosterAiredNowTvShow.setVisibility(View.GONE);
+            containerTvShowPosterPopularTvShow.setVisibility(View.GONE);
+        } else if ((!(popularTvShows.isEmpty()) || !(airedNowTvShows.isEmpty()) || !(topRatedTvShows.isEmpty()))) {
+            loadingIndicatorTvShowPoster.setVisibility(View.GONE);
+        }
 
         return rootView;
     }
@@ -252,6 +275,10 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                     mPopularTvShowAdapter.setTvShowData(popularTvShows);
                     mPopularTvShowRecyclerView.setAdapter(mPopularTvShowAdapter);
 
+                      /*get loading indicator to work*/
+                    containerTvShowPosterPopularTvShow.setVisibility(View.VISIBLE);
+                    loadingIndicatorTvShowPoster.setVisibility(View.GONE);
+
                 }
                 break;
             case AIRED_NOW_TV_SHOW_LOADER_ID:
@@ -262,6 +289,9 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                     mAiredNowTvShowAdapter = new AiredNowTvShowAdapter(getActivity(), airedNowTvShows);
                     mAiredNowTvShowAdapter.setTvShowData(airedNowTvShows);
                     mAiredNowTvShowRecyclerView.setAdapter(mAiredNowTvShowAdapter);
+                    /*get loading indicator to work*/
+                    containerTvShowPosterAiredNowTvShow.setVisibility(View.VISIBLE);
+                    loadingIndicatorTvShowPoster.setVisibility(View.GONE);
                 }
                 break;
             case TOP_RATED_TV_SHOW_LOADER_ID:
@@ -272,6 +302,9 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                     mTopRatedTvShowAdapter = new TopRatedTvShowAdapter(getActivity(), topRatedTvShows);
                     mTopRatedTvShowAdapter.setTvShowData(topRatedTvShows);
                     mTopRatedTvShowRecyclerView.setAdapter(mTopRatedTvShowAdapter);
+                    /*get loading indicator to work*/
+                    containerTvShowPosterTopRatedTvShow.setVisibility(View.VISIBLE);
+                    loadingIndicatorTvShowPoster.setVisibility(View.GONE);
                 }
                 break;
         }

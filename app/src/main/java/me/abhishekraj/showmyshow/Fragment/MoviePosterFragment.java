@@ -16,6 +16,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
@@ -60,6 +62,12 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     LinearLayoutManager layoutManagerUpcomingMoviesPoster;
     LinearLayoutManager layoutManagerTopRatedMoviesPoster;
 
+
+    LinearLayout containerMoviePosterPopularMovies;
+    LinearLayout containerMoviePosterUpcomingMovies;
+    LinearLayout containerMoviePosterTopRatedMovies;
+    ProgressBar loadingIndicatorMoviePoster;
+
     public MoviePosterFragment() {
         // Required empty public constructor
     }
@@ -72,7 +80,6 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
             popularMovies = savedInstanceState.getParcelableArrayList("popularMovies");
             upcomingMovies = savedInstanceState.getParcelableArrayList("upcomingMovies");
             topRatedMovies = savedInstanceState.getParcelableArrayList("topRatedMovies");
-
         } else {
             popularMovies = new ArrayList<>();
             upcomingMovies = new ArrayList<>();
@@ -109,6 +116,12 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         mPopularMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewPopularMovies);
         mUpcomingMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewUpcomingMovies);
         mTopRatedMovieRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewTopRatedMovies);
+
+        /*search recyclerview containers for the purpose of empty view */
+        containerMoviePosterPopularMovies = (LinearLayout) rootView.findViewById(R.id.containerMoviePosterPopularMovies);
+        containerMoviePosterTopRatedMovies = (LinearLayout) rootView.findViewById(R.id.containerMoviePosterTopRatedMovies);
+        containerMoviePosterUpcomingMovies = (LinearLayout) rootView.findViewById(R.id.containerMoviePosterUpcomingMovies);
+        loadingIndicatorMoviePoster = (ProgressBar) rootView.findViewById(R.id.loading_indicator_movie_poster);
 
          /*
           * Setup layout manager for items with orientation
@@ -174,6 +187,16 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         // Attach the mTopRatedMovieAdapter to the recyclerview to populate items
         mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
 
+        /*get loading indicator to work*/
+        if (upcomingMovies.isEmpty() && topRatedMovies.isEmpty() && popularMovies.isEmpty()) {
+            loadingIndicatorMoviePoster.setVisibility(View.VISIBLE);
+            containerMoviePosterUpcomingMovies.setVisibility(View.GONE);
+            containerMoviePosterTopRatedMovies.setVisibility(View.GONE);
+            containerMoviePosterPopularMovies.setVisibility(View.GONE);
+        } else if ((!(upcomingMovies.isEmpty()) || !(topRatedMovies.isEmpty()) || !(popularMovies.isEmpty()))) {
+            loadingIndicatorMoviePoster.setVisibility(View.GONE);
+        }
+
         return rootView;
     }
 
@@ -235,6 +258,9 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                     mPopularMoviesAdapter.setMovieData(popularMovies);
                     mPopularMovieRecyclerView.setAdapter(mPopularMoviesAdapter);
 
+                      /*get loading indicator to work*/
+                    containerMoviePosterPopularMovies.setVisibility(View.VISIBLE);
+                    loadingIndicatorMoviePoster.setVisibility(View.GONE);
                 }
                 break;
             case UPCOMING_MOVIE_LOADER_ID:
@@ -245,6 +271,9 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                     mUpcomingMovieAdapter = new UpcomingMovieAdapter(getActivity(), upcomingMovies);
                     mUpcomingMovieAdapter.setMovieData(upcomingMovies);
                     mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
+                    /*get loading indicator to work*/
+                    containerMoviePosterUpcomingMovies.setVisibility(View.VISIBLE);
+                    loadingIndicatorMoviePoster.setVisibility(View.GONE);
                 }
                 break;
             case TOP_RATED_MOVIE_LOADER_ID:
@@ -255,6 +284,9 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                     mTopRatedMoviesAdapter = new TopRatedMoviesAdapter(getActivity(), topRatedMovies);
                     mTopRatedMoviesAdapter.setMovieData(topRatedMovies);
                     mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
+                    /*get loading indicator to work*/
+                    containerMoviePosterTopRatedMovies.setVisibility(View.VISIBLE);
+                    loadingIndicatorMoviePoster.setVisibility(View.GONE);
                 }
                 break;
         }

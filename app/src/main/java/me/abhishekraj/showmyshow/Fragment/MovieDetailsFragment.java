@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -71,6 +73,11 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     TextView movieReleaseDate;
     TextView movieRunTimeDuration;
     ExpandableTextView movieOverviewExpandableTextView;
+    /*Add containers of recycler view for empty view setup*/
+    LinearLayout containerMoviesTrailer;
+    LinearLayout containerMoviesCast;
+    LinearLayout containerMoviesReviews;
+    ProgressBar loadingIndicatorMovieDetail;
     private MovieDetailsBundle mMovieDetailsBundle;
     private int mMovieDuration;
     private String mMovieDurationString;
@@ -91,6 +98,13 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         movieReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
         movieRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
         movieOverviewExpandableTextView = (ExpandableTextView) rootView.findViewById(R.id.expand_text_viewMovieOverview);
+
+
+        /*search recyclerview containers for the purpose of empty view */
+        containerMoviesTrailer = (LinearLayout) rootView.findViewById(R.id.containerMoviesTrailer);
+        containerMoviesCast = (LinearLayout) rootView.findViewById(R.id.containerMoviesCast);
+        containerMoviesReviews = (LinearLayout) rootView.findViewById(R.id.containerMoviesReviews);
+        loadingIndicatorMovieDetail = (ProgressBar) rootView.findViewById(R.id.loading_indicator_movie_detail);
 
         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_movie_detail for this Fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
@@ -210,6 +224,18 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
             SnapHelper snapHelperCastStart = new GravitySnapHelper(Gravity.START);
             snapHelperCastStart.attachToRecyclerView(mMovieCastRecyclerView);
+
+              /*get loading indicator to work*/
+            if (mMovieDetailsBundle.getReviewArrayList().isEmpty() && mMovieDetailsBundle.getCreditsArrayList().isEmpty()
+                    && mMovieDetailsBundle.getVideoArrayList().isEmpty()) {
+                loadingIndicatorMovieDetail.setVisibility(View.VISIBLE);
+                containerMoviesTrailer.setVisibility(View.GONE);
+                containerMoviesCast.setVisibility(View.GONE);
+                containerMoviesReviews.setVisibility(View.GONE);
+            } else if ((!(mMovieDetailsBundle.getReviewArrayList().isEmpty()) ||
+                    !(mMovieDetailsBundle.getCreditsArrayList().isEmpty()) || !(mMovieDetailsBundle.getVideoArrayList().isEmpty()))) {
+                loadingIndicatorMovieDetail.setVisibility(View.GONE);
+            }
         }
         return rootView;
     }
@@ -243,6 +269,31 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
             mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
             updateDurationTextView(mMovieDetailsBundle);
+
+            if (!movieDetailsBundle.getVideoArrayList().isEmpty()) {
+                containerMoviesTrailer.setVisibility(View.VISIBLE);
+                loadingIndicatorMovieDetail.setVisibility(View.GONE);
+            } else {
+                containerMoviesTrailer.setVisibility(View.GONE);
+            }
+
+            if (!movieDetailsBundle.getCreditsArrayList().isEmpty()) {
+                containerMoviesCast.setVisibility(View.VISIBLE);
+                loadingIndicatorMovieDetail.setVisibility(View.GONE);
+            } else {
+                containerMoviesCast.setVisibility(View.GONE);
+            }
+
+            if (!movieDetailsBundle.getReviewArrayList().isEmpty()) {
+                containerMoviesReviews.setVisibility(View.VISIBLE);
+                loadingIndicatorMovieDetail.setVisibility(View.GONE);
+            } else {
+                containerMoviesReviews.setVisibility(View.GONE);
+            }
+            if (!movieDetailsBundle.getReviewArrayList().isEmpty() || !movieDetailsBundle.getVideoArrayList().isEmpty()
+                    || !movieDetailsBundle.getCreditsArrayList().isEmpty()) {
+                loadingIndicatorMovieDetail.setVisibility(View.GONE);
+            }
 
         }
     }

@@ -7,62 +7,78 @@
     android:orientation="vertical"
     tools:context="me.abhishekraj.showmyshow.Activity.MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="me.abhishekraj.showmyshow.Activity.MainActivity">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/containerTvShowPosterPopularTvShow"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/tv_show_poster_fragment_container_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:context="me.abhishekraj.showmyshow.Activity.MainActivity">
 
-            <TextView
-                style="@style/MovieAndTvShowCategoryNameTextStyle"
-                android:text="@string/popular_tv_show" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewPopularTvShows"
+            <LinearLayout
+                android:id="@+id/containerTvShowPosterPopularTvShow"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MovieAndTvShowCategoryNameTextStyle"
+                    android:text="@string/popular_tv_show" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewPopularTvShows"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerTvShowPosterAiredNowTvShow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MovieAndTvShowCategoryNameTextStyle"
+                    android:text="@string/just_aired_tv_show" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewAiredNowTvShows"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerTvShowPosterTopRatedTvShow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MovieAndTvShowCategoryNameTextStyle"
+                    android:text="@string/top_rated_tv_show" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewTopRatedTvShows"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/containerTvShowPosterAiredNowTvShow"
+        <ProgressBar
+            android:id="@+id/loading_indicator_tv_show_poster"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/MovieAndTvShowCategoryNameTextStyle"
-                android:text="@string/just_aired_tv_show" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewAiredNowTvShows"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/containerTvShowPosterTopRatedTvShow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/MovieAndTvShowCategoryNameTextStyle"
-                android:text="@string/top_rated_tv_show" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewTopRatedTvShows"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal" />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|center" />
+    </RelativeLayout>
 </ScrollView>
