@@ -14,52 +14,55 @@
         android:orientation="vertical"
         tools:context="me.abhishekraj.showmyshow.Activity.MainActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="4dp"
-            android:paddingLeft="4dp"
-            android:paddingTop="4dp"
-            android:text="@string/popular_tv_show"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewPopularTvShows"
+        <LinearLayout
+            android:id="@+id/containerTvShowPosterPopularTvShow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="4dp"
-            android:paddingLeft="4dp"
-            android:paddingTop="4dp"
-            android:text="@string/just_aired_tv_show"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                style="@style/MovieAndTvShowCategoryNameTextStyle"
+                android:text="@string/popular_tv_show" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewAiredNowTvShows"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewPopularTvShows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerTvShowPosterAiredNowTvShow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="4dp"
-            android:paddingLeft="4dp"
-            android:paddingTop="4dp"
-            android:text="@string/top_rated_tv_show"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                style="@style/MovieAndTvShowCategoryNameTextStyle"
+                android:text="@string/just_aired_tv_show" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewTopRatedTvShows"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewAiredNowTvShows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerTvShowPosterTopRatedTvShow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MovieAndTvShowCategoryNameTextStyle"
+                android:text="@string/top_rated_tv_show" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewTopRatedTvShows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

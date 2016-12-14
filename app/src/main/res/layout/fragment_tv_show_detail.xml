@@ -75,100 +75,110 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:text="@string/videos"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
             <LinearLayout
+                android:id="@+id/containerTvShowTrailer"
                 android:layout_width="match_parent"
-                android:layout_height="128dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerViewTvShowsTrailers"
+                <TextView
+                    style="@style/MovieAndTvShowCategoryNameTextStyle"
+                    android:text="@string/videos" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewTvShowsTrailers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:scrollbars="horizontal" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerTvShowSeasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MovieAndTvShowCategoryNameTextStyle"
+                    android:text="@string/seasons" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:scrollbars="horizontal" />
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewTvShowsSeasons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:scrollbars="horizontal" />
+                </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:text="@string/seasons"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
             <LinearLayout
+                android:id="@+id/containerTvShowCast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerViewTvShowsSeasons"
+                <TextView
+                    style="@style/MovieAndTvShowCategoryNameTextStyle"
+                    android:text="@string/cast" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="128sp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewTvShowCast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="horizontal" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerTvShowReviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MovieAndTvShowCategoryNameTextStyle"
+                    android:text="@string/reviews" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewTvShowReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:scrollbars="horizontal" />
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="16dp"
+                    android:text="@string/all_reviews"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:text="@string/cast"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="128sp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerViewTvShowCast"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="horizontal" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                android:text="@string/reviews"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewTvShowReviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:text="@string/all_reviews"
-                android:textSize="16sp"
-                android:textStyle="bold" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

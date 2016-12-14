@@ -32,19 +32,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="5"
-            android:orientation="vertical">
+            android:gravity="right"
+            android:orientation="vertical"
+            android:paddingLeft="8dp">
 
             <TextView
                 android:id="@+id/moivie_detail_title_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/text_margin"
-                android:layout_weight="1"
+                style="@style/TvShowDetailsTitleTextStyle"
                 android:gravity="end"
-                android:text="@string/movie_title"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:text="@string/movie_title" />
 
             <com.iarcuschin.simpleratingbar.SimpleRatingBar
                 android:id="@+id/movieRatingInsideMovieDetailsFragment"
@@ -61,32 +57,74 @@
                 app:srb_stepSize="0.1" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_gravity="end"
                 android:layout_weight="1"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="4dp"
-                android:paddingTop="8dp">
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/MovieAndTvShowDetailsTextStringStyle"
+                    android:text="@string/released" />
 
                 <TextView
                     android:id="@+id/movie_release_date_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|start|center_vertical"
-                    android:hint="@string/hint_movie_release_date"
-                    android:paddingRight="8dp"
-                    android:textSize="12sp" />
+                    style="@style/MovieAndTvShowDetailsTextValueStyle"
+                    android:hint="@string/hint_movie_release_date" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/MovieAndTvShowDetailsTextStringStyle"
+                    android:text="@string/duration" />
 
                 <TextView
                     android:id="@+id/movie_duration_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right|end|center_vertical"
-                    android:hint="@string/hint_movie_duration"
-                    android:textSize="12sp" />
+                    style="@style/MovieAndTvShowDetailsTextValueStyle"
+                    android:hint="@string/hint_movie_duration" />
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:text="@string/overview"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/expand_text_viewMovieOverview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            expandableTextView:animDuration="200"
+            expandableTextView:maxCollapsedLines="6">
+
+            <TextView
+                android:id="@id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dp"
+                android:padding="16dp"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:background="@android:color/transparent"
+                android:padding="8dp" />
+
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
     </LinearLayout>
 </LinearLayout>

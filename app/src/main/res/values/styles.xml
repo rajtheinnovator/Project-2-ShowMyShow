@@ -17,4 +17,115 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MovieAndTvShowCategoryNameTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PosterCardViewStyle"></style>
+
+    <style name="TrailerVideoCardViewImageStyle">
+        <item name="android:layout_width">128dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:background">#634500</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="TrailerVideoCardViewTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+    </style>
+
+    <style name="CardViewImageStyle">
+        <item name="android:layout_width">128dp</item>
+        <item name="android:layout_height">170dp</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:background">#634500</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="CardViewTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+    </style>
+
+    <style name="CastStyle">
+        <item name="android:layout_width">96sp</item>
+        <item name="android:layout_height">128sp</item>
+        <item name="android:layout_gravity">center|center_horizontal|center_vertical</item>
+        <item name="android:gravity">center|center_horizontal|center_vertical</item>
+    </style>
+
+    <style name="CastTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TvShowDetailsTitleTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">@dimen/text_margin</item>
+
+
+    </style>
+
+    <style name="MovieAndTvShowDetailsTextStringStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right|end|center_vertical</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieAndTvShowDetailsTextValueStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right|end|center_vertical</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TvShowDetailsTitleImageStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+
 </resources>

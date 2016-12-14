@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     String backdropURL;
     TextView movieReleaseDate;
     TextView movieRunTimeDuration;
+    ExpandableTextView movieOverviewExpandableTextView;
     private MovieDetailsBundle mMovieDetailsBundle;
     private int mMovieDuration;
     private String mMovieDurationString;
@@ -88,6 +90,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         moviedetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
         movieReleaseDate = (TextView) rootView.findViewById(R.id.movie_release_date_text_view);
         movieRunTimeDuration = (TextView) rootView.findViewById(R.id.movie_duration_text_view);
+        movieOverviewExpandableTextView = (ExpandableTextView) rootView.findViewById(R.id.expand_text_viewMovieOverview);
 
         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_movie_detail for this Fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
@@ -111,6 +114,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             movie = getArguments().getParcelable("movie");
             movieDetailTitleTextView.setText(movie.getMovieTitle());
             movieReleaseDate.setText(movie.getMovieReleaseDate());
+            movieOverviewExpandableTextView.setText(movie.getMovieOverview());
             posterURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + movie.getMoviePosterPath();
             backdropURL = UrlsAndConstants.MoviePosterQuery.BASE_IMAGE_URL + movie.getMovieBackdropPath();
             collapsingToolbar.setTitle(movie.getMovieTitle());
