@@ -61,6 +61,7 @@ public class PopularTvShowAdapter extends RecyclerView.Adapter<PopularTvShowAdap
         Set item views based on your views and data model
          */
         viewHolder.tvShowTitleTextView.setText(currentTvShow.getTvShowName());
+        viewHolder.tvShowVoteAverageTextView.setText(String.valueOf((long) (currentTvShow.getTvShowVoteAverage()) / 2));
         String url = "https://image.tmdb.org/t/p/w500/" + currentTvShow.getTvShowPosterPath().toString();
         Picasso.with(getContext())
                 .load(url)
@@ -89,6 +90,7 @@ public class PopularTvShowAdapter extends RecyclerView.Adapter<PopularTvShowAdap
         */
         public final TextView tvShowTitleTextView;
         public final ImageView tvShowTitleImageView;
+        public final TextView tvShowVoteAverageTextView;
         private Context context;
 
         /*
@@ -103,6 +105,7 @@ public class PopularTvShowAdapter extends RecyclerView.Adapter<PopularTvShowAdap
             super(itemView);
             tvShowTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
             tvShowTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
+            tvShowVoteAverageTextView = (TextView) itemView.findViewById(R.id.voteAverageMovieAndTvShowPoster);
             this.context = context;
             /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);

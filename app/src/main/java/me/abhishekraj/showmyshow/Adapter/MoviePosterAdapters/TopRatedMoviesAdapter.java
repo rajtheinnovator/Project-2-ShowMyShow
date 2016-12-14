@@ -61,6 +61,7 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
         Set item views based on your views and data model
          */
         viewHolder.movieTitleTextView.setText(currentMovie.getMovieTitle());
+        viewHolder.movieVoteAverageTextView.setText(String.valueOf((long) (currentMovie.getMovieVoteAverage()) / 2));
         String url = "https://image.tmdb.org/t/p/w500/" + currentMovie.getMoviePosterPath().toString();
         Picasso.with(getContext())
                 .load(url)
@@ -89,6 +90,7 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
         */
         public final TextView movieTitleTextView;
         public final ImageView movieTitleImageView;
+        public final TextView movieVoteAverageTextView;
         private Context context;
 
         /*
@@ -103,10 +105,12 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
             super(itemView);
             movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
             movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
+            movieVoteAverageTextView = (TextView) itemView.findViewById(R.id.voteAverageMovieAndTvShowPoster);
             this.context = context;
             /* Attach a click listener to the entire row view */
             itemView.setOnClickListener(this);
         }
+
         /*The codes below and at some other places throughout the app related to RecyclerView has been
         * taken from multiple sources on the web including from the following @link:
         * "https://guides.codepath.com/android/using-the-recyclerview
