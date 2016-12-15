@@ -14,10 +14,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
@@ -84,6 +88,10 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* set that it has a menu */
+        setHasOptionsMenu(true);
+
         if (savedInstanceState != null) {
             /* if data is already present then instantiate the arraylist with those save data */
             popularMovies = savedInstanceState.getParcelableArrayList("popularMovies");
@@ -217,6 +225,32 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         super.onSaveInstanceState(outState);
     }
 
+    /* setup the menu */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_movie_poster_fragment, menu);
+    }
+
+    /* setup menu click handling */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                reStartLoaderManagers();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void reStartLoaderManagers() {
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.restartLoader(POPULAR_MOVIE_LOADER_ID, null, this);
+        loaderManager.restartLoader(TOP_RATED_MOVIE_LOADER_ID, null, this);
+        loaderManager.restartLoader(UPCOMING_MOVIE_LOADER_ID, null, this);
+        Toast.makeText(getContext(), "Refreshing....", Toast.LENGTH_SHORT).show();
+    }
 
     private void startPopularMoviesLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();

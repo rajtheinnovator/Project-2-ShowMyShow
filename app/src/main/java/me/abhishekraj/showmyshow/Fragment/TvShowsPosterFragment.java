@@ -15,10 +15,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
@@ -88,6 +92,10 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* set that it has a menu */
+        setHasOptionsMenu(true);
+
         if (savedInstanceState != null) {
             /* if data is already present then instantiate the arraylist with those save data */
             popularTvShows = savedInstanceState.getParcelableArrayList("popularTvShows");
@@ -221,6 +229,31 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
         outState.putParcelableArrayList("airedNowTvShows", airedNowTvShows);
         outState.putParcelableArrayList("topRatedTvShows", topRatedTvShows);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_movie_poster_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                reStartLoaderManagers();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void reStartLoaderManagers() {
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.restartLoader(POPULAR_TV_SHOW_LOADER_ID, null, this);
+        loaderManager.restartLoader(AIRED_NOW_TV_SHOW_LOADER_ID, null, this);
+        loaderManager.restartLoader(TOP_RATED_TV_SHOW_LOADER_ID, null, this);
+        Toast.makeText(getContext(), "Refreshing....", Toast.LENGTH_SHORT).show();
     }
 
     /* Start the loader manager(s) when called */

@@ -42,5 +42,7 @@
     <string name="duration">Duration: </string>
     <string name="total_episodes">Total episodes: </string>
     <string name="aired">Aired: </string>
+    <!--Menu item string-->
+    <string name="refresh">Refresh</string>
 
 </resources>
