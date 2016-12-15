@@ -21,20 +21,21 @@ import me.abhishekraj.showmyshow.R;
 
 public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.ViewHolder> {
 
-    // Store a member variable for the popularMovies
+    /* Store a member variable for the popularMovies */
     private static ArrayList<Review> mReview;
     MovieDetailsBundle movieDetailsBundle;
-    // Store the context for easy access
+
+    /* Store the context for easy access */
     private Context mContext;
 
-    // Pass in the popularMovies array into the constructor
+    /* Pass in the popularMovies array into the constructor */
     public MovieReviewAdapter(Context context, MovieDetailsBundle movies) {
         movieDetailsBundle = movies;
         mReview = new ArrayList<>();
         mContext = context;
     }
 
-    // Easy access to the context object in the recyclerview
+    /* Easy access to the context object in the recyclerview */
     private Context getContext() {
         return mContext;
     }
@@ -44,25 +45,23 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
-        View moviesView = inflater.inflate(R.layout.item_movie_review, parent, false);
+        /* Inflate the custom layout */
+        View moviesView = inflater.inflate(R.layout.item_movie_and_tv_show_review, parent, false);
 
-        // Return a new holder instance
+        /* Return a new holder instance */
         MovieReviewAdapter.ViewHolder viewHolder = new MovieReviewAdapter.ViewHolder(context, moviesView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(MovieReviewAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
+        /* Get the data model based on position */
         Review currentReview = mReview.get(position);
         /*
         Set item views based on your views and data model
-        TextView movieDetailTitleTextView = viewHolder.movieReviewContentTextView;
         */
         viewHolder.expTv1.setText(currentReview.getMovieReviewContent().trim());
         viewHolder.movieReviewAuthorTextView.setText(currentReview.getMovieReviewAuthor().trim());
-
     }
 
     @Override
@@ -85,7 +84,7 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         Your holder should contain a member variable
         for any view that will be set as you render a row
         */
-        //public final TextView movieReviewContentTextView;
+
         public final TextView movieReviewAuthorTextView;
         /*
         * Make the review content expandable by using the code
@@ -104,11 +103,9 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            //set the review content on the ExpandableTextView
 
+            /* set the review content on the ExpandableTextView */
             expTv1 = (ExpandableTextView) itemView.findViewById(R.id.expand_text_view);
-
-            // movieReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
             movieReviewAuthorTextView = (TextView) itemView.findViewById(R.id.review_author);
             this.context = context;
         }

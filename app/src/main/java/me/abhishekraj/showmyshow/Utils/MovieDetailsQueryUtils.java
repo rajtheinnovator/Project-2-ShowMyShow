@@ -24,12 +24,26 @@ import me.abhishekraj.showmyshow.Model.Movie.Video;
  * Created by ABHISHEK RAJ on 12/1/2016.
  */
 public class MovieDetailsQueryUtils {
+
+    /* variables for holding movie movie cast details */
     private static String character;
     private static String creditId;
     private static String name;
     private static String profilePath;
     private static int castId;
     private static int id;
+
+    /*Variables for handling Movie Videos Details*/
+    private static String idVideo;
+    private static String keyVideo;
+    private static String nameVideo;
+    private static String sizeVideo;
+    private static String typeVideo;
+
+    /* Variables for handling Reviews */
+    private static String author;
+    private static String content;
+    private static String url;
 
     /**
      * Create a private constructor because no one should ever create a {@link MoviePosterQueryUtils} object.
@@ -43,7 +57,7 @@ public class MovieDetailsQueryUtils {
      * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
      */
     public static MovieDetailsBundle fetchMovieData(String requestUrl) {
-        // Create URL object
+        /* Create URL object */
         URL url = createUrl(requestUrl);
 
         // Perform HTTP request to the URL and receive a JSON response back
@@ -51,13 +65,13 @@ public class MovieDetailsQueryUtils {
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            //handle exception
+            /* handle exception */
         }
 
-        // Extract relevant fields from the JSON response and create an {@link Event} object
+        /* Extract relevant fields from the JSON response and create an {@link Event} object */
         MovieDetailsBundle movieDetailsBundle = extractFeatureFromJson(jsonResponse);
 
-        // Return the {@link Event}
+        /* Return the {@link Event} */
         return movieDetailsBundle;
     }
 
@@ -69,7 +83,7 @@ public class MovieDetailsQueryUtils {
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException e) {
-            //handle exception
+            /* handle exception */
         }
         return url;
     }
@@ -80,7 +94,7 @@ public class MovieDetailsQueryUtils {
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
 
-        // If the URL is null, then return early.
+        /* If the URL is null, then return early. */
         if (url == null) {
             return jsonResponse;
         }
@@ -141,7 +155,7 @@ public class MovieDetailsQueryUtils {
      */
     public static MovieDetailsBundle extractFeatureFromJson(String jsonResponse) {
 
-        // Create an empty ArrayList that we can start adding popularMovies to
+        // Create an empty ArrayList that we can start adding MoviesDetails to
         ArrayList<Review> reviews = new ArrayList<Review>();
         ArrayList<Video> videos = new ArrayList<Video>();
         ArrayList<Credits> credits = new ArrayList<>();
@@ -164,9 +178,15 @@ public class MovieDetailsQueryUtils {
                     if (resultsArray.length() > 0) {
                         for (int i = 0; i < resultsArray.length(); i++) {
                             JSONObject reviewObject = resultsArray.getJSONObject(i);
-                            String author = reviewObject.getString("author");
-                            String content = reviewObject.getString("content");
-                            String url = reviewObject.getString("url");
+                            if (reviewObject.has("author")) {
+                                author = reviewObject.getString("author");
+                            }
+                            if (reviewObject.has("content")) {
+                                content = reviewObject.getString("content");
+                            }
+                            if (reviewObject.has("url")) {
+                                url = reviewObject.getString("url");
+                            }
                             reviews.add(new Review(author, content, url));
                         }
                     }
@@ -179,19 +199,28 @@ public class MovieDetailsQueryUtils {
                     if (videoResultsArray.length() > 0) {
                         for (int i = 0; i < videoResultsArray.length(); i++) {
                             JSONObject videoObject = videoResultsArray.getJSONObject(i);
-                            String id = videoObject.getString("id");
-                            String key = videoObject.getString("key");
-                            String name = videoObject.getString("name");
-                            String size = videoObject.getString("size");
-                            String type = videoObject.getString("type");
-                            videos.add(new Video(id, key, name, size, type));
+                            if (videoObject.has("id")) {
+                                idVideo = videoObject.getString("id");
+                            }
+                            if (videoObject.has("key")) {
+                                keyVideo = videoObject.getString("key");
+                            }
+                            if (videoObject.has("name")) {
+                                nameVideo = videoObject.getString("name");
+                            }
+                            if (videoObject.has("size")) {
+                                sizeVideo = videoObject.getString("size");
+                            }
+                            if (videoObject.has("type")) {
+                                typeVideo = videoObject.getString("type");
+                            }
+                            videos.add(new Video(idVideo, keyVideo, nameVideo, sizeVideo, typeVideo));
                         }
                     }
                 }
             }
             if (movie_json_response.has("runtime")) {
                 int runTime = movie_json_response.getInt("runtime");
-                //movie = new Movie(runTime);
                 movie.setMovieRunTimeDuration(runTime);
             }
             if (movie_json_response.has("credits")) {
@@ -232,7 +261,7 @@ public class MovieDetailsQueryUtils {
         } catch (JSONException e) {
             //handle exception
         }
-        // Return the list of popularMovies
+        // Return the MovieDetailsBundle
         return movieDetailsBundle;
     }
 }

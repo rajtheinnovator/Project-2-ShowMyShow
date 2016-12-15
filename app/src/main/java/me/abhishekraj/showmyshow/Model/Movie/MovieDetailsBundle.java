@@ -13,9 +13,9 @@ public class MovieDetailsBundle {
     public Movie mMovie;
 
     /*
-    * Create an empty constructor so that no NullPontException occur during the JSON parsing
+    * Create an empty constructor so that no NullPointException occur during the JSON parsing
     */
-    public MovieDetailsBundle(){
+    public MovieDetailsBundle() {
         mReview = new ArrayList<>();
         mVideo = new ArrayList<>();
         mCredits = new ArrayList<>();
@@ -29,17 +29,24 @@ public class MovieDetailsBundle {
         mCredits = credits;
     }
 
+    /* the getters methods */
     public ArrayList<Review> getReviewArrayList() {
         return mReview;
     }
 
-    public void setReviewArrayList(ArrayList<Review> reviews){mReview = reviews;}
+    public void setReviewArrayList(ArrayList<Review> reviews) {
+        mReview = reviews;
+    }
 
-    public ArrayList<Video> getVideoArrayList(){return mVideo;}
+    public ArrayList<Video> getVideoArrayList() {
+        return mVideo;
+    }
 
     public void setVideoArrayList(ArrayList<Video> video) {
         mVideo = video;
     }
+
+    /* The setters methods */
 
     public ArrayList<Credits> getCreditsArrayList() {
         return mCredits;
@@ -49,7 +56,9 @@ public class MovieDetailsBundle {
         mCredits = credits;
     }
 
-    public Movie getMovie(){return mMovie;}
+    public Movie getMovie() {
+        return mMovie;
+    }
 
     public void setMovie(Movie movie) {
         mMovie = movie;

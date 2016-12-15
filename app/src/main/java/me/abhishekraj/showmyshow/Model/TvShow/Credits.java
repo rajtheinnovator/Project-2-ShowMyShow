@@ -31,7 +31,7 @@ public class Credits implements Parcelable {
         }
     };
     /**
-     * Reviews of the TvShow
+     * Credits of the TvShow
      */
     private String mCharacter;
     private String mCreditId;
@@ -51,7 +51,7 @@ public class Credits implements Parcelable {
      *
      * @param character is the character of the actor/cast
      */
-//Used to store all the info of the selected tvShow on RecyclerView item click on the MainActivity
+    /* Used to store all the info of the selected tvShow on RecyclerView item click on the MainActivity */
     public Credits(String character, String creditId, int id, String name, String profilePath) {
         mCharacter = character;
         mCreditId = creditId;

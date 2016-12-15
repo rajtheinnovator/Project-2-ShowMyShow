@@ -24,20 +24,20 @@ import me.abhishekraj.showmyshow.R;
 
 public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdapter.ViewHolder> {
 
-    // Store a member variable for the tvShow
+    /* Store a member variable for the tvShowVideo */
     private static ArrayList<Video> mVideo;
     TvShowDetailsBundle tvShowDetailsBundle;
-    // Store the context for easy access
+    /* Store the context for easy access */
     private Context mContext;
 
-    // Pass in the TvShows array into the constructor
+    // Pass in the TvShowsDetails bundle into the constructor
     public TvShowTrailerAdapter(Context context, TvShowDetailsBundle tvShows) {
         tvShowDetailsBundle = tvShows;
         mVideo = new ArrayList<>();
         mContext = context;
     }
 
-    // Easy access to the context object in the recyclerview
+    /* Easy access to the context object in the recyclerview */
     private Context getContext() {
         return mContext;
     }
@@ -47,24 +47,24 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
-        View tvShowsView = inflater.inflate(R.layout.item_movie_trailer, parent, false);
+        /* Inflate the custom layout */
+        View tvShowsView = inflater.inflate(R.layout.item_movie_and_tv_show_trailer, parent, false);
 
-        // Return a new holder instance
+        /* Return a new holder instance */
         TvShowTrailerAdapter.ViewHolder viewHolder = new TvShowTrailerAdapter.ViewHolder(context, tvShowsView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(TvShowTrailerAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
+        /* Get the data model based on position */
         Video currentVideo = mVideo.get(position);
         /*
         Set item views based on your views and data model
-        TextView tvShowDetailTitleTextView = viewHolder.tvShowReviewContentTextView;
         */
         viewHolder.tvShowVideoName.setText(currentVideo.getTvShowVideoName());
-        //Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629"
+
+        /* Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629" */
         String url = "http://img.youtube.com/vi/" + currentVideo.getTvShowVideoKey();
         String completeUrl = url + "/0.jpg";
         Picasso.with(getContext())
@@ -99,7 +99,6 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
         Your holder should contain a member variable
         for any view that will be set as you render a row
         */
-        //public final TextView tvShowVideoContentTextView;
         public final TextView tvShowVideoName;
         public final ImageView tvShowVideoBanner;
 
@@ -117,23 +116,22 @@ public class TvShowTrailerAdapter extends RecyclerView.Adapter<TvShowTrailerAdap
             super(itemView);
 
             tvShowVideoBanner = (ImageView) itemView.findViewById(R.id.video_banner);
-            // tvShowReviewContentTextView = (TextView) itemView.findViewById(R.id.review_content);
             tvShowVideoName = (TextView) itemView.findViewById(R.id.video_name);
             this.context = context;
             itemView.setOnClickListener(this);
         }
 
         /*The codes below and at some other places throughout the app related to RecyclerView has been
-     * taken from multiple sources on the web including from the following @link:
-     * "https://guides.codepath.com/android/using-the-recyclerview
-     */
+        * taken from multiple sources on the web including from the following @link:
+        * "https://guides.codepath.com/android/using-the-recyclerview
+        */
         /* Handles the row being being clicked */
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 Video currentVideo = mVideo.get(position);
-                // We can access the data within the views
+                /* We can access the data within the views */
                 Intent goToUrl = new Intent(Intent.ACTION_VIEW);
                 String videoPlaybackUrl = "https://www.youtube.com/watch?v=" + currentVideo.getTvShowVideoKey();
                 goToUrl.setData(Uri.parse(videoPlaybackUrl));

@@ -46,7 +46,7 @@ public class PopularTvShowAdapter extends RecyclerView.Adapter<PopularTvShowAdap
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View tvShowsView = inflater.inflate(R.layout.item_movies_poster, parent, false);
+        View tvShowsView = inflater.inflate(R.layout.item_movies_and_tv_show_poster, parent, false);
 
         /* Return a new holder instance */
         PopularTvShowAdapter.ViewHolder viewHolder = new PopularTvShowAdapter.ViewHolder(context, tvShowsView);
@@ -103,8 +103,8 @@ public class PopularTvShowAdapter extends RecyclerView.Adapter<PopularTvShowAdap
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            tvShowTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
-            tvShowTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
+            tvShowTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_and_tv_show_poster_title);
+            tvShowTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_and_tv_show_poster_image);
             tvShowVoteAverageTextView = (TextView) itemView.findViewById(R.id.voteAverageMovieAndTvShowPoster);
             this.context = context;
             /* Attach a click listener to the entire row view */

@@ -24,20 +24,20 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.
 
 public class TvShowCreditsCastAdapter extends RecyclerView.Adapter<TvShowCreditsCastAdapter.ViewHolder> {
 
-    // Store a member variable for the popularMovies
+    /* Store a member variable for the tvShowCredits */
     private static ArrayList<Credits> mCredits;
     TvShowDetailsBundle tvShowDetailsBundle;
-    // Store the context for easy access
+    /* Store the context for easy access */
     private Context mContext;
 
-    // Pass in the tvShows array into the constructor
+    /* Pass in the tvShowsDetails bundle into the constructor */
     public TvShowCreditsCastAdapter(Context context, TvShowDetailsBundle tvShows) {
         tvShowDetailsBundle = tvShows;
         mCredits = new ArrayList<>();
         mContext = context;
     }
 
-    // Easy access to the context object in the recyclerview
+    /* Easy access to the context object in the recyclerview */
     private Context getContext() {
         return mContext;
     }
@@ -47,17 +47,17 @@ public class TvShowCreditsCastAdapter extends RecyclerView.Adapter<TvShowCredits
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
-        View tvShowsView = inflater.inflate(R.layout.item_movie_cast, parent, false);
+        /* Inflate the custom layout */
+        View tvShowsView = inflater.inflate(R.layout.item_movie_and_tv_show_cast, parent, false);
 
-        // Return a new holder instance
+        /* Return a new holder instance */
         TvShowCreditsCastAdapter.ViewHolder viewHolder = new TvShowCreditsCastAdapter.ViewHolder(context, tvShowsView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(TvShowCreditsCastAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
+        /* Get the data model based on position */
         Credits currentCast = mCredits.get(position);
         /*
         Set item views based on your views and data model
@@ -78,6 +78,7 @@ public class TvShowCreditsCastAdapter extends RecyclerView.Adapter<TvShowCredits
         return mCredits.size();
     }
 
+    /* call this method from TvShowDetailsFragment to set new data */
     public void setTvShowDetailsBundleData(TvShowDetailsBundle tvShowData) {
         tvShowDetailsBundle = tvShowData;
         mCredits = tvShowDetailsBundle.getCreditsArrayList();

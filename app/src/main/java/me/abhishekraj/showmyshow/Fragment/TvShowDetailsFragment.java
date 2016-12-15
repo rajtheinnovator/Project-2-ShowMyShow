@@ -57,21 +57,26 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.
 public class TvShowDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<TvShowDetailsBundle> {
 
     private static final int TV_SHOW_DETAIL_LOADER_ID = 3;
+
+    /* Arrays for holding tvShow details */
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
     public ArrayList<Credits> mCredits;
     public ArrayList<Seasons> mSeasons;
 
+    /* Adapters to inflate the different TvShowDetails recyclerviews */
     TvShowReviewAdapter mTvShowReviewAdapter;
     TvShowCreditsCastAdapter mTvShowCreditsCastAdapter;
     TvShowTrailerAdapter mTvShowTrailerAdapter;
     TvShowSeasonsAdapter mTvShowSeasonsAdapter;
 
+    /* recyclerviews for holding and displaying the TvShow details */
     RecyclerView mTvShowReviewRecyclerView;
     RecyclerView mTvShowTrailerRecyclerView;
     RecyclerView mTvShowCastRecyclerView;
     RecyclerView mTvShowSeasonsRecyclerView;
 
+    /* Reference to different layout views and view groups */
     TvShow tvShow;
     TextView tvShowDetailTitleTextView;
     ImageView tvShowDetailTitleImageView;
@@ -87,6 +92,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     TextView tvShowTypeTextView;
     TextView tvShowPopularityTextView;
     ExpandableTextView tvShowOverviewExpandableTextView;
+
     /*Add containers of recycler view for empty view setup*/
     LinearLayout containerTvShowTrailer;
     LinearLayout containerTvShowCast;
@@ -104,6 +110,8 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tv_show_detail, container, false);
 
+        /* get the arguments from the tvshow poster(i.e., parent activity/fragment) so that new
+        data can be fetched and current layout can be inflated in proper TvShow context */
         Bundle bundle = getArguments();
         tvShowDetailTitleTextView = (TextView) rootView.findViewById(R.id.tv_show_detail_title_text_view);
         tvShowDetailTitleImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view);
@@ -117,7 +125,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         tvShowNumberOfEpisodesTextView = (TextView) rootView.findViewById(R.id.tvShowTotalEpisodesValue);
         tvShowNumberOfSeasonsTextView = (TextView) rootView.findViewById(R.id.tvShowTotalSeasonsValue);
 
-                /*search recyclerview containers for the purpose of empty view */
+        /*search recyclerview containers for the purpose of empty view */
         containerTvShowCast = (LinearLayout) rootView.findViewById(R.id.containerTvShowCast);
         containerTvShowReviews = (LinearLayout) rootView.findViewById(R.id.containerTvShowReviews);
         containerTvShowSeasons = (LinearLayout) rootView.findViewById(R.id.containerTvShowSeasons);
@@ -146,6 +154,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
 
         if ((bundle != null)) {
             tvShow = getArguments().getParcelable("tvShow");
+
             /*inflate the details of tv show*/
             tvShowDetailTitleTextView.setText(tvShow.getTvShowName());
             tvShowLastAirDateTextView.setText(tvShow.getTvShowLastAirDate());
@@ -250,12 +259,6 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             /* Attach layout manager to the RecyclerView */
             mTvShowSeasonsRecyclerView.setLayoutManager(layoutManagerTvShowSeason);
 
-//            /*
-//            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
-//            */
-//            SnapHelper snapHelper = new LinearSnapHelper();
-//            snapHelper.attachToRecyclerView(mTvShowTrailerRecyclerView);
-
             /*Snap code for trailer review taken from
             * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
             */
@@ -314,12 +317,14 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             // Attach the mPopularTvShowAdapter to the trailerRecyclerView to populate items
             mTvShowSeasonsAdapter.setTvShowDetailsBundleData(mTvShowDetailsBundle);
 
+            /* set adapters on recycler views */
             mTvShowReviewRecyclerView.setAdapter(mTvShowReviewAdapter);
             mTvShowTrailerRecyclerView.setAdapter(mTvShowTrailerAdapter);
             mTvShowCastRecyclerView.setAdapter(mTvShowCreditsCastAdapter);
             mTvShowSeasonsRecyclerView.setAdapter(mTvShowSeasonsAdapter);
             updateExtraDetailsTextView(mTvShowDetailsBundle);
 
+            /* get Loading Indicators to work */
             if (!tvShowDetailsBundle.getVideoArrayList().isEmpty()) {
                 containerTvShowTrailer.setVisibility(View.VISIBLE);
                 loadingIndicatorTvShowDetail.setVisibility(View.GONE);
@@ -353,6 +358,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         }
     }
 
+    //Update the extra details(texts) that we get after Loader callback
     public void updateExtraDetailsTextView(TvShowDetailsBundle tvShowDetailsBundle) {
         TvShow detail = tvShowDetailsBundle.getTvShow();
         tvShowRunTimeDurationTextView.setText(String.valueOf(detail.getTvShowRuntime()));

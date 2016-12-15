@@ -10,10 +10,10 @@ import android.os.Parcelable;
 public class Review implements Parcelable {
 
     /*
-    After implementing the `Parcelable` interface, we need to create the
- `  Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
-    Notice how it has our class specified as its type.
-    */
+   After implementing the `Parcelable` interface, we need to create the
+    `  Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
+   Notice how it has our class specified as its type.
+   */
     public static final Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Review> CREATOR
             = new Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Review>() {
 

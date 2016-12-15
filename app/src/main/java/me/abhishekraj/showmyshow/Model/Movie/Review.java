@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class Review implements Parcelable {
+
     /*
     After implementing the `Parcelable` interface, we need to create the
     `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
@@ -16,14 +17,16 @@ public class Review implements Parcelable {
     public static final Parcelable.Creator<Review> CREATOR
             = new Parcelable.Creator<Review>() {
 
-        // This simply calls our new constructor (typically private) and
-// passes along the unmarshalled `Parcel`, and then returns the new object!
+        /*
+        This simply calls our new constructor (typically private) and
+        passes along the unmarshalled `Parcel`, and then returns the new object!
+        */
         @Override
         public Review createFromParcel(Parcel in) {
             return new Review(in);
         }
 
-        // We just need to copy this and change the type to match our class.
+        /* We just need to copy this and change the type to match our class. */
         @Override
         public Review[] newArray(int size) {
             return new Review[size];
@@ -48,7 +51,7 @@ public class Review implements Parcelable {
      *
      * @param author is the title of the review
      */
-//Used to store all the info of the selected movie on RecyclerView item click on the MainActivity
+    /* Used to store all the info of the selected movie on RecyclerView item click on the MainActivity */
     public Review(String author, String content, String url) {
         mAuthor = author;
         mURL = url;
@@ -77,18 +80,18 @@ public class Review implements Parcelable {
         return mURL;
     }
 
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(mAuthor);
+        out.writeString(mContent);
+        out.writeString(mURL);
+    }
+
     /**
      * Make Parcelabe Work Through these methods
      */
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(mAuthor);
-        out.writeString(mContent);
-        out.writeString(mURL);
     }
 }

@@ -43,7 +43,7 @@ public class DetailsMovieLoader extends AsyncTaskLoader {
         if (mUrl == null) {
             return null;
         }
-        // Perform the network request, parse the response, and extract a list of news.
+        /* Perform the network request, parse the response, and extract a list of news. */
         MovieDetailsBundle movies = MovieDetailsQueryUtils.fetchMovieData(mUrl);
         return movies;
     }

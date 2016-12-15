@@ -43,7 +43,7 @@ public class DetailsTvShowLoader extends AsyncTaskLoader {
         if (mUrl == null) {
             return null;
         }
-        // Perform the network request, parse the response, and extract a list of news.
+        /* Perform the network request, parse the response, and extract a list of news. */
         TvShowDetailsBundle tvShows = TvShowDetailsQueryUtils.fetchTvShowData(mUrl);
         return tvShows;
     }

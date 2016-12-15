@@ -45,7 +45,7 @@ public class MoviePosterLoader extends AsyncTaskLoader {
         if (mUrl == null) {
             return null;
         }
-        // Perform the network request, parse the response, and extract a list of news.
+        /* Perform the network request, parse the response, and extract a list of news. */
         ArrayList<Movie> movies = MoviePosterQueryUtils.fetchMovieData(mUrl);
         return movies;
     }

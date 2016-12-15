@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class Credits implements Parcelable {
+
     /*
     After implementing the `Parcelable` interface, we need to create the
     `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
@@ -49,9 +50,14 @@ public class Credits implements Parcelable {
     /**
      * Constructs a new {@link Movie} for movie's details Intent
      *
-     * @param castId is the title of the review
+     * @param castId is the castId of the review
+     * @param character is the character of the review
+     * @param creditId is the creditId of the review
+     * @param id is the id of the review
+     * @param name is the name of the review
+     * @param profilePath is the profilePath of the review
      */
-//Used to store all the info of the selected movie on RecyclerView item click on the MainActivity
+    /* Used to store all the info of the selected movie on RecyclerView item click on the MainActivity */
     public Credits(int castId, String character, String creditId, int id, String name, String profilePath) {
         mCastId = castId;
         mCharacter = character;
@@ -97,14 +103,6 @@ public class Credits implements Parcelable {
         return mProfilePath;
     }
 
-    /**
-     * Make Parcelabe Work Through these methods
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(mCastId);
@@ -113,5 +111,13 @@ public class Credits implements Parcelable {
         out.writeInt(mId);
         out.writeString(mName);
         out.writeString(mProfilePath);
+    }
+
+    /**
+     * Make Parcelabe Work Through these methods
+     */
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

@@ -46,7 +46,7 @@ public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAd
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View tvShowsView = inflater.inflate(R.layout.item_movies_poster, parent, false);
+        View tvShowsView = inflater.inflate(R.layout.item_movies_and_tv_show_poster, parent, false);
 
         /* Return a new holder instance */
         AiredNowTvShowAdapter.ViewHolder viewHolder = new AiredNowTvShowAdapter.ViewHolder(context, tvShowsView);
@@ -103,8 +103,8 @@ public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAd
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            tvShowTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
-            tvShowTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
+            tvShowTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_and_tv_show_poster_title);
+            tvShowTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_and_tv_show_poster_image);
             tvShowVoteAverageTextView = (TextView) itemView.findViewById(R.id.voteAverageMovieAndTvShowPoster);
             this.context = context;
             /* Attach a click listener to the entire row view */
@@ -121,7 +121,7 @@ public class AiredNowTvShowAdapter extends RecyclerView.Adapter<AiredNowTvShowAd
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 TvShow currentTvShow = mAiredNowTvShows.get(position);
-                // We can access the data within the views
+                /* We can access the data within the views */
                 Toast.makeText(context, "" + currentTvShow.getTvShowName(), Toast.LENGTH_SHORT).show();
                 Intent tvShowDetailIntent = new Intent(context, TvShowDetailsActivity.class);
                 tvShowDetailIntent.putExtra("tvShow", currentTvShow);

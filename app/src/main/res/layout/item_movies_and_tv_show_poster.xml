@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/grid_item_movie_poster_image"
+            android:id="@+id/grid_item_movie_and_tv_show_poster_image"
             style="@style/CardViewImageStyle" />
 
         <LinearLayout
@@ -39,7 +39,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/grid_item_movie_poster_title"
+            android:id="@+id/grid_item_movie_and_tv_show_poster_title"
             style="@style/CardViewTextStyle"
             android:ellipsize="end"
             android:hint="@string/hint_movie_title" />

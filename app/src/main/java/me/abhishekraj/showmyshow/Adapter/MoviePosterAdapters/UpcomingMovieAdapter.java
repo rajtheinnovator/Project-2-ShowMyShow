@@ -24,12 +24,12 @@ import me.abhishekraj.showmyshow.R;
 
 public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdapter.ViewHolder> {
 
-    /* Store a member variable for the popularMovies */
+    /* Store a member variable for the upcomingMovies */
     private static ArrayList<Movie> mUpcomingMovie;
     /* Store the context for easy access */
     private Context mContext;
 
-    /* Pass in the popularMovies array into the constructor */
+    /* Pass in the upcomingMovies array into the constructor */
     public UpcomingMovieAdapter(Context context, ArrayList<Movie> movies) {
         mUpcomingMovie = movies;
         mContext = context;
@@ -46,7 +46,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         LayoutInflater inflater = LayoutInflater.from(context);
 
         /* Inflate the custom layout */
-        View moviesView = inflater.inflate(R.layout.item_movies_poster, parent, false);
+        View moviesView = inflater.inflate(R.layout.item_movies_and_tv_show_poster, parent, false);
 
         /* Return a new holder instance */
         UpcomingMovieAdapter.ViewHolder viewHolder = new UpcomingMovieAdapter.ViewHolder(context, moviesView);
@@ -103,8 +103,8 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
             to access the context from any ViewHolder instance.
             */
             super(itemView);
-            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_poster_title);
-            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_poster_image);
+            movieTitleTextView = (TextView) itemView.findViewById(R.id.grid_item_movie_and_tv_show_poster_title);
+            movieTitleImageView = (ImageView) itemView.findViewById(R.id.grid_item_movie_and_tv_show_poster_image);
             movieVoteAverageTextView = (TextView) itemView.findViewById(R.id.voteAverageMovieAndTvShowPoster);
             this.context = context;
             /* Attach a click listener to the entire row view */
@@ -125,6 +125,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
                 Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
                 Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
                 movieDetailIntent.putExtra("movie", currentMovie);
+                /* start the activity intent */
                 context.startActivity(movieDetailIntent);
             }
         }

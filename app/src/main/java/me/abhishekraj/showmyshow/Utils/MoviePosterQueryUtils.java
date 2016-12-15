@@ -21,6 +21,8 @@ import me.abhishekraj.showmyshow.Model.Movie.Movie;
  */
 
 public class MoviePosterQueryUtils {
+
+    /* Variables for movie details */
     private static String movieTitle;
     private static int movieId;
     private static String moviePosterPath;
@@ -85,7 +87,7 @@ public class MoviePosterQueryUtils {
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
 
-        // If the URL is null, then return early.
+        /* If the URL is null, then return early. */
         if (url == null) {
             return jsonResponse;
         }
@@ -146,7 +148,7 @@ public class MoviePosterQueryUtils {
      */
     public static ArrayList<Movie> extractFeatureFromJson(String jsonResponse) {
 
-        // Create an empty ArrayList that we can start adding popularMovies to
+        // Create an empty ArrayList that we can start adding Movies to
         ArrayList<Movie> movies = new ArrayList<Movie>();
         // Create a Movie reference
         Movie movie;
@@ -202,7 +204,7 @@ public class MoviePosterQueryUtils {
         } catch (JSONException e) {
             //handle exception
         }
-        // Return the list of popularMovies
+        // Return the list of Movies
         return movies;
     }
 }

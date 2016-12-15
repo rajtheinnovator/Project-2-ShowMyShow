@@ -12,6 +12,7 @@ public class Movie implements Parcelable {
     /*
     * Codes referenced from the link, @link: "https://guides.codepath.com/android/Using-Parcelable"
     */
+
     /*
     After implementing the `Parcelable` interface, we need to create the
     `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
@@ -37,11 +38,11 @@ public class Movie implements Parcelable {
      * Title of the movie
      */
     private String mMovieTitle;
+    /*Variables needed when handling recycler view is clicked*/
     /**
      * posterPath of the movie
      */
     private String mMoviePosterPath;
-    /*Variables needed when handling recycler view is clicked*/
     /**
      * id of the movie
      */
@@ -64,12 +65,20 @@ public class Movie implements Parcelable {
      */
     public Movie() {
     }
+
     /**
      * Constructs a new {@link Movie}.
      *
-     * @param movieTitle is the title of the movie
-     * @param posterPath is the posterPath of the movie
-     * @param id         is the id of the movie
+     * @param movieTitle       is the Title of the movie
+     * @param posterPath       is the Poster Path of the movie
+     * @param id               is the id of the movie
+     * @param overview         is the Overview of the movie
+     * @param voteCount        is the Vote Count of the movie
+     * @param originalTitle    is the Original Title of the movie
+     * @param voteAverage      is the Vote Average of the movie
+     * @param popularity       is the Popularity of the movie
+     * @param backdropPath     is the Backdrop Path of the movie
+     * @param movieReleaseDate is the Movie Release Date of the movie
      */
     public Movie(String movieTitle, int id, String posterPath, String overview, double voteCount, String originalTitle,
                  double voteAverage, double popularity, String backdropPath, String movieReleaseDate) {
@@ -85,7 +94,8 @@ public class Movie implements Parcelable {
         mMovieReleaseDate = movieReleaseDate;
 
     }
-    public Movie(int runTimeDuration){
+
+    public Movie(int runTimeDuration) {
         mMovieRunTimeDuration = runTimeDuration;
     }
 
@@ -103,7 +113,9 @@ public class Movie implements Parcelable {
         mMovieRunTimeDuration = in.readInt();
     }
 
-    public void setMovieRunTimeDuration(int movieDuration){mMovieRunTimeDuration = movieDuration;}
+    public void setMovieRunTimeDuration(int movieDuration) {
+        mMovieRunTimeDuration = movieDuration;
+    }
 
     /**
      * The Getters Methods
@@ -159,16 +171,12 @@ public class Movie implements Parcelable {
         return mMoviePopularity;
     }
 
-    public String getMovieReleaseDate(){return mMovieReleaseDate;}
+    public String getMovieReleaseDate() {
+        return mMovieReleaseDate;
+    }
 
-    public int getMovieRuntimeDuration(){return mMovieRunTimeDuration;}
-
-    /**
-     * Make Parcelabe Work Through these methods
-     */
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getMovieRuntimeDuration() {
+        return mMovieRunTimeDuration;
     }
 
     @Override
@@ -184,5 +192,13 @@ public class Movie implements Parcelable {
         out.writeString(mMovieBackdropPath);
         out.writeString(mMovieReleaseDate);
         out.writeInt(mMovieRunTimeDuration);
+    }
+
+    /**
+     * Make Parcelabe Work Through these methods
+     */
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

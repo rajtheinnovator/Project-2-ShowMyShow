@@ -26,6 +26,7 @@ import me.abhishekraj.showmyshow.Model.TvShow.Video;
  */
 
 public class TvShowDetailsQueryUtils {
+
     /*TvShow Details Text*/
     private static int runtime;
     private static int numberOfSeasons;
@@ -90,10 +91,10 @@ public class TvShowDetailsQueryUtils {
             //handle exception
         }
 
-        // Extract relevant fields from the JSON response and create an {@link Event} object
+        /* Extract relevant fields from the JSON response and create an {@link Event} object */
         TvShowDetailsBundle tvShowDetailsBundle = extractFeatureFromJson(jsonResponse);
 
-        // Return the {@link Event}
+        /* Return the {@link Event} */
         return tvShowDetailsBundle;
     }
 
@@ -183,7 +184,7 @@ public class TvShowDetailsQueryUtils {
         credits = new ArrayList<Credits>();
         seasons = new ArrayList<Seasons>();
         tvShow = new TvShow();
-        // Create a TvShowDetailsBundle and initialize it
+        /* Create a TvShowDetailsBundle and initialize it */
         TvShowDetailsBundle tvShowDetailsBundle = new TvShowDetailsBundle();
 
         /*
@@ -192,7 +193,7 @@ public class TvShowDetailsQueryUtils {
         so the app doesn't crash, and handle exception.
         */
         try {
-            // Parse the jsonResponse string
+            /* Parse the jsonResponse string */
             JSONObject tv_show_json_response = new JSONObject(jsonResponse);
             if (tv_show_json_response.has("reviews")) {
                 JSONObject mainReviewObject = tv_show_json_response.getJSONObject("reviews");
@@ -232,7 +233,7 @@ public class TvShowDetailsQueryUtils {
             if (tv_show_json_response.has("type")) {
                 TvShowType = tv_show_json_response.getString("type");
             }
-            tvShow = new TvShow(runtime, lastAirDate, numberOfEpisodes, numberOfSeasons, typeVideo);
+            tvShow = new TvShow(runtime, lastAirDate, numberOfEpisodes, numberOfSeasons, TvShowType);
 
             /* get details for tvShow video */
             if (tv_show_json_response.has("videos")) {
@@ -329,7 +330,6 @@ public class TvShowDetailsQueryUtils {
             * new TvShowDetailsBundle so that
             * null point exception can be avoided
             */
-            //tvShowDetailsBundle = new TvShowDetailsBundle();
         }
         // Return the list of all details
         return tvShowDetailsBundle;

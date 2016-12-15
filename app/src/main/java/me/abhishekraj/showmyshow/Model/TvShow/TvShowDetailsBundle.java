@@ -7,10 +7,14 @@ import java.util.ArrayList;
  */
 
 public class TvShowDetailsBundle {
+
+    /* ArrayLists for holding TvShowdetails */
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
     public ArrayList<Credits> mCredits;
     public ArrayList<Seasons> mSeasons;
+
+    /* Create a TvShow Object for handling null point exception cases */
     public TvShow mTvShow;
 
     /*
@@ -32,10 +36,12 @@ public class TvShowDetailsBundle {
         mSeasons = seasons;
     }
 
+    /* The getter smethods */
     public ArrayList<Review> getReviewArrayList() {
         return mReview;
     }
 
+    /* The setters methods */
     public void setReviewArrayList(ArrayList<Review> reviews) {
         mReview = reviews;
     }

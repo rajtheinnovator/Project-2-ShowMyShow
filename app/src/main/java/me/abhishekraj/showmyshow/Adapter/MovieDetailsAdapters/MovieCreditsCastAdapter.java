@@ -24,20 +24,20 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.
 
 public class MovieCreditsCastAdapter extends RecyclerView.Adapter<MovieCreditsCastAdapter.ViewHolder> {
 
-    // Store a member variable for the popularMovies
+    /* Store a member variable for the popularMovies */
     private static ArrayList<Credits> mCredits;
     MovieDetailsBundle movieDetailsBundle;
-    // Store the context for easy access
+    /* Store the context for easy access */
     private Context mContext;
 
-    // Pass in the popularMovies array into the constructor
+    /* Pass in the popularMovies array into the constructor */
     public MovieCreditsCastAdapter(Context context, MovieDetailsBundle movies) {
         movieDetailsBundle = movies;
         mCredits = new ArrayList<>();
         mContext = context;
     }
 
-    // Easy access to the context object in the recyclerview
+    /* Easy access to the context object in the recyclerview */
     private Context getContext() {
         return mContext;
     }
@@ -47,17 +47,18 @@ public class MovieCreditsCastAdapter extends RecyclerView.Adapter<MovieCreditsCa
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
-        View moviesView = inflater.inflate(R.layout.item_movie_cast, parent, false);
+        /* Inflate the custom layout */
+        View moviesView = inflater.inflate(R.layout.item_movie_and_tv_show_cast, parent, false);
 
-        // Return a new holder instance
+        /* Return a new holder instance */
         MovieCreditsCastAdapter.ViewHolder viewHolder = new MovieCreditsCastAdapter.ViewHolder(context, moviesView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(MovieCreditsCastAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
+
+        /* Get the data model based on position */
         Credits currentCast = mCredits.get(position);
         /*
         Set item views based on your views and data model
@@ -69,8 +70,6 @@ public class MovieCreditsCastAdapter extends RecyclerView.Adapter<MovieCreditsCa
                 .load(url)
                 .placeholder(R.drawable.castplaceholder)
                 .into(viewHolder.movieCastImageView);
-
-
     }
 
     @Override
@@ -78,6 +77,7 @@ public class MovieCreditsCastAdapter extends RecyclerView.Adapter<MovieCreditsCa
         return mCredits.size();
     }
 
+    /* This method will be called from MovieDetailsFragment to set new data */
     public void setMovieDetailsBundleData(MovieDetailsBundle movieData) {
         movieDetailsBundle = movieData;
         mCredits = movieDetailsBundle.getCreditsArrayList();

@@ -67,6 +67,7 @@ public class TvShow implements Parcelable {
      */
     public TvShow() {
     }
+
     /**
      * Constructs a new {@link TvShow}.
      *
@@ -206,36 +207,36 @@ public class TvShow implements Parcelable {
         return mTvShowRunTime;
     }
 
-    public void setTvShowTvShowRuntime(int runtime) {
-        mTvShowRunTime = runtime;
-    }
-
     public int getTvShowNumberEpisodes() {
         return mTvShowNoOfEpisodes;
-    }
-
-    public void setTvShowTvShowNumberOfEpisodes(int numberOfEpisodes) {
-        mTvShowNoOfEpisodes = numberOfEpisodes;
     }
 
     public int getTvShowNumberOfSeasons() {
         return mTvShowNoOfSeasons;
     }
 
-    public void setTvShowTvShowNumberOfSeasons(int numberOfSeasons) {
-        mTvShowNoOfSeasons = numberOfSeasons;
-    }
-
     public String getTvShowType() {
         return mTvShowType;
     }
 
-    public void setTvShowTvShowType(String type) {
-        mTvShowType = type;
-    }
-
     public String getTvShowLastAirDate() {
         return mTvShowLastAirDate;
+    }
+
+    public void setTvShowTvShowRuntime(int runtime) {
+        mTvShowRunTime = runtime;
+    }
+
+    public void setTvShowTvShowNumberOfEpisodes(int numberOfEpisodes) {
+        mTvShowNoOfEpisodes = numberOfEpisodes;
+    }
+
+    public void setTvShowTvShowNumberOfSeasons(int numberOfSeasons) {
+        mTvShowNoOfSeasons = numberOfSeasons;
+    }
+
+    public void setTvShowTvShowType(String type) {
+        mTvShowType = type;
     }
 
     public void setTvShowTvShowLastAirDate(String lastAirDate) {
@@ -260,5 +261,4 @@ public class TvShow implements Parcelable {
         out.writeString(mTvShowName);
         out.writeString(mTvShowOriginalName);
     }
-
 }

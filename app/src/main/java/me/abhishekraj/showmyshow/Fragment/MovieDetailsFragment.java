@@ -54,16 +54,25 @@ import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.
 public class MovieDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<MovieDetailsBundle> {
 
     private static final int MOVIE_DETAIL_LOADER_ID = 2;
+
+    /* Arrays for holding Movie details */
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
     public ArrayList<Credits> mCredits;
+
+    /* Adapters to inflate the different TvShowDetails recyclerviews */
     MovieReviewAdapter mMovieReviewAdapter;
     MovieCreditsCastAdapter mMovieCreditsCastAdapter;
     MovieTrailerAdapter mMovieTrailerAdapter;
+
+    /* recyclerviews for holding and displaying the TvShow details */
     RecyclerView mMovieReviewRecyclerView;
     RecyclerView mMovieTrailerRecyclerView;
     RecyclerView mMovieCastRecyclerView;
+
     Movie movie;
+
+    /* Reference to different layout views and view groups */
     TextView movieDetailTitleTextView;
     ImageView movieDetailTitleImageView;
     ImageView moviedetailsBackdropImageView;
@@ -73,11 +82,13 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     TextView movieReleaseDate;
     TextView movieRunTimeDuration;
     ExpandableTextView movieOverviewExpandableTextView;
+
     /*Add containers of recycler view for empty view setup*/
     LinearLayout containerMoviesTrailer;
     LinearLayout containerMoviesCast;
     LinearLayout containerMoviesReviews;
     ProgressBar loadingIndicatorMovieDetail;
+
     private MovieDetailsBundle mMovieDetailsBundle;
     private int mMovieDuration;
     private String mMovieDurationString;
@@ -121,6 +132,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         if (savedInstanceState == null) {
             mReview = new ArrayList<>();
             mVideo = new ArrayList<>();
+            mCredits = new ArrayList<>();
             mMovieDetailsBundle = new MovieDetailsBundle();
         }
 
@@ -209,11 +221,12 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             /* Attach layout manager to the RecyclerView */
             mMovieCastRecyclerView.setLayoutManager(layoutManagerMovieCast);
 
-//            /*
-//            * Snap code for trailer review taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
-//            */
-//            SnapHelper snapHelper = new LinearSnapHelper();
-//            snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
+            /*
+            * Snap code for trailer recyclerview taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
+            * SnapHelper snapHelper = new LinearSnapHelper();
+            * snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
+            */
+
 
             /*Snap code for trailer review taken from
             * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
@@ -270,6 +283,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
             updateDurationTextView(mMovieDetailsBundle);
 
+            /* Get loading indicators to work */
             if (!movieDetailsBundle.getVideoArrayList().isEmpty()) {
                 containerMoviesTrailer.setVisibility(View.VISIBLE);
                 loadingIndicatorMovieDetail.setVisibility(View.GONE);
@@ -294,7 +308,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     || !movieDetailsBundle.getCreditsArrayList().isEmpty()) {
                 loadingIndicatorMovieDetail.setVisibility(View.GONE);
             }
-
         }
     }
 
@@ -307,8 +320,10 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             mMovieDurationString = "1 Hrs " + String.valueOf(mMovieDuration - 60) + "mins";
         } else if (120 < mMovieDuration && mMovieDuration < 180) {
             mMovieDurationString = "2 Hrs " + String.valueOf(mMovieDuration - 120) + "mins";
-        } else {
+        } else if (180 < mMovieDuration && mMovieDuration < 240) {
             mMovieDurationString = "3 Hrs " + String.valueOf(mMovieDuration - 180) + "mins";
+        } else {
+            mMovieDurationString = String.valueOf(mMovieDuration) + " mins";
         }
         movieRunTimeDuration.setText(mMovieDurationString);
     }

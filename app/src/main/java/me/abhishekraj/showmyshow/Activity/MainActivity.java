@@ -30,24 +30,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set the content of the activity to use the activity_main.xml layout file
+
+        /* Set the content of the activity to use the activity_main.xml layout file */
         setContentView(R.layout.activity_main);
+
+        /* Find and set a ViewPager so that main screen/poster screen can be inflated with different fragments */
         ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
         adapterViewPager = new MainActivityPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
-        // Give the TabLayout the ViewPager
+
+        /* Give the TabLayout the ViewPager */
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
     }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.containerMainActivity, new MoviePosterFragment())
-//                    .commit();
-//        }
-//    }
 }

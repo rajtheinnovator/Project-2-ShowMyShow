@@ -21,6 +21,8 @@ import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
  */
 
 public class TvShowPosterQueryDetails {
+
+    /* Variables for tvShow details */
     private static String posterPath;
     private static Double popularity;
     private static int id;
@@ -31,7 +33,8 @@ public class TvShowPosterQueryDetails {
     private static int voteCount;
     private static String name;
     private static String originalName;
-  /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
+
+    /* Following codes are my own work from other Udacity course under the AndroidBasicsNanodegree
     * and the reference link on the github for that project is @link: https://github.com/rajtheinnovator/NewsToday
     */
 
@@ -47,10 +50,10 @@ public class TvShowPosterQueryDetails {
      * Query the TheMovieDb dataset and return an {@link TvShow} ArrayList to represent a single TvShow.
      */
     public static ArrayList<TvShow> fetchTvShowData(String requestUrl) {
-        // Create URL object
+        /* Create URL object */
         URL url = createUrl(requestUrl);
 
-        // Perform HTTP request to the URL and receive a JSON response back
+        /* Perform HTTP request to the URL and receive a JSON response back */
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
@@ -58,10 +61,10 @@ public class TvShowPosterQueryDetails {
             //handle exception
         }
 
-        // Extract relevant fields from the JSON response and create an {@link Event} object
+        /* Extract relevant fields from the JSON response and create an {@link Event} object */
         ArrayList<TvShow> tvShow = extractFeatureFromJson(jsonResponse);
 
-        // Return the {@link Event}
+        /* Return the {@link Event} */
         return tvShow;
     }
 
@@ -84,7 +87,7 @@ public class TvShowPosterQueryDetails {
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
 
-        // If the URL is null, then return early.
+        /* If the URL is null, then return early. */
         if (url == null) {
             return jsonResponse;
         }
@@ -145,9 +148,9 @@ public class TvShowPosterQueryDetails {
      */
     public static ArrayList<TvShow> extractFeatureFromJson(String jsonResponse) {
 
-        // Create an empty ArrayList that we can start adding tvShow to
+        /* Create an empty ArrayList that we can start adding tvShow to */
         ArrayList<TvShow> tvShowsArrayList = new ArrayList<TvShow>();
-        // Create a TvShow reference
+        /* Create a TvShow reference, if needed in future*/
         TvShow tvShow;
 
         /*

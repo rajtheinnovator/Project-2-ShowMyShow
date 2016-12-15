@@ -47,22 +47,31 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     private static final int POPULAR_MOVIE_LOADER_ID = 1111;
     private static final int UPCOMING_MOVIE_LOADER_ID = 2222;
     private static final int TOP_RATED_MOVIE_LOADER_ID = 3333;
+
+    /* ArrayLists for holding different types of movies */
     ArrayList<Movie> popularMovies;
     ArrayList<Movie> upcomingMovies;
     ArrayList<Movie> topRatedMovies;
+
+    /* Adapters for inflating different recyclerview */
     PopularMoviesAdapter mPopularMoviesAdapter;
     UpcomingMovieAdapter mUpcomingMovieAdapter;
     TopRatedMoviesAdapter mTopRatedMoviesAdapter;
+
+    /* recyclerviews for holding and displaying different movie posters */
     RecyclerView mPopularMovieRecyclerView;
     RecyclerView mUpcomingMovieRecyclerView;
     RecyclerView mTopRatedMovieRecyclerView;
+
+    /* Uri Builder for building URL for Loader callback */
     Uri.Builder uriBuilder;
-    String savedInstance;
+
+    /* Set layout managers on those recycler views */
     LinearLayoutManager layoutManagerPopularMoviesPoster;
     LinearLayoutManager layoutManagerUpcomingMoviesPoster;
     LinearLayoutManager layoutManagerTopRatedMoviesPoster;
 
-
+    /* Get reference to containers of RecyclerViews for the purpose of EmptyState setup */
     LinearLayout containerMoviePosterPopularMovies;
     LinearLayout containerMoviePosterUpcomingMovies;
     LinearLayout containerMoviePosterTopRatedMovies;
@@ -76,16 +85,17 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            savedInstance = "not empty";
+            /* if data is already present then instantiate the arraylist with those save data */
             popularMovies = savedInstanceState.getParcelableArrayList("popularMovies");
             upcomingMovies = savedInstanceState.getParcelableArrayList("upcomingMovies");
             topRatedMovies = savedInstanceState.getParcelableArrayList("topRatedMovies");
         } else {
+            /* otherwise create new instances of ArrayList so as to avoid null point exception condition */
             popularMovies = new ArrayList<>();
             upcomingMovies = new ArrayList<>();
             topRatedMovies = new ArrayList<>();
-            savedInstance = "empty";
-            //First of all check if network is connected or not then only start the loader
+
+            /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
                     getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -97,14 +107,13 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                 startUpcomingMoviesLoaderManager();
                 startTopRatedMoviesLoaderManager();
             }
-
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /* Inflate the layout for this fragment */
         View rootView = inflater.inflate(R.layout.fragment_movie_posters, container, false);
 
         /* Code referenced from the @link:
@@ -284,6 +293,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                     mTopRatedMoviesAdapter = new TopRatedMoviesAdapter(getActivity(), topRatedMovies);
                     mTopRatedMoviesAdapter.setMovieData(topRatedMovies);
                     mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
+
                     /*get loading indicator to work*/
                     containerMoviePosterTopRatedMovies.setVisibility(View.VISIBLE);
                     loadingIndicatorMoviePoster.setVisibility(View.GONE);

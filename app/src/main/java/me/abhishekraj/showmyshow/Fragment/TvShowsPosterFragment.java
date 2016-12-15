@@ -53,21 +53,29 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     private static final int POPULAR_TV_SHOW_LOADER_ID = 7777;
     private static final int AIRED_NOW_TV_SHOW_LOADER_ID = 8888;
     private static final int TOP_RATED_TV_SHOW_LOADER_ID = 9999;
+
+    /* Arrays for different tvShows type */
     ArrayList<TvShow> popularTvShows;
     ArrayList<TvShow> airedNowTvShows;
     ArrayList<TvShow> topRatedTvShows;
+
+    /* Adapter for those tv show */
     PopularTvShowAdapter mPopularTvShowAdapter;
     AiredNowTvShowAdapter mAiredNowTvShowAdapter;
     TopRatedTvShowAdapter mTopRatedTvShowAdapter;
+
+    /* recycler view for holding and displaying those tv shows */
     RecyclerView mPopularTvShowRecyclerView;
     RecyclerView mAiredNowTvShowRecyclerView;
     RecyclerView mTopRatedTvShowRecyclerView;
+
+    /* Uri builder for building URL for network/JSON request through AsyncTaskLaoder */
     Uri.Builder uriBuilder;
-    String savedInstance;
     LinearLayoutManager layoutManagerPopularTvShowPoster;
     LinearLayoutManager layoutManagerAiredNowTvShowPoster;
     LinearLayoutManager layoutManagerTopRatedTvShowPoster;
 
+    /* get reference to LinearLayout holding RecyclerView so as to handle emptyview state */
     LinearLayout containerTvShowPosterPopularTvShow;
     LinearLayout containerTvShowPosterTopRatedTvShow;
     LinearLayout containerTvShowPosterAiredNowTvShow;
@@ -81,17 +89,18 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            savedInstance = "not empty";
+            /* if data is already present then instantiate the arraylist with those save data */
             popularTvShows = savedInstanceState.getParcelableArrayList("popularTvShows");
             airedNowTvShows = savedInstanceState.getParcelableArrayList("airedNowTvShows");
             topRatedTvShows = savedInstanceState.getParcelableArrayList("topRatedTvShows");
 
         } else {
+            /* otherwise create new instances of ArrayList so as to avoid null point exception condition */
             popularTvShows = new ArrayList<>();
             airedNowTvShows = new ArrayList<>();
             topRatedTvShows = new ArrayList<>();
-            savedInstance = "empty";
-            //First of all check if network is connected or not then only start the loader
+
+            /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
                     getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -110,7 +119,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /* Inflate the layout for this fragment */
         View rootView = inflater.inflate(R.layout.fragment_tv_show_poster, container, false);
 
         /* Code referenced from the @link:
@@ -214,7 +223,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
         super.onSaveInstanceState(outState);
     }
 
-
+    /* Start the loader manager(s) when called */
     private void startPopularTvShowsLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(POPULAR_TV_SHOW_LOADER_ID, null, this);

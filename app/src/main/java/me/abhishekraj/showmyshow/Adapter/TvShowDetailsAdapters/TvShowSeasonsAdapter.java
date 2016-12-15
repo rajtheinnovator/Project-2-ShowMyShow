@@ -22,20 +22,20 @@ import me.abhishekraj.showmyshow.R;
 
 public class TvShowSeasonsAdapter extends RecyclerView.Adapter<TvShowSeasonsAdapter.ViewHolder> {
 
-    // Store a member variable for the tvShow
+    /* Store a member variable for the tvShowSeason */
     private static ArrayList<Seasons> mSeason;
     TvShowDetailsBundle tvShowDetailsBundle;
-    // Store the context for easy access
+    /* Store the context for easy access */
     private Context mContext;
 
-    // Pass in the TvShows array into the constructor
+    // Pass in the TvShowsDetails bundle into the constructor
     public TvShowSeasonsAdapter(Context context, TvShowDetailsBundle tvShows) {
         tvShowDetailsBundle = tvShows;
         mSeason = new ArrayList<>();
         mContext = context;
     }
 
-    // Easy access to the context object in the recyclerview
+    /* Easy access to the context object in the recyclerview */
     private Context getContext() {
         return mContext;
     }
@@ -45,26 +45,25 @@ public class TvShowSeasonsAdapter extends RecyclerView.Adapter<TvShowSeasonsAdap
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
+        /* Inflate the custom layout */
         View tvShowsView = inflater.inflate(R.layout.item_tv_show_seasons, parent, false);
 
-        // Return a new holder instance
+        /* Return a new holder instance */
         TvShowSeasonsAdapter.ViewHolder viewHolder = new TvShowSeasonsAdapter.ViewHolder(context, tvShowsView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(TvShowSeasonsAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
+        /* Get the data model based on position */
         Seasons currentSeason = mSeason.get(position);
         /*
         Set item views based on your views and data model
-        TextView tvShowDetailTitleTextView = viewHolder.tvShowReviewContentTextView;
         */
         viewHolder.tvShowSeasonAirDate.setText(currentSeason.getTvShowSeasonAirDate());
         viewHolder.tvSeasonEpisodeCount.setText(String.valueOf(currentSeason.getTvShowSeasonEpisodeCount()));
 
-        //Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629"
+        /* Youtube thumbnail url referenced from @link: "http://stackoverflow.com/a/8842839/5770629" */
         String url = "https://image.tmdb.org/t/p/w500/" + currentSeason.getTvShowSeasonPosterPath();
         Picasso.with(getContext())
                 .load(url)
