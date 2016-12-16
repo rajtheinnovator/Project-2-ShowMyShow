@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Utils;
+package me.abhishekraj.showmyshow.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +14,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
+import me.abhishekraj.showmyshow.model.movie.Movie;
 
 /**
  * Created by ABHISHEK RAJ on 11/15/2016.
@@ -47,7 +47,7 @@ public class MoviePosterQueryUtils {
     }
 
     /**
-     * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
+     * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single movie.
      */
     public static ArrayList<Movie> fetchMovieData(String requestUrl) {
         // Create URL object
@@ -150,7 +150,7 @@ public class MoviePosterQueryUtils {
 
         // Create an empty ArrayList that we can start adding Movies to
         ArrayList<Movie> movies = new ArrayList<Movie>();
-        // Create a Movie reference
+        // Create a movie reference
         Movie movie;
 
         /*

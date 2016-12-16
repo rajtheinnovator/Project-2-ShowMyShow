@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters;
+package me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +12,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.TvShow.Credits;
-import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
+import me.abhishekraj.showmyshow.model.tvshow.Credits;
+import me.abhishekraj.showmyshow.model.tvshow.TvShowDetailsBundle;
 import me.abhishekraj.showmyshow.R;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.BASE_IMAGE_URL;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.BASE_IMAGE_URL;
 
 /**
  * Created by ABHISHEK RAJ on 12/11/2016.

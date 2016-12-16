@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Utils;
+package me.abhishekraj.showmyshow.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +14,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
+import me.abhishekraj.showmyshow.model.tvshow.TvShow;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -47,7 +47,7 @@ public class TvShowPosterQueryDetails {
     }
 
     /**
-     * Query the TheMovieDb dataset and return an {@link TvShow} ArrayList to represent a single TvShow.
+     * Query the TheMovieDb dataset and return an {@link TvShow} ArrayList to represent a single tvshow.
      */
     public static ArrayList<TvShow> fetchTvShowData(String requestUrl) {
         /* Create URL object */
@@ -150,7 +150,7 @@ public class TvShowPosterQueryDetails {
 
         /* Create an empty ArrayList that we can start adding tvShow to */
         ArrayList<TvShow> tvShowsArrayList = new ArrayList<TvShow>();
-        /* Create a TvShow reference, if needed in future*/
+        /* Create a tvshow reference, if needed in future*/
         TvShow tvShow;
 
         /*
@@ -204,7 +204,7 @@ public class TvShowPosterQueryDetails {
         } catch (JSONException e) {
             //handle exception
         }
-        // Return the list of TvShow
+        // Return the list of tvshow
         return tvShowsArrayList;
     }
 }

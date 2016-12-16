@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters;
+package me.abhishekraj.showmyshow.adapter.moviedetailsadapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Movie.Video;
+import me.abhishekraj.showmyshow.model.movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.model.movie.Video;
 import me.abhishekraj.showmyshow.R;
 
 /**

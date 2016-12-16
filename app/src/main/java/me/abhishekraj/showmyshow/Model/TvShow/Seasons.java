@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model.TvShow;
+package me.abhishekraj.showmyshow.model.tvshow;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,24 +14,24 @@ public class Seasons implements Parcelable {
     `   Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
     Notice how it has our class specified as its type.
     */
-    public static final Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Seasons> CREATOR
-            = new Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Seasons>() {
+    public static final Parcelable.Creator<me.abhishekraj.showmyshow.model.tvshow.Seasons> CREATOR
+            = new Parcelable.Creator<me.abhishekraj.showmyshow.model.tvshow.Seasons>() {
 
         // This simply calls our new constructor (typically private) and
         // passes along the unmarshalled `Parcel`, and then returns the new object!
         @Override
-        public me.abhishekraj.showmyshow.Model.TvShow.Seasons createFromParcel(Parcel in) {
-            return new me.abhishekraj.showmyshow.Model.TvShow.Seasons(in);
+        public me.abhishekraj.showmyshow.model.tvshow.Seasons createFromParcel(Parcel in) {
+            return new me.abhishekraj.showmyshow.model.tvshow.Seasons(in);
         }
 
         // We just need to copy this and change the type to match our class.
         @Override
-        public me.abhishekraj.showmyshow.Model.TvShow.Seasons[] newArray(int size) {
-            return new me.abhishekraj.showmyshow.Model.TvShow.Seasons[size];
+        public me.abhishekraj.showmyshow.model.tvshow.Seasons[] newArray(int size) {
+            return new me.abhishekraj.showmyshow.model.tvshow.Seasons[size];
         }
     };
     /**
-     * Seasons of the TvShow
+     * Seasons of the tvshow
      */
     private String mSeasonAirDate;
     private int mSeasonEpisodeCount;

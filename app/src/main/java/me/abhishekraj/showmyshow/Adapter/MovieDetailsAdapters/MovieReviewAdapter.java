@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters;
+package me.abhishekraj.showmyshow.adapter.moviedetailsadapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +11,8 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Movie.Review;
+import me.abhishekraj.showmyshow.model.movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.model.movie.Review;
 import me.abhishekraj.showmyshow.R;
 
 /**

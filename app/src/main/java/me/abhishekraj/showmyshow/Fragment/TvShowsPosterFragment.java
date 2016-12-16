@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Fragment;
+package me.abhishekraj.showmyshow.fragment;
 
 
 import android.content.Context;
@@ -28,25 +28,25 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter.AiredNowTvShowAdapter;
-import me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter.PopularTvShowAdapter;
-import me.abhishekraj.showmyshow.Adapter.TvShowPosterAdapter.TopRatedTvShowAdapter;
-import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
-import me.abhishekraj.showmyshow.Network.TvShowPosterLoader;
+import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.AiredNowTvShowAdapter;
+import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.PopularTvShowAdapter;
+import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.TopRatedTvShowAdapter;
+import me.abhishekraj.showmyshow.model.tvshow.TvShow;
+import me.abhishekraj.showmyshow.network.TvShowPosterLoader;
 import me.abhishekraj.showmyshow.R;
-import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
+import me.abhishekraj.showmyshow.utils.UrlsAndConstants;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.AIR_DATE_GREATER_THAN;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.AIR_DATE_GREATER_THAN_VALUE_NOVEMBER_START;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.PAGE_OF_RESULT_TO_QUERY;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.SORT_BY_FIRST_AIR_DATES_DESCENDING;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.VOTE_AVERAGE_GREATER_THAN;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.TvPosterQuery.WITH_RUNTIME_GREATER_THAN;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.TvPosterQuery.AIR_DATE_GREATER_THAN;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.TvPosterQuery.AIR_DATE_GREATER_THAN_VALUE_NOVEMBER_START;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.TvPosterQuery.PAGE_OF_RESULT_TO_QUERY;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.TvPosterQuery.SORT_BY_FIRST_AIR_DATES_DESCENDING;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.TvPosterQuery.VOTE_AVERAGE_GREATER_THAN;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.TvPosterQuery.WITH_RUNTIME_GREATER_THAN;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -63,7 +63,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     ArrayList<TvShow> airedNowTvShows;
     ArrayList<TvShow> topRatedTvShows;
 
-    /* Adapter for those tv show */
+    /* adapter for those tv show */
     PopularTvShowAdapter mPopularTvShowAdapter;
     AiredNowTvShowAdapter mAiredNowTvShowAdapter;
     TopRatedTvShowAdapter mTopRatedTvShowAdapter;
@@ -275,7 +275,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     @Override
     public Loader<ArrayList<TvShow>> onCreateLoader(int id, Bundle args) {
         if (id == POPULAR_TV_SHOW_LOADER_ID) {
-            Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
+            Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_POPULAR_TV_SHOW_BASE_URL);
             uriBuilder = baseUri.buildUpon();
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
@@ -284,7 +284,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
 
         } else if (id == AIRED_NOW_TV_SHOW_LOADER_ID) {
-            Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
+            Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_AIRED_NOW_TV_SHOW_BASE_URL);
             uriBuilder = baseUri.buildUpon();
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");
@@ -293,7 +293,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             uriBuilder.appendQueryParameter(VOTE_AVERAGE_GREATER_THAN, "2");
             uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_FIRST_AIR_DATES_DESCENDING);
         } else if (id == TOP_RATED_TV_SHOW_LOADER_ID) {
-            Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TV_SHOW_DEFAULT_URL);
+            Uri baseUri = Uri.parse(UrlsAndConstants.TvPosterQuery.DISCOVER_TOP_RATED_TV_SHOW_BASE_URL);
             uriBuilder = baseUri.buildUpon();
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
             uriBuilder.appendQueryParameter(PAGE_OF_RESULT_TO_QUERY, "1");

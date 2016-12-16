@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Fragment;
+package me.abhishekraj.showmyshow.fragment;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -30,24 +30,24 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowCreditsCastAdapter;
-import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowReviewAdapter;
-import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowSeasonsAdapter;
-import me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters.TvShowTrailerAdapter;
-import me.abhishekraj.showmyshow.Model.TvShow.Credits;
-import me.abhishekraj.showmyshow.Model.TvShow.Review;
-import me.abhishekraj.showmyshow.Model.TvShow.Seasons;
-import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
-import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
-import me.abhishekraj.showmyshow.Model.TvShow.Video;
-import me.abhishekraj.showmyshow.Network.DetailsTvShowLoader;
+import me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters.TvShowCreditsCastAdapter;
+import me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters.TvShowReviewAdapter;
+import me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters.TvShowSeasonsAdapter;
+import me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters.TvShowTrailerAdapter;
+import me.abhishekraj.showmyshow.model.tvshow.Credits;
+import me.abhishekraj.showmyshow.model.tvshow.Review;
+import me.abhishekraj.showmyshow.model.tvshow.Seasons;
+import me.abhishekraj.showmyshow.model.tvshow.TvShow;
+import me.abhishekraj.showmyshow.model.tvshow.TvShowDetailsBundle;
+import me.abhishekraj.showmyshow.model.tvshow.Video;
+import me.abhishekraj.showmyshow.network.DetailsTvShowLoader;
 import me.abhishekraj.showmyshow.R;
-import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
+import me.abhishekraj.showmyshow.utils.UrlsAndConstants;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.APPEND_TO_RESPONSE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.APPEND_TO_RESPONSE;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
 
 
 /**
@@ -70,7 +70,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     TvShowTrailerAdapter mTvShowTrailerAdapter;
     TvShowSeasonsAdapter mTvShowSeasonsAdapter;
 
-    /* recyclerviews for holding and displaying the TvShow details */
+    /* recyclerviews for holding and displaying the tvshow details */
     RecyclerView mTvShowReviewRecyclerView;
     RecyclerView mTvShowTrailerRecyclerView;
     RecyclerView mTvShowCastRecyclerView;
@@ -111,7 +111,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         View rootView = inflater.inflate(R.layout.fragment_tv_show_detail, container, false);
 
         /* get the arguments from the tvshow poster(i.e., parent activity/fragment) so that new
-        data can be fetched and current layout can be inflated in proper TvShow context */
+        data can be fetched and current layout can be inflated in proper tvshow context */
         Bundle bundle = getArguments();
         tvShowDetailTitleTextView = (TextView) rootView.findViewById(R.id.tv_show_detail_title_text_view);
         tvShowDetailTitleImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view);
@@ -132,7 +132,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         containerTvShowTrailer = (LinearLayout) rootView.findViewById(R.id.containerTvShowTrailer);
         loadingIndicatorTvShowDetail = (ProgressBar) rootView.findViewById(R.id.loading_indicator_tv_show_detail);
 
-         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_tv_show_detail for this Fragment
+         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_tv_show_detail for this fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
         *  @link http://stackoverflow.com/a/32858049/5770629
         */

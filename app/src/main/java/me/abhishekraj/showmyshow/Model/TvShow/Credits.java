@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model.TvShow;
+package me.abhishekraj.showmyshow.model.tvshow;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,24 +14,24 @@ public class Credits implements Parcelable {
     `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
     Notice how it has our class specified as its type.
     */
-    public static final Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Credits> CREATOR
-            = new Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Credits>() {
+    public static final Parcelable.Creator<me.abhishekraj.showmyshow.model.tvshow.Credits> CREATOR
+            = new Parcelable.Creator<me.abhishekraj.showmyshow.model.tvshow.Credits>() {
 
         // This simply calls our new constructor (typically private) and
         // passes along the unmarshalled `Parcel`, and then returns the new object!
         @Override
-        public me.abhishekraj.showmyshow.Model.TvShow.Credits createFromParcel(Parcel in) {
-            return new me.abhishekraj.showmyshow.Model.TvShow.Credits(in);
+        public me.abhishekraj.showmyshow.model.tvshow.Credits createFromParcel(Parcel in) {
+            return new me.abhishekraj.showmyshow.model.tvshow.Credits(in);
         }
 
         // We just need to copy this and change the type to match our class.
         @Override
-        public me.abhishekraj.showmyshow.Model.TvShow.Credits[] newArray(int size) {
-            return new me.abhishekraj.showmyshow.Model.TvShow.Credits[size];
+        public me.abhishekraj.showmyshow.model.tvshow.Credits[] newArray(int size) {
+            return new me.abhishekraj.showmyshow.model.tvshow.Credits[size];
         }
     };
     /**
-     * Credits of the TvShow
+     * Credits of the tvshow
      */
     private String mCharacter;
     private String mCreditId;

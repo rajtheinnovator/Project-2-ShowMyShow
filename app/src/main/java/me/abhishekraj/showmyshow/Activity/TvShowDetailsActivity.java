@@ -1,10 +1,10 @@
-package me.abhishekraj.showmyshow.Activity;
+package me.abhishekraj.showmyshow.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import me.abhishekraj.showmyshow.Fragment.TvShowDetailsFragment;
-import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
+import me.abhishekraj.showmyshow.fragment.TvShowDetailsFragment;
+import me.abhishekraj.showmyshow.model.tvshow.TvShow;
 import me.abhishekraj.showmyshow.R;
 
 public class TvShowDetailsActivity extends AppCompatActivity {
@@ -17,7 +17,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tv_show_details);
         Bundle tvShowDetails = new Bundle();
 
-        /**get the TvShow's Object from the parent Activity**/
+        /**get the tvshow's Object from the parent activity**/
         TvShow tvShow = getIntent().getParcelableExtra("tvShow");
         tvShowDetails.putParcelable("tvShow", tvShow);
 

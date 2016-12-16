@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model.TvShow;
+package me.abhishekraj.showmyshow.model.tvshow;
 
 import android.os.Parcel;
 import android.os.Parcelable;

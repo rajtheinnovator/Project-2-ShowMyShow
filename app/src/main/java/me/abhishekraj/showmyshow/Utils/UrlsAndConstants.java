@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Utils;
+package me.abhishekraj.showmyshow.utils;
 
 import me.abhishekraj.showmyshow.BuildConfig;
 
@@ -22,6 +22,10 @@ public class UrlsAndConstants {
                 "https://api.themoviedb.org/3/discover/movie";
         public static final String UPCOMING_MOVIE_BASE_URL =
                 "https://api.themoviedb.org/3/movie/upcoming";
+        public static final String TOP_RATED_MOVIE_BASE_URL =
+                "https://api.themoviedb.org/3/movie/top_rated";
+        public static final String POPULAR_MOVIE_BASE_URL =
+                "https://api.themoviedb.org/3/movie/popular";
         public static final String API_KEY_PARAM = "api_key";
 
         /*Put your API KEY either here directly or use BuildConfig to retrieve it*/
@@ -56,6 +60,14 @@ public class UrlsAndConstants {
 
     public class TvPosterQuery {
         public static final String DISCOVER_TV_SHOW_DEFAULT_URL = "https://api.themoviedb.org/3/discover/tv";
+
+        public static final String DISCOVER_AIRED_NOW_TV_SHOW_BASE_URL =
+                "https://api.themoviedb.org/3/tv/on_the_air";
+        public static final String DISCOVER_POPULAR_TV_SHOW_BASE_URL =
+                "https://api.themoviedb.org/3/tv/popular";
+        public static final String DISCOVER_TOP_RATED_TV_SHOW_BASE_URL =
+                "https://api.themoviedb.org/3/tv/top_rated";
+
         public static final String SORT_BY_FIRST_AIR_DATES_DESCENDING = "first_air_dates.desc";
         public static final String AIR_DATE_GREATER_THAN = "air_date.gte";
         public static final String AIR_DATE_GREATER_THAN_VALUE_DECEMBER_START = "2016-12-01";

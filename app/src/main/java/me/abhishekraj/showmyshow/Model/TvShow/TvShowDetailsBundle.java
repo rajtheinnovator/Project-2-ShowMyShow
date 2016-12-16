@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model.TvShow;
+package me.abhishekraj.showmyshow.model.tvshow;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class TvShowDetailsBundle {
     public ArrayList<Credits> mCredits;
     public ArrayList<Seasons> mSeasons;
 
-    /* Create a TvShow Object for handling null point exception cases */
+    /* Create a tvshow Object for handling null point exception cases */
     public TvShow mTvShow;
 
     /*

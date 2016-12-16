@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters;
+package me.abhishekraj.showmyshow.adapter.movieposteradapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Activity.MovieDetailsActivity;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
+import me.abhishekraj.showmyshow.activity.MovieDetailsActivity;
+import me.abhishekraj.showmyshow.model.movie.Movie;
 import me.abhishekraj.showmyshow.R;
 
 /**

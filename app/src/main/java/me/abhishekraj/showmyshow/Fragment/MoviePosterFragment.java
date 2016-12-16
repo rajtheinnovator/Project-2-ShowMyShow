@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Fragment;
+package me.abhishekraj.showmyshow.fragment;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -27,20 +27,19 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.PopularMoviesAdapter;
-import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.TopRatedMoviesAdapter;
-import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.UpcomingMovieAdapter;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
-import me.abhishekraj.showmyshow.Network.MoviePosterLoader;
 import me.abhishekraj.showmyshow.R;
-import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
+import me.abhishekraj.showmyshow.adapter.movieposteradapters.PopularMoviesAdapter;
+import me.abhishekraj.showmyshow.adapter.movieposteradapters.TopRatedMoviesAdapter;
+import me.abhishekraj.showmyshow.adapter.movieposteradapters.UpcomingMovieAdapter;
+import me.abhishekraj.showmyshow.model.movie.Movie;
+import me.abhishekraj.showmyshow.network.MoviePosterLoader;
+import me.abhishekraj.showmyshow.utils.UrlsAndConstants;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.DESCENDING;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_KEY;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_POPULARITY_VALUE_DESCENDING;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.SORT_BY_TOP_RATED_VALUE_DESCENDING;
 
 
 /**
@@ -270,21 +269,21 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
         if (id == POPULAR_MOVIE_LOADER_ID) {
-            Uri baseUri = Uri.parse(UrlsAndConstants.MoviePosterQuery.DEFAULT_URL);
+            Uri baseUri = Uri.parse(UrlsAndConstants.MoviePosterQuery.POPULAR_MOVIE_BASE_URL);
             uriBuilder = baseUri.buildUpon();
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
 
         } else if (id == UPCOMING_MOVIE_LOADER_ID) {
             Uri baseUri = Uri.parse(UrlsAndConstants.MoviePosterQuery.UPCOMING_MOVIE_BASE_URL);
             uriBuilder = baseUri.buildUpon();
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-            uriBuilder.appendQueryParameter(SORT_BY_KEY, DESCENDING);
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
         } else if (id == TOP_RATED_MOVIE_LOADER_ID) {
-            Uri baseUri = Uri.parse(UrlsAndConstants.MoviePosterQuery.DEFAULT_URL);
+            Uri baseUri = Uri.parse(UrlsAndConstants.MoviePosterQuery.TOP_RATED_MOVIE_BASE_URL);
             uriBuilder = baseUri.buildUpon();
             uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
-            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_TOP_RATED_VALUE_DESCENDING);
+            uriBuilder.appendQueryParameter(SORT_BY_KEY, SORT_BY_POPULARITY_VALUE_DESCENDING);
         }
         return new MoviePosterLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }

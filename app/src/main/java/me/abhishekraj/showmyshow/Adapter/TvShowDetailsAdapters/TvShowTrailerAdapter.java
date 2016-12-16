@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter.TvShowDetailsAdapters;
+package me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
-import me.abhishekraj.showmyshow.Model.TvShow.Video;
+import me.abhishekraj.showmyshow.model.tvshow.TvShowDetailsBundle;
+import me.abhishekraj.showmyshow.model.tvshow.Video;
 import me.abhishekraj.showmyshow.R;
 
 /**

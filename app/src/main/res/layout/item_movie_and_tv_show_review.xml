@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_margin="4dp"
+    android:layout_margin="@dimen/margin4dp"
     android:orientation="vertical"
     android:textAlignment="center">
 
@@ -26,8 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4dp"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                android:padding="@dimen/padding_16dp"
+                android:textSize="@dimen/text_size_16sp" />
 
             <ImageButton
                 android:id="@id/expand_collapse"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
                 android:background="@android:color/transparent"
-                android:padding="8dp" />
+                android:padding="@dimen/padding_8dp" />
 
         </com.ms.square.android.expandabletextview.ExpandableTextView>
 
@@ -45,12 +45,12 @@
             android:layout_height="wrap_content"
             android:gravity="bottom|end"
             android:hint="@string/hint_review_author"
-            android:paddingRight="24dp"
+            android:paddingRight="@dimen/padding_24dp"
             android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/view_height_1dp"
             android:background="#fddafd" />
     </LinearLayout>
 </LinearLayout>

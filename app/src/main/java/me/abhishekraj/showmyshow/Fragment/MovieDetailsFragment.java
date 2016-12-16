@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Fragment;
+package me.abhishekraj.showmyshow.fragment;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -30,22 +30,22 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieCreditsCastAdapter;
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieReviewAdapter;
-import me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters.MovieTrailerAdapter;
-import me.abhishekraj.showmyshow.Model.Movie.Credits;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
-import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Movie.Review;
-import me.abhishekraj.showmyshow.Model.Movie.Video;
-import me.abhishekraj.showmyshow.Network.DetailsMovieLoader;
+import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieCreditsCastAdapter;
+import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieReviewAdapter;
+import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieTrailerAdapter;
+import me.abhishekraj.showmyshow.model.movie.Credits;
+import me.abhishekraj.showmyshow.model.movie.Movie;
+import me.abhishekraj.showmyshow.model.movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.model.movie.Review;
+import me.abhishekraj.showmyshow.model.movie.Video;
+import me.abhishekraj.showmyshow.network.DetailsMovieLoader;
 import me.abhishekraj.showmyshow.R;
-import me.abhishekraj.showmyshow.Utils.UrlsAndConstants;
+import me.abhishekraj.showmyshow.utils.UrlsAndConstants;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM_VALUE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.APPEND_TO_RESPONSE;
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM_VALUE;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.APPEND_TO_RESPONSE;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.VIDEOS_AND_REVIEWS_AND_CREDITS;
 
 /**
  * Created by ABHISHEK RAJ on 11/26/2016.
@@ -55,7 +55,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
     private static final int MOVIE_DETAIL_LOADER_ID = 2;
 
-    /* Arrays for holding Movie details */
+    /* Arrays for holding movie details */
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
     public ArrayList<Credits> mCredits;
@@ -65,7 +65,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     MovieCreditsCastAdapter mMovieCreditsCastAdapter;
     MovieTrailerAdapter mMovieTrailerAdapter;
 
-    /* recyclerviews for holding and displaying the TvShow details */
+    /* recyclerviews for holding and displaying the tvshow details */
     RecyclerView mMovieReviewRecyclerView;
     RecyclerView mMovieTrailerRecyclerView;
     RecyclerView mMovieCastRecyclerView;
@@ -117,7 +117,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         containerMoviesReviews = (LinearLayout) rootView.findViewById(R.id.containerMoviesReviews);
         loadingIndicatorMovieDetail = (ProgressBar) rootView.findViewById(R.id.loading_indicator_movie_detail);
 
-        /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_movie_detail for this Fragment
+        /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_movie_detail for this fragment
         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
         *  @link http://stackoverflow.com/a/32858049/5770629
         */

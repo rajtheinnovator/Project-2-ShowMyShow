@@ -1,10 +1,10 @@
-package me.abhishekraj.showmyshow.Activity;
+package me.abhishekraj.showmyshow.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import me.abhishekraj.showmyshow.Fragment.MovieDetailsFragment;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
+import me.abhishekraj.showmyshow.fragment.MovieDetailsFragment;
+import me.abhishekraj.showmyshow.model.movie.Movie;
 import me.abhishekraj.showmyshow.R;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -17,7 +17,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         Bundle movieDetails = new Bundle();
 
-        /**get the Movie's Object from the parent Activity**/
+        /**get the movie's Object from the parent activity**/
         Movie movie = getIntent().getParcelableExtra("movie");
         movieDetails.putParcelable("movie", movie);
 

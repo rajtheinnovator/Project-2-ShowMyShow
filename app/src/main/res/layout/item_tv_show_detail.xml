@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="8dp"
+    android:paddingBottom="@dimen/padding_8dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="me.abhishekraj.showmyshow.Activity.TvShowDetailsActivity">
+    tools:context="me.abhishekraj.showmyshow.activity.TvShowDetailsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingLeft="@dimen/padding_16dp"
+            android:paddingRight="@dimen/padding_16dp">
 
             <ImageView
                 android:id="@+id/tv_show_detail_title_image_view"
@@ -38,8 +38,8 @@
                 android:layout_weight="5"
                 android:gravity="right"
                 android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingLeft="@dimen/padding_8dp"
+                android:paddingRight="@dimen/padding_8dp">
 
                 <TextView
                     android:id="@+id/tv_show_detail_title_text_view"
@@ -55,7 +55,7 @@
 
                     <com.iarcuschin.simpleratingbar.SimpleRatingBar
                         android:id="@+id/tvShowRatingInsideTvShowDetailsFragment"
-                        android:layout_width="162dp"
+                        android:layout_width="@dimen/simpleratingbar_width"
                         android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
@@ -64,7 +64,7 @@
                         app:srb_gravity="left"
                         app:srb_isIndicator="true"
                         app:srb_numberOfStars="5"
-                        app:srb_starSize="24dp"
+                        app:srb_starSize="@dimen/srb_starSize"
                         app:srb_stepSize="0.1" />
                 </LinearLayout>
 
@@ -191,9 +191,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
+            android:paddingLeft="@dimen/padding_16dp"
             android:text="@string/overview"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_14sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -212,8 +212,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="4dp"
-                    android:padding="16dp"
-                    android:textSize="16sp" />
+                    android:padding="@dimen/padding_16dp"
+                    android:textSize="@dimen/text_size_16sp" />
 
                 <ImageButton
                     android:id="@id/expand_collapse"
@@ -221,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|bottom"
                     android:background="@android:color/transparent"
-                    android:padding="8dp" />
+                    android:padding="@dimen/padding_8dp" />
 
             </com.ms.square.android.expandabletextview.ExpandableTextView>
         </LinearLayout>

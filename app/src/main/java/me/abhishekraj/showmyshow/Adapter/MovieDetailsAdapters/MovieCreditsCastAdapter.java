@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Adapter.MovieDetailsAdapters;
+package me.abhishekraj.showmyshow.adapter.moviedetailsadapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +12,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie.Credits;
-import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.model.movie.Credits;
+import me.abhishekraj.showmyshow.model.movie.MovieDetailsBundle;
 import me.abhishekraj.showmyshow.R;
 
-import static me.abhishekraj.showmyshow.Utils.UrlsAndConstants.MovieDetailQuery.BASE_IMAGE_URL;
+import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.BASE_IMAGE_URL;
 
 /**
  * Created by ABHISHEK RAJ on 12/9/2016.

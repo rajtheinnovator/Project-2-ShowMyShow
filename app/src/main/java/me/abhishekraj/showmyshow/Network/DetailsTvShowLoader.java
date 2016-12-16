@@ -1,10 +1,10 @@
-package me.abhishekraj.showmyshow.Network;
+package me.abhishekraj.showmyshow.network;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
-import me.abhishekraj.showmyshow.Utils.TvShowDetailsQueryUtils;
+import me.abhishekraj.showmyshow.model.tvshow.TvShowDetailsBundle;
+import me.abhishekraj.showmyshow.utils.TvShowDetailsQueryUtils;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.

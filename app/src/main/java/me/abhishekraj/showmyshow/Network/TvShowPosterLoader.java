@@ -1,12 +1,12 @@
-package me.abhishekraj.showmyshow.Network;
+package me.abhishekraj.showmyshow.network;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
-import me.abhishekraj.showmyshow.Utils.TvShowPosterQueryDetails;
+import me.abhishekraj.showmyshow.model.tvshow.TvShow;
+import me.abhishekraj.showmyshow.utils.TvShowPosterQueryDetails;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.

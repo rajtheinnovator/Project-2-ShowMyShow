@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|end"
-                android:paddingRight="2dp"
+                android:paddingRight="@dimen/padding_2dp"
                 android:text="@string/total_episodes" />
 
             <TextView
@@ -33,7 +33,7 @@
                 style="@style/MovieAndTvShowDetailsTextValueStyle"
                 android:gravity="left|start"
                 android:hint="@string/season_episode_count"
-                android:paddingLeft="2dp" />
+                android:paddingLeft="@dimen/padding_2dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|end"
-                android:paddingRight="2dp"
+                android:paddingRight="@dimen/padding_2dp"
                 android:text="@string/aired" />
 
             <TextView
@@ -55,7 +55,7 @@
                 style="@style/MovieAndTvShowDetailsTextValueStyle"
                 android:gravity="left|start"
                 android:hint="@string/hint_season_air_date"
-                android:paddingLeft="2dp" />
+                android:paddingLeft="@dimen/padding_2dp" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model.TvShow;
+package me.abhishekraj.showmyshow.model.tvshow;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,24 +14,24 @@ public class Video implements Parcelable {
    `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
    Notice how it has our class specified as its type.
    */
-    public static final Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Video> CREATOR
-            = new Parcelable.Creator<me.abhishekraj.showmyshow.Model.TvShow.Video>() {
+    public static final Parcelable.Creator<me.abhishekraj.showmyshow.model.tvshow.Video> CREATOR
+            = new Parcelable.Creator<me.abhishekraj.showmyshow.model.tvshow.Video>() {
 
         // This simply calls our new constructor (typically private) and
         // passes along the unmarshalled `Parcel`, and then returns the new object!
         @Override
-        public me.abhishekraj.showmyshow.Model.TvShow.Video createFromParcel(Parcel in) {
-            return new me.abhishekraj.showmyshow.Model.TvShow.Video(in);
+        public me.abhishekraj.showmyshow.model.tvshow.Video createFromParcel(Parcel in) {
+            return new me.abhishekraj.showmyshow.model.tvshow.Video(in);
         }
 
         // We just need to copy this and change the type to match our class.
         @Override
-        public me.abhishekraj.showmyshow.Model.TvShow.Video[] newArray(int size) {
-            return new me.abhishekraj.showmyshow.Model.TvShow.Video[size];
+        public me.abhishekraj.showmyshow.model.tvshow.Video[] newArray(int size) {
+            return new me.abhishekraj.showmyshow.model.tvshow.Video[size];
         }
     };
     /**
-     * Reviews of the TvShow
+     * Reviews of the tvshow
      */
     private String mId;
     private String mKey;
@@ -40,7 +40,7 @@ public class Video implements Parcelable {
     private String mType;
 
     /**
-     * Create an empty constructor so that an empty TvShow's object can be referenced
+     * Create an empty constructor so that an empty tvshow's object can be referenced
      * in the MainActivity for storing tvShow's info
      */
     public Video() {

@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Utils;
+package me.abhishekraj.showmyshow.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,12 +14,12 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.TvShow.Credits;
-import me.abhishekraj.showmyshow.Model.TvShow.Review;
-import me.abhishekraj.showmyshow.Model.TvShow.Seasons;
-import me.abhishekraj.showmyshow.Model.TvShow.TvShow;
-import me.abhishekraj.showmyshow.Model.TvShow.TvShowDetailsBundle;
-import me.abhishekraj.showmyshow.Model.TvShow.Video;
+import me.abhishekraj.showmyshow.model.tvshow.Credits;
+import me.abhishekraj.showmyshow.model.tvshow.Review;
+import me.abhishekraj.showmyshow.model.tvshow.Seasons;
+import me.abhishekraj.showmyshow.model.tvshow.TvShow;
+import me.abhishekraj.showmyshow.model.tvshow.TvShowDetailsBundle;
+import me.abhishekraj.showmyshow.model.tvshow.Video;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -27,21 +27,21 @@ import me.abhishekraj.showmyshow.Model.TvShow.Video;
 
 public class TvShowDetailsQueryUtils {
 
-    /*TvShow Details Text*/
+    /*tvshow Details Text*/
     private static int runtime;
     private static int numberOfSeasons;
     private static int numberOfEpisodes;
     private static String TvShowType;
     private static String lastAirDate;
 
-    /*Variables for handling TvShow Cast Details*/
+    /*Variables for handling tvshow Cast Details*/
     private static String characterCast;
     private static String creditIdCast;
     private static String nameCast;
     private static String profilePathCast;
     private static int idCast;
 
-    /*Variables for handling TvShow Videos Details*/
+    /*Variables for handling tvshow Videos Details*/
     private static String idVideo;
     private static String keyVideo;
     private static String nameVideo;
@@ -53,7 +53,7 @@ public class TvShowDetailsQueryUtils {
     private static String content;
     private static String url;
 
-    /* Variables for handling TvShow Seasons */
+    /* Variables for handling tvshow Seasons */
     private static String seasonAirDate;
     private static String seasonPosterPath;
     private static int seasonEpisodeCount;
@@ -76,8 +76,8 @@ public class TvShowDetailsQueryUtils {
     }
 
     /**
-     * Query the TheMovieDb dataset and return an {@link me.abhishekraj.showmyshow.Model.TvShow.TvShow}
-     * ArrayList to represent a single TvShow.
+     * Query the TheMovieDb dataset and return an {@link me.abhishekraj.showmyshow.model.tvshow.TvShow}
+     * ArrayList to represent a single tvshow.
      */
     public static TvShowDetailsBundle fetchTvShowData(String requestUrl) {
         // Create URL object
@@ -173,7 +173,7 @@ public class TvShowDetailsQueryUtils {
     }
 
     /**
-     * Return a list of {@link me.abhishekraj.showmyshow.Model.TvShow.TvShow} objects that has been built up from
+     * Return a list of {@link me.abhishekraj.showmyshow.model.tvshow.TvShow} objects that has been built up from
      * parsing a JSON response.
      */
     public static TvShowDetailsBundle extractFeatureFromJson(String jsonResponse) {
@@ -293,7 +293,7 @@ public class TvShowDetailsQueryUtils {
                     }
                 }
             }
-            /* details of TvShow Season */
+            /* details of tvshow Season */
             if (tv_show_json_response.has("seasons")) {
                 JSONArray seasonArray = tv_show_json_response.getJSONArray("seasons");
                 if (seasonArray.length() > 0) {

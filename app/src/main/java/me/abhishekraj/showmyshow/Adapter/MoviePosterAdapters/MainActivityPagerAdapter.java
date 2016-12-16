@@ -1,12 +1,12 @@
-package me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters;
+package me.abhishekraj.showmyshow.adapter.movieposteradapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import me.abhishekraj.showmyshow.Fragment.MoviePosterFragment;
-import me.abhishekraj.showmyshow.Fragment.TvShowsPosterFragment;
+import me.abhishekraj.showmyshow.fragment.MoviePosterFragment;
+import me.abhishekraj.showmyshow.fragment.TvShowsPosterFragment;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -39,7 +39,7 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
         return tabTitles[position];
     }
 
-    /* get total fragment count for the Activity */
+    /* get total fragment count for the activity */
     @Override
     public int getCount() {
         return PAGE_COUNT;

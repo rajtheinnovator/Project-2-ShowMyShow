@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Network;
+package me.abhishekraj.showmyshow.network;
 
 
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
-import me.abhishekraj.showmyshow.Utils.MoviePosterQueryUtils;
+import me.abhishekraj.showmyshow.model.movie.Movie;
+import me.abhishekraj.showmyshow.utils.MoviePosterQueryUtils;
 
 /**
  * Created by ABHISHEK RAJ on 11/15/2016.

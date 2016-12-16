@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="2dp">
+    android:padding="@dimen/padding_24dp">
     <!--
     code for CircularView referenced from
     @link: https://github.com/hdodenhof/CircleImageView
@@ -16,11 +16,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/castImageView"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
+            android:layout_width="@dimen/layout_width84dp"
+            android:layout_height="@dimen/layout_width84dp"
             android:background="#c1c1c1"
             app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp" />
+            app:civ_border_width="@dimen/civ_border_width" />
 
         <TextView
             android:id="@+id/castName"

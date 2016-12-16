@@ -7,4 +7,34 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="detail_backdrop_height">256dp</dimen>
     <dimen name="card_margin">16dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="padding_2dp">16dp</dimen>
+    <dimen name="padding_1dp">16dp</dimen>
+    <dimen name="padding_4dp">16dp</dimen>
+    <dimen name="padding_24dp">16dp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_14sp">16sp</dimen>
+    <dimen name="text_size_24sp">16sp</dimen>
+    <dimen name="layout_height_128dp">128dp</dimen>
+    <dimen name="view_height_1dp">1dp</dimen>
+    <dimen name="expandedTitleMarginEnd">64dp</dimen>
+    <dimen name="expandedTitleMarginStart">48dp</dimen>
+    <!--circular image-->
+    <dimen name="layout_width84dp">84dp</dimen>
+    <dimen name="layout_height84dp">84dp</dimen>
+    <dimen name="civ_border_width">2dp</dimen>
+    <dimen name="margin4dp">4dp</dimen>
+    <dimen name="imageview_width">24dp</dimen>
+    <dimen name="imageview_height">24dp</dimen>
+    <!--movie detail-->
+    <dimen name="movie_detail_title_image_view_height">200dp</dimen>
+    <dimen name="simpleratingbar_width">162dp</dimen>
+    <dimen name="srb_starSize">24dp</dimen>
+    <!--movie and tv show poster-->
+    <dimen name="star_image_height">14dp</dimen>
+    <dimen name="star_image_width">14dp</dimen>
+    <dimen name="voteaverage_layout_width">16dp</dimen>
+    <dimen name="margin2dp">2dp</dimen>
+
 </resources>

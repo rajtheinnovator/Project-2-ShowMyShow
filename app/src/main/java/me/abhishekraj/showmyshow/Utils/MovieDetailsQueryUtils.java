@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Utils;
+package me.abhishekraj.showmyshow.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,11 +14,11 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.Model.Movie.Credits;
-import me.abhishekraj.showmyshow.Model.Movie.Movie;
-import me.abhishekraj.showmyshow.Model.Movie.MovieDetailsBundle;
-import me.abhishekraj.showmyshow.Model.Movie.Review;
-import me.abhishekraj.showmyshow.Model.Movie.Video;
+import me.abhishekraj.showmyshow.model.movie.Credits;
+import me.abhishekraj.showmyshow.model.movie.Movie;
+import me.abhishekraj.showmyshow.model.movie.MovieDetailsBundle;
+import me.abhishekraj.showmyshow.model.movie.Review;
+import me.abhishekraj.showmyshow.model.movie.Video;
 
 /**
  * Created by ABHISHEK RAJ on 12/1/2016.
@@ -33,7 +33,7 @@ public class MovieDetailsQueryUtils {
     private static int castId;
     private static int id;
 
-    /*Variables for handling Movie Videos Details*/
+    /*Variables for handling movie Videos Details*/
     private static String idVideo;
     private static String keyVideo;
     private static String nameVideo;
@@ -54,7 +54,7 @@ public class MovieDetailsQueryUtils {
     }
 
     /**
-     * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single Movie.
+     * Query the TheMovieDb dataset and return an {@link Movie} ArrayList to represent a single movie.
      */
     public static MovieDetailsBundle fetchMovieData(String requestUrl) {
         /* Create URL object */

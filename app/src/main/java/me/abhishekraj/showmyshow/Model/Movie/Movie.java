@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Model.Movie;
+package me.abhishekraj.showmyshow.model.movie;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -78,7 +78,7 @@ public class Movie implements Parcelable {
      * @param voteAverage      is the Vote Average of the movie
      * @param popularity       is the Popularity of the movie
      * @param backdropPath     is the Backdrop Path of the movie
-     * @param movieReleaseDate is the Movie Release Date of the movie
+     * @param movieReleaseDate is the movie Release Date of the movie
      */
     public Movie(String movieTitle, int id, String posterPath, String overview, double voteCount, String originalTitle,
                  double voteAverage, double popularity, String backdropPath, String movieReleaseDate) {

@@ -3,5 +3,5 @@
     android:id="@+id/containerMovieDetailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MovieDetailsActivity"
+    tools:context=".activity.MovieDetailsActivity"
     tools:ignore="MergeRootFrame" />

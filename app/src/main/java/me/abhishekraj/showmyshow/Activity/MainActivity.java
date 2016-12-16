@@ -1,4 +1,4 @@
-package me.abhishekraj.showmyshow.Activity;
+package me.abhishekraj.showmyshow.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import me.abhishekraj.showmyshow.Adapter.MoviePosterAdapters.MainActivityPagerAdapter;
+import me.abhishekraj.showmyshow.adapter.movieposteradapters.MainActivityPagerAdapter;
 import me.abhishekraj.showmyshow.R;
 
 
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     */
 
     /*
-     * Code for multiple fragments within same Activity is referenced from my own work done Udacity ABND
+     * Code for multiple fragments within same activity is referenced from my own work done Udacity ABND
      * link to @link: https://github.com/rajtheinnovator/TourGuide
     */
 

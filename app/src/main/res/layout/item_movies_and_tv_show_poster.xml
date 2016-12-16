@@ -22,16 +22,16 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="@dimen/star_image_width"
+                android:layout_height="@dimen/star_image_height"
                 android:layout_gravity="end|right|center_vertical"
                 android:src="@drawable/iconvoteaverage" />
 
             <TextView
                 android:id="@+id/voteAverageMovieAndTvShowPoster"
-                android:layout_width="16dp"
+                android:layout_width="@dimen/voteaverage_layout_width"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="2dp"
+                android:layout_marginRight="@dimen/margin2dp"
                 android:gravity="end"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
