@@ -40,6 +40,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.abhishekraj.showmyshow.activity.MainActivity" />
         </activity>
+        <provider
+            android:name=".data.MovieProvider"
+            android:authorities="me.abhishekraj.showmyshow"
+            android:exported="false" />
     </application>
 
 </manifest>

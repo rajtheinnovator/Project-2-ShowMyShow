@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieCreditsCastAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieReviewAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieTrailerAdapter;
@@ -39,7 +40,6 @@ import me.abhishekraj.showmyshow.model.movie.MovieDetailsBundle;
 import me.abhishekraj.showmyshow.model.movie.Review;
 import me.abhishekraj.showmyshow.model.movie.Video;
 import me.abhishekraj.showmyshow.network.DetailsMovieLoader;
-import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.utils.UrlsAndConstants;
 
 import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM;
@@ -93,6 +93,8 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     private int mMovieDuration;
     private String mMovieDurationString;
 
+
+
     public MovieDetailsFragment() {
         // Required empty public constructor
     }
@@ -103,6 +105,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
         Bundle bundle = getArguments();
+
         movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.moivie_detail_title_text_view);
         movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
         moviedetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view_backdrop);
@@ -252,6 +255,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         }
         return rootView;
     }
+
 
     private void startLoaderManager() {
         LoaderManager loaderManager = getLoaderManager();

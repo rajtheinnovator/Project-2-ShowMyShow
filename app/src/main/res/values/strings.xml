@@ -45,4 +45,9 @@
     <!--Menu item string-->
     <string name="refresh">Refresh</string>
 
+    <string name="delete_movie_failed">Deletion failed</string>
+    <string name="delete_movie_successful">Deletion Successful</string>
+    <string name="insert_movie_failed">Insert failed</string>
+    <string name="insert_movie_successful">Insertion Successful</string>
+
 </resources>

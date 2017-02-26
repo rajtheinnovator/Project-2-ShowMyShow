@@ -14,9 +14,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.activity.MovieDetailsActivity;
 import me.abhishekraj.showmyshow.model.movie.Movie;
-import me.abhishekraj.showmyshow.R;
 
 /**
  * Created by ABHISHEK RAJ on 12/8/2016.
