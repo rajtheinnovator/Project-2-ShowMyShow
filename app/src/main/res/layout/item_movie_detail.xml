@@ -87,6 +87,14 @@
                     style="@style/MovieAndTvShowDetailsTextValueStyle"
                     android:hint="@string/hint_movie_duration" />
             </LinearLayout>
+            <ImageButton
+                android:id="@+id/favorite"
+                android:layout_width="wrap_content"
+                android:padding="2dp"
+                android:background="#aaaaaa"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/unstarred"/>
         </LinearLayout>
     </LinearLayout>
 
