@@ -1,7 +1,9 @@
 package me.abhishekraj.showmyshow.adapter.movieposteradapters;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.activity.MovieDetailsActivity;
+import me.abhishekraj.showmyshow.data.MovieContract;
 import me.abhishekraj.showmyshow.model.movie.Movie;
 
 /**
@@ -125,6 +128,9 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
                 Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
                 Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
                 movieDetailIntent.putExtra("movie", currentMovie);
+                movieDetailIntent.putExtra("position", position);
+                Uri currentMovieUri = ContentUris.withAppendedId(MovieContract.MoviesEntry.CONTENT_URI, position+1);
+                movieDetailIntent.setData(currentMovieUri);
                 /* start the new activity intent */
                 context.startActivity(movieDetailIntent);
             }

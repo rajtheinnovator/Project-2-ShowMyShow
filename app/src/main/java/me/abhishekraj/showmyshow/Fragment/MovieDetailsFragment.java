@@ -14,10 +14,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -34,6 +36,7 @@ import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieCreditsCastAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieReviewAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieTrailerAdapter;
+import me.abhishekraj.showmyshow.data.MovieDbHelper;
 import me.abhishekraj.showmyshow.model.movie.Credits;
 import me.abhishekraj.showmyshow.model.movie.Movie;
 import me.abhishekraj.showmyshow.model.movie.MovieDetailsBundle;
@@ -93,6 +96,13 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     private int mMovieDuration;
     private String mMovieDurationString;
 
+    /* Database functionality*/
+    private boolean favorite;
+    private MovieDbHelper mDbHelper;
+    private ImageButton favoriteButton;
+    private Uri currentMovieUri;
+
+    int position;
 
 
     public MovieDetailsFragment() {
@@ -105,6 +115,11 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
         Bundle bundle = getArguments();
+        Log.i("mytag", "bundle is :"+bundle.toString());
+        position = Integer.parseInt(bundle.getString("position"));
+        Log.i("my_tag", "position is :"+position);
+        Log.e("my_tag", "bundle.getString currentMovieUri is :" + bundle.getString("currentMovieUri"));
+        currentMovieUri = Uri.parse(bundle.getString("currentMovieUri"));
 
         movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.moivie_detail_title_text_view);
         movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
@@ -155,7 +170,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     .load(backdropURL)
                     .placeholder(R.drawable.backdropimage)
                     .into(moviedetailsBackdropImageView);
-
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
             SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
             simpleRatingBar.setRating((float) (movie.getMovieVoteAverage()) / 2);
