@@ -32,6 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.DatabaseHandler;
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieCreditsCastAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieReviewAdapter;
@@ -57,6 +58,7 @@ import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.
 public class MovieDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<MovieDetailsBundle> {
 
     private static final int MOVIE_DETAIL_LOADER_ID = 2;
+    private static final int MOVIE_CURSOR_LOADER_ID = 3;
 
     /* Arrays for holding movie details */
     public ArrayList<Review> mReview;
@@ -102,8 +104,17 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     private ImageButton favoriteButton;
     private Uri currentMovieUri;
 
+    private String uriString;
     int position;
-
+    String MovieName;
+    int nameColumnIndex;
+    String currentTitle;
+    String currentReleaseDate;
+    String currentOverview;
+    String currentposterUrl;
+    String currentBackdropUrl;
+    float currentRatings;
+    int currentID;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -146,6 +157,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         /*Creating a collapsing collapsing_toolbar_movie_detail, defined in the fragment_movie_details.xml  */
         collapsingToolbar =
                 (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar_movie_detail);
+        favoriteButton = (ImageButton) rootView.findViewById(R.id.favorite);
 
         if (savedInstanceState == null) {
             mReview = new ArrayList<>();
@@ -170,9 +182,29 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     .load(backdropURL)
                     .placeholder(R.drawable.backdropimage)
                     .into(moviedetailsBackdropImageView);
+
+            favorite = DatabaseHandler.myDatabaseHandler(getContext(), position, currentMovieUri, movie);
+            if (favorite) {
+                favoriteButton.setImageResource(R.drawable.starred);
+            } else {
+                favoriteButton.setImageResource(R.drawable.unstarred);
+            }
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
             SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
             simpleRatingBar.setRating((float) (movie.getMovieVoteAverage()) / 2);
+            favoriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    favorite = DatabaseHandler.myDatabaseHandler(getContext(), position, currentMovieUri, movie);
+                    if (favorite) {
+                        favoriteButton.setImageResource(R.drawable.unstarred);
+
+                    } else {
+                        favoriteButton.setImageResource(R.drawable.starred);
+                    }
+                    favorite = !favorite;
+                }
+            });
 
              /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
