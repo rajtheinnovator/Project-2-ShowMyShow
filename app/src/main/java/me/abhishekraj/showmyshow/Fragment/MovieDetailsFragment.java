@@ -1,6 +1,7 @@
 package me.abhishekraj.showmyshow.fragment;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -37,6 +38,7 @@ import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieCreditsCastAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieReviewAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieTrailerAdapter;
+import me.abhishekraj.showmyshow.data.MovieContract.MoviesEntry;
 import me.abhishekraj.showmyshow.data.MovieDbHelper;
 import me.abhishekraj.showmyshow.model.movie.Credits;
 import me.abhishekraj.showmyshow.model.movie.Movie;
@@ -58,7 +60,9 @@ import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.
 public class MovieDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<MovieDetailsBundle> {
 
     private static final int MOVIE_DETAIL_LOADER_ID = 2;
-    private static final int MOVIE_CURSOR_LOADER_ID = 3;
+    public static final int BEFORE_FAV_CLICK = 7777;
+    public static final int ON_FAV_CLICK = 8888;
+    public static final int ON_NOT_FAV_CLICK = 9999;
 
     /* Arrays for holding movie details */
     public ArrayList<Review> mReview;
@@ -106,7 +110,9 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
     private String uriString;
     int position;
+
     String MovieName;
+    int currentRowId;
     int nameColumnIndex;
     String currentTitle;
     String currentReleaseDate;
@@ -114,7 +120,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     String currentposterUrl;
     String currentBackdropUrl;
     float currentRatings;
-    int currentID;
+    int currentMovieID;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -183,28 +189,86 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     .placeholder(R.drawable.backdropimage)
                     .into(moviedetailsBackdropImageView);
 
-            favorite = DatabaseHandler.myDatabaseHandler(getContext(), position, currentMovieUri, movie);
+            /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
+            SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
+            simpleRatingBar.setRating((float) (movie.getMovieVoteAverage()) / 2);
+
+            String[] projection = {
+                    MoviesEntry._ID,
+                    MoviesEntry.COLUMN_MOVIE_TITLE,
+                    MoviesEntry.COLUMN_MOVIE_RELEASE_DATE,
+                    MoviesEntry.COLUMN_MOVIE_OVERVIEW,
+                    MoviesEntry.COLUMN_MOVIE_POSTER_URL,
+                    MoviesEntry.COLUMN_MOVIE_BACKDROP_URL,
+                    MoviesEntry.COLUMN_MOVIE_ID,
+                    MoviesEntry.COLUMN_MOVIE_RATING};
+
+            // Perform a query on the provider using the ContentResolver.
+            // Use the {@link DataEntry#CONTENT_URI} to access the data data.
+            Cursor cursor = getContext().getContentResolver().query(
+                    currentMovieUri,   // The content URI of the datas table
+                    projection,             // The columns to return for each row
+                    null,                   // Selection criteria
+                    null,                   // Selection criteria
+                    null);
+            try {
+                // Figure out the index of each column
+                int idColumnIndex = cursor.getColumnIndex(MoviesEntry._ID);
+                int titleColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_TITLE);
+                int releaseDateColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE);
+                int overviewColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_OVERVIEW);
+                int posterUrlColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_POSTER_URL);
+                int backdropUrlColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL);
+                int movieIdColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_ID);
+                int ratingsColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_RATING);
+                Log.v("TAG", "cursor is :" + cursor.toString());
+                if (cursor.moveToFirst()) {
+                    // Use that index to extract the String or Int value of the data
+                    // at the current row the cursor is on.
+                    currentRowId = cursor.getInt(idColumnIndex);
+                    currentTitle = cursor.getString(titleColumnIndex);
+                    currentReleaseDate = cursor.getString(releaseDateColumnIndex);
+                    currentOverview = cursor.getString(overviewColumnIndex);
+                    currentposterUrl = cursor.getString(posterUrlColumnIndex);
+                    currentBackdropUrl = cursor.getString(backdropUrlColumnIndex);
+                    currentMovieID = cursor.getInt(movieIdColumnIndex);
+                    currentRatings = cursor.getFloat(ratingsColumnIndex);
+                }
+
+            } finally {
+                cursor.close();
+            }
+            Log.v("TAG", "currentTitle is :" + currentTitle);
+            if (currentTitle == null) {
+                favorite = false;
+            } else
+                favorite = currentMovieID==movie.getMovieId();
             if (favorite) {
                 favoriteButton.setImageResource(R.drawable.starred);
             } else {
                 favoriteButton.setImageResource(R.drawable.unstarred);
             }
-            /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
-            SimpleRatingBar simpleRatingBar = (SimpleRatingBar) rootView.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
-            simpleRatingBar.setRating((float) (movie.getMovieVoteAverage()) / 2);
             favoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    favorite = DatabaseHandler.myDatabaseHandler(getContext(), position, currentMovieUri, movie);
                     if (favorite) {
+                        favorite = DatabaseHandler.myDatabaseHandler(getContext(), movie.getMovieId(), currentMovieUri, movie, ON_FAV_CLICK);
+                        Log.v("TAG", "ON_FAV_CLICK called with value :" + ON_FAV_CLICK);
+                        Log.v("TAG", "favorite value ON_FAV_CLICK is:" + favorite);
                         favoriteButton.setImageResource(R.drawable.unstarred);
-
                     } else {
+                        favorite = DatabaseHandler.myDatabaseHandler(getContext(), movie.getMovieId(), currentMovieUri, movie, ON_NOT_FAV_CLICK);
+                        Log.v("TAG", "ON_NOT_FAV_CLICK called with value :" + ON_NOT_FAV_CLICK);
+                        Log.v("TAG", "favorite value ON_NOT_FAV_CLICK is:" + favorite);
                         favoriteButton.setImageResource(R.drawable.starred);
                     }
                     favorite = !favorite;
                 }
             });
+        }
+        //favorite = !favorite;
+        Log.v("TAG", "favorite value is:" + favorite);
+
 
              /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
@@ -298,7 +362,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     !(mMovieDetailsBundle.getCreditsArrayList().isEmpty()) || !(mMovieDetailsBundle.getVideoArrayList().isEmpty()))) {
                 loadingIndicatorMovieDetail.setVisibility(View.GONE);
             }
-        }
+
         return rootView;
     }
 

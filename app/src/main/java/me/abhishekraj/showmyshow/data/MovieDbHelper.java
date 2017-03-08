@@ -42,6 +42,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 + MoviesEntry.COLUMN_MOVIE_OVERVIEW + " TEXT NOT NULL DEFAULT '', "
                 + MoviesEntry.COLUMN_MOVIE_POSTER_URL + " TEXT NOT NULL DEFAULT '', "
                 + MoviesEntry.COLUMN_MOVIE_BACKDROP_URL + " TEXT NOT NULL DEFAULT '',"
+                + MoviesEntry.COLUMN_MOVIE_ID + " INTEGER NOT NULL DEFAULT 0 UNIQUE , "
                 + MoviesEntry.COLUMN_MOVIE_RATING + " FLOAT NOT NULL DEFAULT 0.0); ";
 
         // Execute the SQL statement

@@ -58,6 +58,7 @@ To prevent someone from accidentally instantiating the contract class, give it a
         public final static String COLUMN_MOVIE_POSTER_URL = "moviePosterUrl";
         public final static String COLUMN_MOVIE_BACKDROP_URL = "movieBackdropUrl";
         public final static String COLUMN_MOVIE_RATING = "movieRating";
+        public final static String COLUMN_MOVIE_ID = "movieId";
 
         public static String getIdFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
