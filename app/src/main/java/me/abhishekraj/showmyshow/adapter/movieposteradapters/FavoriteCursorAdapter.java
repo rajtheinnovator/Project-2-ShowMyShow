@@ -46,7 +46,7 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
     }
 
     @Override
-    public void bindView(View v, Context context, Cursor cursor) {
+    public void bindView(View v, final Context context, Cursor cursor) {
 
         TextView titleText = (TextView) v.findViewById(R.id.moivie_detail_title_text_view);
         TextView releaseDateText = (TextView) v.findViewById(R.id.movie_release_date_text_view);
@@ -62,6 +62,7 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
         int movieRatingCol = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_RATING);
         int movieReleaseDateCol = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE);
         int movieFavoriteStatusCol = cursor.getColumnIndex(MoviesEntry.COLUMN_FAVORITE_STATUS);
+        final int movieIdCol = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_ID);
 
 
         String title = cursor.getString(movieTitleCol);
@@ -69,6 +70,7 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
         float rating = cursor.getFloat(movieRatingCol);
         String releaseDate = cursor.getString(movieReleaseDateCol);
         int favoriteStatus = cursor.getInt(movieFavoriteStatusCol);
+        final int movieId = cursor.getInt(movieIdCol);
 
         if (titleText != null) {
             titleText.setText(title);
@@ -92,6 +94,15 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
                 favoriteStatusImage.setImageResource(R.drawable.starred);
             }
         }
+        favoriteStatusImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selection = MoviesEntry.COLUMN_MOVIE_ID + "=?";
+                String[] selectionArgs = new String[]{String.valueOf(movieId)};
+
+                int rowsDeleted = context.getContentResolver().delete(MoviesEntry.CONTENT_URI, selection, selectionArgs);
+            }
+        });
 
 
     }
