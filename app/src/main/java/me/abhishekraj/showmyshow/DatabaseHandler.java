@@ -36,7 +36,7 @@ public class DatabaseHandler  {
 
         if (fragmentLoadOrFavOrUnFavClick == 8888) {
 
-            String selection = MoviesEntry._ID + "=?";
+            String selection = MoviesEntry.COLUMN_MOVIE_ID + "=?";
             String[] selectionArgs = new String[]{String.valueOf(movieId)};
 
             int rowsDeleted = mContext.getContentResolver().delete(MoviesEntry.CONTENT_URI, selection, selectionArgs);
@@ -54,13 +54,14 @@ public class DatabaseHandler  {
         } else if (fragmentLoadOrFavOrUnFavClick == 9999) {
             // and data attributes from the editor are the values.
             ContentValues values = new ContentValues();
-            values.put(MoviesEntry.COLUMN_MOVIE_TITLE, mMovie.getMovieId());
-            values.put(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE, mMovie.getMovieId());
-            values.put(MoviesEntry.COLUMN_MOVIE_OVERVIEW, mMovie.getMovieId());
-            values.put(MoviesEntry.COLUMN_MOVIE_POSTER_URL, mMovie.getMovieId());
-            values.put(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL, mMovie.getMovieId());
+            values.put(MoviesEntry.COLUMN_MOVIE_TITLE, mMovie.getMovieTitle());
+            values.put(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE, mMovie.getMovieReleaseDate());
+            values.put(MoviesEntry.COLUMN_MOVIE_OVERVIEW, mMovie.getMovieOverview());
+            values.put(MoviesEntry.COLUMN_MOVIE_POSTER_URL, mMovie.getMoviePosterPath());
+            values.put(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL, mMovie.getMovieBackdropPath());
             values.put(MoviesEntry.COLUMN_MOVIE_ID, mMovie.getMovieId());
-            values.put(MoviesEntry.COLUMN_MOVIE_RATING, mMovie.getMovieId());
+            values.put(MoviesEntry.COLUMN_MOVIE_RATING, mMovie.getMovieVoteAverage());
+            values.put(MoviesEntry.COLUMN_FAVORITE_STATUS, mMovie.getMovieId());
 
             // Insert a new data into the provider, returning the content URI for the new data.
             Uri newUri = mContext.getContentResolver().insert(MoviesEntry.CONTENT_URI, values);

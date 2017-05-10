@@ -121,6 +121,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     String currentBackdropUrl;
     float currentRatings;
     int currentMovieID;
+    int currentFavoriteStatus;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -132,9 +133,9 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
         Bundle bundle = getArguments();
-        Log.i("mytag", "bundle is :"+bundle.toString());
+        Log.i("mytag", "bundle is :" + bundle.toString());
         position = Integer.parseInt(bundle.getString("position"));
-        Log.i("my_tag", "position is :"+position);
+        Log.i("my_tag", "position is :" + position);
         Log.e("my_tag", "bundle.getString currentMovieUri is :" + bundle.getString("currentMovieUri"));
         currentMovieUri = Uri.parse(bundle.getString("currentMovieUri"));
 
@@ -201,16 +202,19 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     MoviesEntry.COLUMN_MOVIE_POSTER_URL,
                     MoviesEntry.COLUMN_MOVIE_BACKDROP_URL,
                     MoviesEntry.COLUMN_MOVIE_ID,
-                    MoviesEntry.COLUMN_MOVIE_RATING};
-
+                    MoviesEntry.COLUMN_MOVIE_RATING,
+                    MoviesEntry.COLUMN_FAVORITE_STATUS};
+            String selection = MoviesEntry.COLUMN_MOVIE_ID + "=?";
+            String[] selectionArgs = new String[]{String.valueOf(movie.getMovieId())};
             // Perform a query on the provider using the ContentResolver.
             // Use the {@link DataEntry#CONTENT_URI} to access the data data.
             Cursor cursor = getContext().getContentResolver().query(
-                    currentMovieUri,   // The content URI of the datas table
+                    MoviesEntry.CONTENT_URI,   // The content URI of the datas table
                     projection,             // The columns to return for each row
-                    null,                   // Selection criteria
-                    null,                   // Selection criteria
+                    selection,                   // Selection criteria
+                    selectionArgs,                   // Selection criteria
                     null);
+            Log.v("my_tag", "currentMovieUri is :" + currentMovieUri.toString());
             try {
                 // Figure out the index of each column
                 int idColumnIndex = cursor.getColumnIndex(MoviesEntry._ID);
@@ -221,6 +225,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                 int backdropUrlColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL);
                 int movieIdColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_ID);
                 int ratingsColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_RATING);
+                int favoriteStatusColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_FAVORITE_STATUS);
                 Log.v("TAG", "cursor is :" + cursor.toString());
                 if (cursor.moveToFirst()) {
                     // Use that index to extract the String or Int value of the data
@@ -233,6 +238,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     currentBackdropUrl = cursor.getString(backdropUrlColumnIndex);
                     currentMovieID = cursor.getInt(movieIdColumnIndex);
                     currentRatings = cursor.getFloat(ratingsColumnIndex);
+                    currentFavoriteStatus = cursor.getInt(favoriteStatusColumnIndex);
                 }
 
             } finally {
@@ -242,7 +248,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             if (currentTitle == null) {
                 favorite = false;
             } else
-                favorite = currentMovieID==movie.getMovieId();
+                favorite = (currentMovieID == movie.getMovieId());
             if (favorite) {
                 favoriteButton.setImageResource(R.drawable.starred);
             } else {
@@ -271,68 +277,68 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
 
 
              /* First of all check if network is connected or not then only start the loader */
-            ConnectivityManager connMgr = (ConnectivityManager)
-                    getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-            if (networkInfo != null && networkInfo.isConnected()) {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
 
              /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
-                startLoaderManager();
-            }
+            startLoaderManager();
+        }
             /*
             RecyclerView Codes are referenced from the @link: "https://guides.codepath.com/android/using-the-recyclerview"
             Lookup the recyclerview in activity layout
             */
-            mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
-            mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesTrailers);
-            mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
+        mMovieReviewRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieReviews);
+        mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesTrailers);
+        mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
 
             /* Create mPopularMovieAdapter passing in the sample user data */
-            mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
+        mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
              /* Create mPopularMovieAdapter passing in the sample user data */
-            mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
+        mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
                  /* Create mPopularMovieAdapter passing in the sample user data */
-            mMovieCreditsCastAdapter = new MovieCreditsCastAdapter(getActivity(), mMovieDetailsBundle);
+        mMovieCreditsCastAdapter = new MovieCreditsCastAdapter(getActivity(), mMovieDetailsBundle);
 
             /* Attach the mPopularMovieAdapter to the reviewRecyclerView to populate items */
-            mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
+        mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
             /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
-            mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
+        mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
             /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
-            mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
+        mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
 
             /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-            LinearLayoutManager layoutManagerMovieReview = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManagerMovieReview = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
             /* Optionally customize the position you want to default scroll to */
-            layoutManagerMovieReview.scrollToPosition(0);
+        layoutManagerMovieReview.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-            mMovieReviewRecyclerView.setLayoutManager(layoutManagerMovieReview);
+        mMovieReviewRecyclerView.setLayoutManager(layoutManagerMovieReview);
 
             /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-            LinearLayoutManager layoutManagerMovietrailer = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManagerMovietrailer = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
             /* Optionally customize the position you want to default scroll to */
-            layoutManagerMovietrailer.scrollToPosition(0);
+        layoutManagerMovietrailer.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-            mMovieTrailerRecyclerView.setLayoutManager(layoutManagerMovietrailer);
+        mMovieTrailerRecyclerView.setLayoutManager(layoutManagerMovietrailer);
 
                /*
             Setup layout manager for items with orientation
             Also supports `LinearLayoutManager.HORIZONTAL`
             */
-            LinearLayoutManager layoutManagerMovieCast = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManagerMovieCast = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
             /* Optionally customize the position you want to default scroll to */
-            layoutManagerMovietrailer.scrollToPosition(0);
+        layoutManagerMovietrailer.scrollToPosition(0);
             /* Attach layout manager to the RecyclerView */
-            mMovieCastRecyclerView.setLayoutManager(layoutManagerMovieCast);
+        mMovieCastRecyclerView.setLayoutManager(layoutManagerMovieCast);
 
             /*
             * Snap code for trailer recyclerview taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
@@ -345,23 +351,23 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
             */
 
-            SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
-            snapHelperStart.attachToRecyclerView(mMovieTrailerRecyclerView);
+        SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
+        snapHelperStart.attachToRecyclerView(mMovieTrailerRecyclerView);
 
-            SnapHelper snapHelperCastStart = new GravitySnapHelper(Gravity.START);
-            snapHelperCastStart.attachToRecyclerView(mMovieCastRecyclerView);
+        SnapHelper snapHelperCastStart = new GravitySnapHelper(Gravity.START);
+        snapHelperCastStart.attachToRecyclerView(mMovieCastRecyclerView);
 
               /*get loading indicator to work*/
-            if (mMovieDetailsBundle.getReviewArrayList().isEmpty() && mMovieDetailsBundle.getCreditsArrayList().isEmpty()
-                    && mMovieDetailsBundle.getVideoArrayList().isEmpty()) {
-                loadingIndicatorMovieDetail.setVisibility(View.VISIBLE);
-                containerMoviesTrailer.setVisibility(View.GONE);
-                containerMoviesCast.setVisibility(View.GONE);
-                containerMoviesReviews.setVisibility(View.GONE);
-            } else if ((!(mMovieDetailsBundle.getReviewArrayList().isEmpty()) ||
-                    !(mMovieDetailsBundle.getCreditsArrayList().isEmpty()) || !(mMovieDetailsBundle.getVideoArrayList().isEmpty()))) {
-                loadingIndicatorMovieDetail.setVisibility(View.GONE);
-            }
+        if (mMovieDetailsBundle.getReviewArrayList().isEmpty() && mMovieDetailsBundle.getCreditsArrayList().isEmpty()
+                && mMovieDetailsBundle.getVideoArrayList().isEmpty()) {
+            loadingIndicatorMovieDetail.setVisibility(View.VISIBLE);
+            containerMoviesTrailer.setVisibility(View.GONE);
+            containerMoviesCast.setVisibility(View.GONE);
+            containerMoviesReviews.setVisibility(View.GONE);
+        } else if ((!(mMovieDetailsBundle.getReviewArrayList().isEmpty()) ||
+                !(mMovieDetailsBundle.getCreditsArrayList().isEmpty()) || !(mMovieDetailsBundle.getVideoArrayList().isEmpty()))) {
+            loadingIndicatorMovieDetail.setVisibility(View.GONE);
+        }
 
         return rootView;
     }
@@ -378,6 +384,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         Uri.Builder uriBuilder = baseUri.buildUpon();
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS_AND_CREDITS);
+        Log.v("my_TTTTTTTT", "" + uriBuilder.toString());
         return new DetailsMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 

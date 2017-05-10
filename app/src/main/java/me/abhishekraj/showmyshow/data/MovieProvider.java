@@ -137,41 +137,45 @@ public class MovieProvider extends ContentProvider {
     private Uri insertMovie(Uri uri, ContentValues values) {
        // Log.v("my_tag", "Received Uri to be matched insert is :"+uri.toString());
         Log.i("my_tag", "Received Uri to be matched insert is :"+uri.toString());
-        // Check that the product name is not null
+        // Check that the movie name is not null
         String title = values.getAsString(MoviesEntry.COLUMN_MOVIE_TITLE);
         if (title == null) {
-            throw new IllegalArgumentException("Product requires a name");
+            throw new IllegalArgumentException("Movie requires a name");
         }
 
-        // Check that the product name is not null
+        // Check that the movie name is not null
         String releaseDate = values.getAsString(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE);
         if (releaseDate == null) {
-            throw new IllegalArgumentException("Product requires a detail");
+            throw new IllegalArgumentException("Movie requires a releaseDate");
         }
 
         // If the price is provided, check that it's greater than or equal to 0
         String overview = values.getAsString(MoviesEntry.COLUMN_MOVIE_OVERVIEW);
         if (overview == null) {
-            throw new IllegalArgumentException("Product requires valid price");
+            throw new IllegalArgumentException("Movie requires valid overview");
         }
 
         String posterUrl = values.getAsString(MoviesEntry.COLUMN_MOVIE_POSTER_URL);
         if (posterUrl == null) {
-            throw new IllegalArgumentException("Product requires valid quantity");
+            throw new IllegalArgumentException("Movie requires valid posterUrl");
         }
         String backdropUrl = values.getAsString(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL);
         if (backdropUrl == null) {
-            throw new IllegalArgumentException("Product requires valid quantity");
+            throw new IllegalArgumentException("Movie requires valid backdropUrl");
         }
         Integer ratings = values.getAsInteger(MoviesEntry.COLUMN_MOVIE_RATING);
         if (ratings != null && ratings < 0) {
-            throw new IllegalArgumentException("Product requires valid quantity");
+            throw new IllegalArgumentException("Movie requires valid ratings");
+        }
+        Integer favoriteStatus = values.getAsInteger(MoviesEntry.COLUMN_FAVORITE_STATUS);
+        if (favoriteStatus <0) {
+            throw new IllegalArgumentException("Movie requires valid favoriteStatus");
         }
 
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
-        // Insert the new product with the given values
+        // Insert the new movie with the given values
         long id = database.insert(MoviesEntry.TABLE_NAME, null, values);
 
         Log.i("my_tag", "values is :"+values.toString());
@@ -181,7 +185,7 @@ public class MovieProvider extends ContentProvider {
             return null;
         }
 
-        // Notify all listeners that the data has changed for the product content URI
+        // Notify all listeners that the data has changed for the movie content URI
         getContext().getContentResolver().notifyChange(uri, null);
 
         // Return the new URI with the ID (of the newly inserted row) appended at the end
@@ -262,39 +266,39 @@ public class MovieProvider extends ContentProvider {
         if (values.containsKey(MoviesEntry.COLUMN_MOVIE_TITLE)) {
             String title = values.getAsString(MoviesEntry.COLUMN_MOVIE_TITLE);
             if (title == null) {
-                throw new IllegalArgumentException("Product requires a name");
+                throw new IllegalArgumentException("Movie requires a title");
             }
         }
 
         if (values.containsKey(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE)) {
             String releaseDate = values.getAsString(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE);
             if (releaseDate == null) {
-                throw new IllegalArgumentException("Product requires a detail");
+                throw new IllegalArgumentException("Movie requires a releaseDate");
             }
         }
         if (values.containsKey(MoviesEntry.COLUMN_MOVIE_OVERVIEW)) {
             String overview = values.getAsString(MoviesEntry.COLUMN_MOVIE_OVERVIEW);
             if (overview == null) {
-                throw new IllegalArgumentException("Product requires a detail");
+                throw new IllegalArgumentException("Movie requires a overview");
             }
         }
         if (values.containsKey(MoviesEntry.COLUMN_MOVIE_POSTER_URL)) {
             String posterUrl = values.getAsString(MoviesEntry.COLUMN_MOVIE_POSTER_URL);
             if (posterUrl == null) {
-                throw new IllegalArgumentException("Product requires a detail");
+                throw new IllegalArgumentException("Movie requires a posterUrl");
             }
         }
         if (values.containsKey(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL)) {
             String backdropUrl = values.getAsString(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL);
             if (backdropUrl == null) {
-                throw new IllegalArgumentException("Product requires a detail");
+                throw new IllegalArgumentException("Movie requires a backdropUrl");
             }
         }
         if (values.containsKey(MoviesEntry.COLUMN_MOVIE_RATING)) {
             // Check that the price is greater than or equal to 0
             Integer ratings = values.getAsInteger(MoviesEntry.COLUMN_MOVIE_RATING);
             if (ratings != null && ratings < 0) {
-                throw new IllegalArgumentException("Product requires valid price");
+                throw new IllegalArgumentException("Movie requires valid ratings");
             }
         }
 

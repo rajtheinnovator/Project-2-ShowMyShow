@@ -128,7 +128,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
                 Toast.makeText(context, "" + currentMovie.getMovieTitle(), Toast.LENGTH_SHORT).show();
                 Intent movieDetailIntent = new Intent(context, MovieDetailsActivity.class);
                 movieDetailIntent.putExtra("movie", currentMovie);
-                movieDetailIntent.putExtra("position", position);
+                movieDetailIntent.putExtra("position", String.valueOf(position+1));
                 Uri currentMovieUri = ContentUris.withAppendedId(MovieContract.MoviesEntry.CONTENT_URI, position+1);
                 movieDetailIntent.setData(currentMovieUri);
                 /* start the activity intent */

@@ -1,6 +1,7 @@
 package me.abhishekraj.showmyshow.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.R;
+import me.abhishekraj.showmyshow.activity.FavoriteActivity;
 import me.abhishekraj.showmyshow.adapter.movieposteradapters.PopularMoviesAdapter;
 import me.abhishekraj.showmyshow.adapter.movieposteradapters.TopRatedMoviesAdapter;
 import me.abhishekraj.showmyshow.adapter.movieposteradapters.UpcomingMovieAdapter;
@@ -237,6 +239,10 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         switch (item.getItemId()) {
             case R.id.refresh:
                 reStartLoaderManagers();
+                return true;
+            case R.id.showFavorite:
+                Intent favoriteIntent = new Intent(getActivity(), FavoriteActivity.class);
+                startActivity(favoriteIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
