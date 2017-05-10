@@ -13,7 +13,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     /**
      * Name of the database file
      */
-    private static final String DATABASE_NAME = "inventory.db";
+    private static final String DATABASE_NAME = "movies.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
@@ -34,8 +34,8 @@ public class MovieDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the inventory table
-        String SQL_CREATE_INVENTORY_TABLE = "CREATE TABLE " + MoviesEntry.TABLE_NAME + " ("
+        // Create a String that contains the SQL statement to create the movies table
+        String SQL_CREATE_MOVIES_TABLE = "CREATE TABLE " + MoviesEntry.TABLE_NAME + " ("
                 + MoviesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "
                 + MoviesEntry.COLUMN_MOVIE_TITLE + " TEXT NOT NULL DEFAULT '', "
                 + MoviesEntry.COLUMN_MOVIE_RELEASE_DATE + " TEXT NOT NULL DEFAULT '', "
@@ -47,7 +47,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 + MoviesEntry.COLUMN_FAVORITE_STATUS + " INTEGER NOT NULL DEFAULT 0 ); ";
 
         // Execute the SQL statement
-        db.execSQL(SQL_CREATE_INVENTORY_TABLE);
+        db.execSQL(SQL_CREATE_MOVIES_TABLE);
 
     }
 

@@ -3,11 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context="me.abhishekraj.showmyshow.activity.FavoriteActivity">
+
+    <RelativeLayout
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/emptyViewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:foregroundGravity="center_vertical"
+            android:scaleType="fitXY"
+            android:src="@drawable/nofavoriteyet" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingTop="@dimen/emptyViewTextTopPaddind"
+            android:text="@string/no_favorite_movie_at_the_moment"
+            android:textAlignment="center"
+            android:textColor="@color/emptyViewTextColor"
+            android:textSize="@dimen/emptyViewTextSize"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <GridView
         android:id="@+id/favoriteGridView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

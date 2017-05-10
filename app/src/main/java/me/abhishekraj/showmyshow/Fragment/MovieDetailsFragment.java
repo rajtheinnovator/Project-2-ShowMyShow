@@ -15,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.DatabaseHandler;
+import me.abhishekraj.showmyshow.FavoriteClickHandler;
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieCreditsCastAdapter;
 import me.abhishekraj.showmyshow.adapter.moviedetailsadapters.MovieReviewAdapter;
@@ -133,10 +132,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
         Bundle bundle = getArguments();
-        Log.i("mytag", "bundle is :" + bundle.toString());
         position = Integer.parseInt(bundle.getString("position"));
-        Log.i("my_tag", "position is :" + position);
-        Log.e("my_tag", "bundle.getString currentMovieUri is :" + bundle.getString("currentMovieUri"));
         currentMovieUri = Uri.parse(bundle.getString("currentMovieUri"));
 
         movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.moivie_detail_title_text_view);
@@ -214,7 +210,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                     selection,                   // Selection criteria
                     selectionArgs,                   // Selection criteria
                     null);
-            Log.v("my_tag", "currentMovieUri is :" + currentMovieUri.toString());
             try {
                 // Figure out the index of each column
                 int idColumnIndex = cursor.getColumnIndex(MoviesEntry._ID);
@@ -226,7 +221,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                 int movieIdColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_ID);
                 int ratingsColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_RATING);
                 int favoriteStatusColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_FAVORITE_STATUS);
-                Log.v("TAG", "cursor is :" + cursor.toString());
                 if (cursor.moveToFirst()) {
                     // Use that index to extract the String or Int value of the data
                     // at the current row the cursor is on.
@@ -244,7 +238,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             } finally {
                 cursor.close();
             }
-            Log.v("TAG", "currentTitle is :" + currentTitle);
             if (currentTitle == null) {
                 favorite = false;
             } else
@@ -258,23 +251,16 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
                 @Override
                 public void onClick(View view) {
                     if (favorite) {
-                        favorite = DatabaseHandler.myDatabaseHandler(getContext(), movie.getMovieId(), currentMovieUri, movie, ON_FAV_CLICK);
-                        Log.v("TAG", "ON_FAV_CLICK called with value :" + ON_FAV_CLICK);
-                        Log.v("TAG", "favorite value ON_FAV_CLICK is:" + favorite);
+                        favorite = FavoriteClickHandler.myDatabaseHandler(getContext(), movie.getMovieId(), currentMovieUri, movie, ON_FAV_CLICK);
                         favoriteButton.setImageResource(R.drawable.unstarred);
                     } else {
-                        favorite = DatabaseHandler.myDatabaseHandler(getContext(), movie.getMovieId(), currentMovieUri, movie, ON_NOT_FAV_CLICK);
-                        Log.v("TAG", "ON_NOT_FAV_CLICK called with value :" + ON_NOT_FAV_CLICK);
-                        Log.v("TAG", "favorite value ON_NOT_FAV_CLICK is:" + favorite);
+                        favorite = FavoriteClickHandler.myDatabaseHandler(getContext(), movie.getMovieId(), currentMovieUri, movie, ON_NOT_FAV_CLICK);
                         favoriteButton.setImageResource(R.drawable.starred);
                     }
                     favorite = !favorite;
                 }
             });
         }
-        //favorite = !favorite;
-        Log.v("TAG", "favorite value is:" + favorite);
-
 
              /* First of all check if network is connected or not then only start the loader */
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -384,7 +370,6 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         Uri.Builder uriBuilder = baseUri.buildUpon();
         uriBuilder.appendQueryParameter(API_KEY_PARAM, API_KEY_PARAM_VALUE);
         uriBuilder.appendQueryParameter(APPEND_TO_RESPONSE, VIDEOS_AND_REVIEWS_AND_CREDITS);
-        Log.v("my_TTTTTTTT", "" + uriBuilder.toString());
         return new DetailsMovieLoader(getActivity().getApplicationContext(), uriBuilder.toString());
     }
 

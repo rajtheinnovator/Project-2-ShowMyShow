@@ -37,4 +37,8 @@
     <dimen name="voteaverage_layout_width">16dp</dimen>
     <dimen name="margin2dp">2dp</dimen>
 
+    <!--EmptyView dimensions-->
+    <dimen name="emptyViewTextSize">20sp</dimen>
+    <dimen name="emptyViewTextTopPaddind">192dp</dimen>
+
 </resources>

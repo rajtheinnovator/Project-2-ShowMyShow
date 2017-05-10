@@ -12,14 +12,14 @@ import me.abhishekraj.showmyshow.model.movie.Movie;
  * Created by ABHISHEK RAJ on 5/3/2017.
  */
 
-public class DatabaseHandler  {
+public class FavoriteClickHandler {
     private static Context mContext;
     private static int mMovieId;
     private static boolean myFavoriteStatus;
     private static Uri mCurrentMovieUri;
     private static Movie mMovie;
 
-    public DatabaseHandler() {
+    public FavoriteClickHandler() {
 
     }
 
@@ -42,12 +42,12 @@ public class DatabaseHandler  {
             int rowsDeleted = mContext.getContentResolver().delete(MoviesEntry.CONTENT_URI, selection, selectionArgs);
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(mContext, "deletion failed",
+                Toast.makeText(mContext, R.string.unfavorite_movie_failed,
                         Toast.LENGTH_SHORT).show();
 
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(mContext, "deletion successfull",
+                Toast.makeText(mContext, R.string.unfavorite_movie_successful,
                         Toast.LENGTH_SHORT).show();
                 myFavoriteStatus = true;
             }
@@ -68,10 +68,10 @@ public class DatabaseHandler  {
 
             // Show a toast message depending on whether or not the insertion was successful
             if (newUri == null) {
-                Toast.makeText(mContext, "insert failed",
+                Toast.makeText(mContext, R.string.favorite_movie_failed,
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(mContext, "insert successfull",
+                Toast.makeText(mContext, R.string.favorite_movie_successful,
                         Toast.LENGTH_SHORT).show();
                 myFavoriteStatus = false;
             }

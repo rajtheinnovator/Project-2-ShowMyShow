@@ -45,9 +45,10 @@
     <!--Menu item string-->
     <string name="refresh">Refresh</string>
 
-    <string name="delete_movie_failed">Deletion failed</string>
-    <string name="delete_movie_successful">Deletion Successful</string>
-    <string name="insert_movie_failed">Insert failed</string>
-    <string name="insert_movie_successful">Insertion Successful</string>
+    <string name="unfavorite_movie_failed">Unfavorite failed</string>
+    <string name="unfavorite_movie_successful">Unfavorite Successful</string>
+    <string name="favorite_movie_failed">Favorite failed</string>
+    <string name="favorite_movie_successful">Favorite Successful</string>
+    <string name="no_favorite_movie_at_the_moment">No Favorite Movie at the moment</string>
 
 </resources>

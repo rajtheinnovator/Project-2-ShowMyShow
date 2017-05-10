@@ -1,10 +1,7 @@
 package me.abhishekraj.showmyshow.model.movie;
 
-import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import me.abhishekraj.showmyshow.data.MovieContract.MoviesEntry;
 
 /**
  * Created by ABHISHEK RAJ on 11/15/2016.
@@ -198,28 +195,6 @@ public class Movie implements Parcelable {
         return mMovieRunTimeDuration;
     }
 
-    public static Movie fromCursor(Cursor cursor) {
-        Movie movie = new Movie(null);
-        for (int c = 0; c < cursor.getColumnCount(); c++) {
-            String columnName = cursor.getColumnName(c);
-            if (columnName.equals(MoviesEntry.COLUMN_MOVIE_TITLE)) {
-                movie.setMovieTitle(cursor.getString(c));
-            } else if (columnName.equals(MoviesEntry.COLUMN_MOVIE_ID)) {
-                movie.setMovieId(cursor.getInt(c));
-            } else if (columnName.equals(MoviesEntry.COLUMN_MOVIE_OVERVIEW)) {
-                movie.setMovieOverview(cursor.getString(c));
-            } else if (columnName.equals(MoviesEntry.COLUMN_MOVIE_RELEASE_DATE)) {
-                movie.setMovieReleaseDate(cursor.getString(c));
-            } else if (columnName.equals(MoviesEntry.COLUMN_MOVIE_POSTER_URL)) {
-                movie.setMoviePosterPath(cursor.getString(c));
-            } else if (columnName.equals(MoviesEntry.COLUMN_MOVIE_BACKDROP_URL)) {
-                movie.setMovieBackdropPath(cursor.getString(c));
-            } else if (columnName.equals(MoviesEntry.COLUMN_MOVIE_RATING)) {
-                movie.setMovieVoteAverage(cursor.getFloat(c));
-            }
-        }
-        return movie;
-    }
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(mMovieTitle);

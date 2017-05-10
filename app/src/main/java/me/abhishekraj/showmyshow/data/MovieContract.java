@@ -10,8 +10,8 @@ import android.provider.BaseColumns;
 
 public class MovieContract {
     /*
-To prevent someone from accidentally instantiating the contract class, give it an empty constructor.
-*/
+      To prevent someone from accidentally instantiating the contract class, give it an empty constructor.
+    */
     private MovieContract() {
     }
 
@@ -27,31 +27,28 @@ To prevent someone from accidentally instantiating the contract class, give it a
     public static final String PATH_MOVIES = "movies";
 
     /**
-     * Inner class that defines constant values for the inventory database table.
-     * Each entry in the table represents a single product.
+     * Inner class that defines constant values for the movie database table.
+     * Each entry in the table represents a single movies.
      */
 
     public static final class MoviesEntry implements BaseColumns {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_MOVIES);
 
         /**
-         * The MIME type of the {@link #CONTENT_URI} for a list of products.
+         * The MIME type of the {@link #CONTENT_URI} for a list of movies.
          */
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOVIES;
 
         /**
-         * The MIME type of the {@link #CONTENT_URI} for a single product.
+         * The MIME type of the {@link #CONTENT_URI} for a single movie.
          */
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOVIES;
 
         public final static String TABLE_NAME = "movies";
 
-
         public final static String _ID = BaseColumns._ID;
-
-
         public final static String COLUMN_MOVIE_TITLE = "movieTitle";
         public final static String COLUMN_MOVIE_RELEASE_DATE = "movieReleaseDate";
         public final static String COLUMN_MOVIE_OVERVIEW = "movieOverview";

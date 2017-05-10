@@ -6,11 +6,12 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import me.abhishekraj.showmyshow.R;
-import me.abhishekraj.showmyshow.adapter.movieposteradapters.FavoriteCursorAdapter;
+import me.abhishekraj.showmyshow.adapter.FavoriteCursorAdapter;
 import me.abhishekraj.showmyshow.data.MovieContract.MoviesEntry;
 
 import static me.abhishekraj.showmyshow.data.MovieContract.MoviesEntry.COLUMN_FAVORITE_STATUS;
@@ -26,8 +27,9 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
     FavoriteCursorAdapter mCursorAdapter;
 
-    Cursor cursor;
-    int rowsDeleted;
+    /*Empty State Views*/
+    RelativeLayout emptyView;
+    GridView favoriteGridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,10 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
         // array of database column names
         String[] columns = new String[]{
-                COLUMN_MOVIE_ID, COLUMN_MOVIE_TITLE, COLUMN_MOVIE_RATING, COLUMN_MOVIE_RELEASE_DATE,
+                COLUMN_MOVIE_ID,
+                COLUMN_MOVIE_TITLE,
+                COLUMN_MOVIE_RATING,
+                COLUMN_MOVIE_RELEASE_DATE,
                 COLUMN_FAVORITE_STATUS};
 
         // array of views to display database values
@@ -48,16 +53,21 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
                 R.id.favorite
         };
 
+        //instantiate the Views
+        favoriteGridView = (GridView) findViewById(R.id.favoriteGridView);
+        emptyView = (RelativeLayout) findViewById(R.id.emptyView);
+
         // CursorAdapter to load data from the Cursor into the GridView
         mCursorAdapter = new FavoriteCursorAdapter(this,
-                R.layout.list_item_favorite_movie_poster, null, columns, viewIds, 0);
+                R.layout.list_item_favorite_movie_poster,
+                null,
+                columns,
+                viewIds,
+                0
+        );
 
         getSupportLoaderManager().initLoader(MOVIE_LOADER, null, this);
-
-        //instantiate the listview
-        GridView gridView = (GridView) findViewById(R.id.favoriteGridView);
-
-        gridView.setAdapter(mCursorAdapter);
+        favoriteGridView.setAdapter(mCursorAdapter);
     }
 
     @Override
@@ -72,7 +82,6 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
                 MoviesEntry.COLUMN_MOVIE_ID,
                 MoviesEntry.COLUMN_MOVIE_RATING,
                 MoviesEntry.COLUMN_FAVORITE_STATUS};
-
         // this method will execute the Content Providers query method on a background thread
         return new CursorLoader(
                 this,   // Parent activity context
@@ -87,8 +96,16 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        /*Check if any data is there. If nothing is found then set the empty state view*/
+        if (data.getCount()!=0){
+            favoriteGridView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }else {
+            favoriteGridView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+
         // Update {@link FavoriteCursorAdapter} with this new cursor containing updated movie data
-        Log.i("my_tagggg", "data and its size are :" + data.toString() + "count is :" + data.getCount());
         mCursorAdapter.changeCursor(data);
     }
 

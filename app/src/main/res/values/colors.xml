@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <!-- Color of circular shape for the face of the movie cast -->
     <color name="circularShapeBackgroundColor">#7A34BD</color>
+    <!--EmptyView text color-->
+    <color name="emptyViewTextColor">#FF6F00</color>
 </resources>

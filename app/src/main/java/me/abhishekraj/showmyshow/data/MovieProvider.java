@@ -7,7 +7,6 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.util.Log;
 
 import me.abhishekraj.showmyshow.data.MovieContract.MoviesEntry;
 
@@ -78,7 +77,6 @@ public class MovieProvider extends ContentProvider {
 
         // Figure out if the URI matcher can match the URI to a specific code
         int match = sUriMatcher.match(uri);
-        Log.i("mytaga", "int match = sUriMatcher.match(uri); :"+ match);
 
         switch (match) {
             case MOVIES:
@@ -135,8 +133,6 @@ public class MovieProvider extends ContentProvider {
      * for that specific row in the database.
      */
     private Uri insertMovie(Uri uri, ContentValues values) {
-       // Log.v("my_tag", "Received Uri to be matched insert is :"+uri.toString());
-        Log.i("my_tag", "Received Uri to be matched insert is :"+uri.toString());
         // Check that the movie name is not null
         String title = values.getAsString(MoviesEntry.COLUMN_MOVIE_TITLE);
         if (title == null) {
@@ -177,10 +173,6 @@ public class MovieProvider extends ContentProvider {
 
         // Insert the new movie with the given values
         long id = database.insert(MoviesEntry.TABLE_NAME, null, values);
-
-        Log.i("my_tag", "values is :"+values.toString());
-       // Log.e("my_tag", "values is :"+values.toString());
-       // Log.v("my_tag", "values is :"+values.toString());
         if (id == -1) {
             return null;
         }
@@ -194,8 +186,6 @@ public class MovieProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-      //  Log.v("my_tag", "Received Uri to be matched delete is :"+uri.toString());
-        Log.i("my_tag", "Received Uri to be matched delete is :"+uri.toString());
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
@@ -203,9 +193,6 @@ public class MovieProvider extends ContentProvider {
         int rowsDeleted;
 
         final int match = sUriMatcher.match(uri);
-        Log.i("my_tag", "int match is :"+match);
-       // Log.e("my_tag", "int match is :"+match);
-       // Log.v("my_tag", "int match is :"+match);
         switch (match) {
 
             case MOVIES:
@@ -216,12 +203,6 @@ public class MovieProvider extends ContentProvider {
                 // Delete a single row given by the ID in the URI
                 selection = MoviesEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                Log.i("my_tag", "selection is :"+selection);
-             //   Log.e("my_tag", "selection is :"+selection);
-             //   Log.v("my_tag", "selection is :"+selection);
-                Log.i("my_tag", "selectionArgs is :"+selectionArgs[0]);
-              //  Log.e("my_tag", "selectionArgs is :"+selectionArgs[0]);
-              //  Log.v("my_tag", "selectionArgs is :"+selectionArgs[0]);
                 rowsDeleted = database.delete(MoviesEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:

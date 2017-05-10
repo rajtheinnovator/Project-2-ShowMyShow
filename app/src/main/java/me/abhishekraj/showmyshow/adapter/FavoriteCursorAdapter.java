@@ -1,8 +1,7 @@
-package me.abhishekraj.showmyshow.adapter.movieposteradapters;
+package me.abhishekraj.showmyshow.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +34,7 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-
-        Cursor c = getCursor();
-
-        final LayoutInflater inflater = LayoutInflater.from(context);
+                final LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(layout, parent, false);
 
 
@@ -48,15 +44,16 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
     @Override
     public void bindView(View v, final Context context, Cursor cursor) {
 
+        /*Instantiate the views*/
         TextView titleText = (TextView) v.findViewById(R.id.moivie_detail_title_text_view);
         TextView releaseDateText = (TextView) v.findViewById(R.id.movie_release_date_text_view);
         ImageView posterImage = (ImageView) v.findViewById(R.id.movie_detail_title_image_view);
-        ImageButton favoriteStatusImage = (ImageButton) v.findViewById(R.id.favorite);
+        final ImageButton favoriteStatusImage = (ImageButton) v.findViewById(R.id.favorite);
 
             /*setting the ratingbar from @link: https://github.com/FlyingPumba/SimpleRatingBar*/
         SimpleRatingBar simpleRatingBar = (SimpleRatingBar) v.findViewById(R.id.movieRatingInsideMovieDetailsFragment);
 
-
+        /*find columns from the database*/
         int movieTitleCol = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_TITLE);
         int moviePosterCol = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_POSTER_URL);
         int movieRatingCol = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_RATING);
@@ -64,7 +61,7 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
         int movieFavoriteStatusCol = cursor.getColumnIndex(MoviesEntry.COLUMN_FAVORITE_STATUS);
         final int movieIdCol = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIE_ID);
 
-
+                /*Retrieve the data from the database*/
         String title = cursor.getString(movieTitleCol);
         String posterUrl = cursor.getString(moviePosterCol);
         float rating = cursor.getFloat(movieRatingCol);
@@ -80,7 +77,6 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
         }
         if (posterImage != null) {
             String url = "https://image.tmdb.org/t/p/w500/" + posterUrl.toString();
-            Log.v("mmmmmmmm", "url is :" + url);
             Picasso.with(context)
                     .load(url)
                     .placeholder(R.drawable.posterplaceholder)
@@ -90,6 +86,7 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
             releaseDateText.setText(releaseDate);
         }
         if (favoriteStatusImage!=null){
+            /*set the movie as favorite only if its ID is not zero*/
             if (favoriteStatus>0){
                 favoriteStatusImage.setImageResource(R.drawable.starred);
             }
@@ -97,13 +94,12 @@ public class FavoriteCursorAdapter extends SimpleCursorAdapter {
         favoriteStatusImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                favoriteStatusImage.setImageResource(R.drawable.unstarred);
                 String selection = MoviesEntry.COLUMN_MOVIE_ID + "=?";
                 String[] selectionArgs = new String[]{String.valueOf(movieId)};
-
+                /*Delete the movie as it's already favorited*/
                 int rowsDeleted = context.getContentResolver().delete(MoviesEntry.CONTENT_URI, selection, selectionArgs);
             }
         });
-
-
     }
 }

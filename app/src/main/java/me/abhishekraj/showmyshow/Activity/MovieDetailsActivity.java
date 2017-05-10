@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.fragment.MovieDetailsFragment;
@@ -25,8 +24,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         int position = Integer.parseInt(getIntent().getExtras().getString("position"));
         movieDetails.putParcelable("movie", movie);
         movieDetails.putString("position", String.valueOf(position));
-        Log.v("mytag", "String.valueOf(position) is :"+String.valueOf(position));
-        //movieDetails.putString("myBundle", getIntent().getStringExtra("movieDetails"));
         Intent intent = getIntent();
         Uri mCurrentMovieUri = intent.getData();
         movieDetails.putString("currentMovieUri", mCurrentMovieUri.toString());
