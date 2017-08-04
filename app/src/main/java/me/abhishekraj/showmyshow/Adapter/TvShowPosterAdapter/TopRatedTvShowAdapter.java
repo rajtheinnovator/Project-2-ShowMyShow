@@ -2,6 +2,7 @@ package me.abhishekraj.showmyshow.adapter.tvshowposteradapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.abhishekraj.showmyshow.activity.TvShowDetailsActivity;
-import me.abhishekraj.showmyshow.model.tvshow.TvShow;
 import me.abhishekraj.showmyshow.R;
+import me.abhishekraj.showmyshow.activity.MainActivity;
+import me.abhishekraj.showmyshow.activity.TvShowDetailsActivity;
+import me.abhishekraj.showmyshow.fragment.TvShowDetailsFragment;
+import me.abhishekraj.showmyshow.model.tvshow.TvShow;
 
 /**
  * Created by ABHISHEK RAJ on 12/10/2016.
@@ -26,6 +29,8 @@ public class TopRatedTvShowAdapter extends RecyclerView.Adapter<TopRatedTvShowAd
 
     /* Store a member variable for the topRatedTvShows */
     private static ArrayList<TvShow> mTopRatedTvShows;
+    /*check if it's two pane layout or not */
+    private static boolean myBool;
     /* Store the context for easy access */
     private Context mContext;
 
@@ -74,9 +79,10 @@ public class TopRatedTvShowAdapter extends RecyclerView.Adapter<TopRatedTvShowAd
         return mTopRatedTvShows.size();
     }
 
-    public void setTvShowData(ArrayList<TvShow> tvShowData) {
+    public void setTvShowData(ArrayList<TvShow> tvShowData, boolean bool) {
         mTopRatedTvShows = tvShowData;
         notifyDataSetChanged();
+        myBool = bool;
     }
 
     /*
@@ -126,7 +132,19 @@ public class TopRatedTvShowAdapter extends RecyclerView.Adapter<TopRatedTvShowAd
                 Intent tvShowDetailIntent = new Intent(context, TvShowDetailsActivity.class);
                 tvShowDetailIntent.putExtra("tvShow", currentTvShow);
 
-                context.startActivity(tvShowDetailIntent);
+                if (!myBool) {
+                    context.startActivity(tvShowDetailIntent);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("position", String.valueOf(position + 1));
+                    bundle.putParcelable("tvShow", currentTvShow);
+                    TvShowDetailsFragment tvShowDetailsFragment = new TvShowDetailsFragment();
+                    tvShowDetailsFragment.setArguments(bundle);
+                    /*code below referenced from: https://stackoverflow.com/a/19269569/5770629 */
+                    ((MainActivity) context).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.details_container, tvShowDetailsFragment)
+                            .commit();
+                }
             }
         }
     }

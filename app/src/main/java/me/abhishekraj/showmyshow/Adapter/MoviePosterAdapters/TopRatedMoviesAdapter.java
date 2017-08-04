@@ -32,10 +32,10 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
 
     /* Store a member variable for the topRatedMovies */
     private static ArrayList<Movie> mTopRatedMovie;
+    /*check if it's two pane layout or not */
+    private static boolean myBool;
     /* Store the context for easy access */
     private Context mContext;
-
-    private static boolean myBool;
     /* Pass in the topRatedMovies array into the constructor */
     public TopRatedMoviesAdapter(Context context, ArrayList<Movie> movies) {
         mTopRatedMovie = movies;
@@ -146,6 +146,7 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
                     bundle.putString("currentMovieUri", currentMovieUri.toString());
                     MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
                     movieDetailsFragment.setArguments(bundle);
+                    /*code below referenced from: https://stackoverflow.com/a/19269569/5770629 */
                     ((MainActivity)context).getSupportFragmentManager().beginTransaction()
                     .replace(R.id.details_container, movieDetailsFragment)
                     .commit();

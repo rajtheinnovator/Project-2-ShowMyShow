@@ -33,7 +33,11 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
             moviePosterFragment.setArguments(bundle);
             return moviePosterFragment;
         } else {
-            return new TvShowsPosterFragment();
+            TvShowsPosterFragment tvShowsPosterFragment = new TvShowsPosterFragment();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("myBool", false);
+            tvShowsPosterFragment.setArguments(bundle);
+            return tvShowsPosterFragment;
         }
     }
 

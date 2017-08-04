@@ -122,10 +122,6 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         }
     }
 
-    public void myMethod(boolean bool) {
-        myBool = bool;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -198,13 +194,13 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
 
         // Create mPopularMovieAdapter passing in the sample user data
         mPopularMoviesAdapter = new PopularMoviesAdapter(getActivity(), popularMovies);
-        mPopularMoviesAdapter.setMovieData(popularMovies);
+        mPopularMoviesAdapter.setMovieData(popularMovies, myBool);
         // Attach the mPopularMovieAdapter to the recyclerview to populate items
         mPopularMovieRecyclerView.setAdapter(mPopularMoviesAdapter);
 
         // Create mUpcomingMoviesAdapter passing in the sample user data
         mUpcomingMovieAdapter = new UpcomingMovieAdapter(getActivity(), upcomingMovies);
-        mUpcomingMovieAdapter.setMovieData(upcomingMovies);
+        mUpcomingMovieAdapter.setMovieData(upcomingMovies, myBool);
         // Attach the mUpcomingMoviesAdapter to the recyclerview to populate items
         mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
 
@@ -312,7 +308,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                 } else {
                     popularMovies = incomingMovieArrayList;
                     mPopularMoviesAdapter = new PopularMoviesAdapter(getActivity(), popularMovies);
-                    mPopularMoviesAdapter.setMovieData(popularMovies);
+                    mPopularMoviesAdapter.setMovieData(popularMovies, myBool);
                     mPopularMovieRecyclerView.setAdapter(mPopularMoviesAdapter);
 
                       /*get loading indicator to work*/
@@ -326,7 +322,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                 } else {
                     upcomingMovies = incomingMovieArrayList;
                     mUpcomingMovieAdapter = new UpcomingMovieAdapter(getActivity(), upcomingMovies);
-                    mUpcomingMovieAdapter.setMovieData(upcomingMovies);
+                    mUpcomingMovieAdapter.setMovieData(upcomingMovies, myBool);
                     mUpcomingMovieRecyclerView.setAdapter(mUpcomingMovieAdapter);
                     /*get loading indicator to work*/
                     containerMoviePosterUpcomingMovies.setVisibility(View.VISIBLE);

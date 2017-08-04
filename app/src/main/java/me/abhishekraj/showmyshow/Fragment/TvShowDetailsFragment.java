@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters.TvShowCreditsCastAdapter;
 import me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters.TvShowReviewAdapter;
 import me.abhishekraj.showmyshow.adapter.tvshowdetailsadapters.TvShowSeasonsAdapter;
@@ -41,7 +42,6 @@ import me.abhishekraj.showmyshow.model.tvshow.TvShow;
 import me.abhishekraj.showmyshow.model.tvshow.TvShowDetailsBundle;
 import me.abhishekraj.showmyshow.model.tvshow.Video;
 import me.abhishekraj.showmyshow.network.DetailsTvShowLoader;
-import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.utils.UrlsAndConstants;
 
 import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.API_KEY_PARAM;
@@ -99,6 +99,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
     LinearLayout containerTvShowReviews;
     LinearLayout containerTvShowSeasons;
     ProgressBar loadingIndicatorTvShowDetail;
+    boolean myBool;
     private TvShowDetailsBundle mTvShowDetailsBundle;
 
     public TvShowDetailsFragment() {
@@ -113,6 +114,9 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         /* get the arguments from the tvshow poster(i.e., parent activity/fragment) so that new
         data can be fetched and current layout can be inflated in proper tvshow context */
         Bundle bundle = getArguments();
+
+        myBool = bundle.getBoolean("myBool");
+
         tvShowDetailTitleTextView = (TextView) rootView.findViewById(R.id.tv_show_detail_title_text_view);
         tvShowDetailTitleImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view);
         tvShowDetailsBackdropImageView = (ImageView) rootView.findViewById(R.id.tv_show_detail_title_image_view_backdrop);
@@ -137,8 +141,10 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         *  @link http://stackoverflow.com/a/32858049/5770629
         */
         final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_tv_show_detail);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (myBool) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         /*Creating a collapsing toolbar_tv_show_detail, defined in the fragment_tv_show_details.xml  */
         collapsingToolbar =

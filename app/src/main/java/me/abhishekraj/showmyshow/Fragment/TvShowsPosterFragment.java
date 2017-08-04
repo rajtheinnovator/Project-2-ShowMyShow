@@ -28,12 +28,12 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
+import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.AiredNowTvShowAdapter;
 import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.PopularTvShowAdapter;
 import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.TopRatedTvShowAdapter;
 import me.abhishekraj.showmyshow.model.tvshow.TvShow;
 import me.abhishekraj.showmyshow.network.TvShowPosterLoader;
-import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.utils.UrlsAndConstants;
 
 import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MoviePosterQuery.API_KEY_PARAM;
@@ -85,6 +85,8 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     LinearLayout containerTvShowPosterAiredNowTvShow;
     ProgressBar loadingIndicatorTvShowPoster;
 
+    boolean myBool;
+
     public TvShowsPosterFragment() {
         // Required empty public constructor
     }
@@ -92,6 +94,9 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        myBool = bundle.getBoolean("myBool");
 
         /* set that it has a menu */
         setHasOptionsMenu(true);
@@ -194,19 +199,19 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
 
         // Create mPopularTvShowAdapter passing in the sample user data
         mPopularTvShowAdapter = new PopularTvShowAdapter(getActivity(), popularTvShows);
-        mPopularTvShowAdapter.setTvShowData(popularTvShows);
+        mPopularTvShowAdapter.setTvShowData(popularTvShows, myBool);
         // Attach the mPopularTvShowAdapter to the recyclerview to populate items
         mPopularTvShowRecyclerView.setAdapter(mPopularTvShowAdapter);
 
         // Create mAiredNowTvShowsAdapter passing in the sample user data
         mAiredNowTvShowAdapter = new AiredNowTvShowAdapter(getActivity(), airedNowTvShows);
-        mAiredNowTvShowAdapter.setTvShowData(airedNowTvShows);
+        mAiredNowTvShowAdapter.setTvShowData(airedNowTvShows, myBool);
         // Attach the mAiredNowTvShowsAdapter to the recyclerview to populate items
         mAiredNowTvShowRecyclerView.setAdapter(mAiredNowTvShowAdapter);
 
         // Create mTopRatedTvShowAdapter passing in the sample user data
         mTopRatedTvShowAdapter = new TopRatedTvShowAdapter(getActivity(), topRatedTvShows);
-        mTopRatedTvShowAdapter.setTvShowData(topRatedTvShows);
+        mTopRatedTvShowAdapter.setTvShowData(topRatedTvShows, myBool);
         // Attach the mTopRatedTvShowAdapter to the recyclerview to populate items
         mTopRatedTvShowRecyclerView.setAdapter(mTopRatedTvShowAdapter);
 
@@ -314,7 +319,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                 } else {
                     popularTvShows = incomingTvShowArrayList;
                     mPopularTvShowAdapter = new PopularTvShowAdapter(getActivity(), popularTvShows);
-                    mPopularTvShowAdapter.setTvShowData(popularTvShows);
+                    mPopularTvShowAdapter.setTvShowData(popularTvShows, myBool);
                     mPopularTvShowRecyclerView.setAdapter(mPopularTvShowAdapter);
 
                       /*get loading indicator to work*/
@@ -329,7 +334,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                 } else {
                     airedNowTvShows = incomingTvShowArrayList;
                     mAiredNowTvShowAdapter = new AiredNowTvShowAdapter(getActivity(), airedNowTvShows);
-                    mAiredNowTvShowAdapter.setTvShowData(airedNowTvShows);
+                    mAiredNowTvShowAdapter.setTvShowData(airedNowTvShows, myBool);
                     mAiredNowTvShowRecyclerView.setAdapter(mAiredNowTvShowAdapter);
                     /*get loading indicator to work*/
                     containerTvShowPosterAiredNowTvShow.setVisibility(View.VISIBLE);
@@ -342,7 +347,7 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
                 } else {
                     topRatedTvShows = incomingTvShowArrayList;
                     mTopRatedTvShowAdapter = new TopRatedTvShowAdapter(getActivity(), topRatedTvShows);
-                    mTopRatedTvShowAdapter.setTvShowData(topRatedTvShows);
+                    mTopRatedTvShowAdapter.setTvShowData(topRatedTvShows, myBool);
                     mTopRatedTvShowRecyclerView.setAdapter(mTopRatedTvShowAdapter);
                     /*get loading indicator to work*/
                     containerTvShowPosterTopRatedTvShow.setVisibility(View.VISIBLE);

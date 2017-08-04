@@ -23,13 +23,12 @@ public class MainActivity extends AppCompatActivity {
     * work flow culture and use of open source projects
     */
 
+    FragmentPagerAdapter adapterViewPager;
     /*
      * Code for multiple fragments within same activity is referenced from my own work done Udacity ABND
      * link to @link: https://github.com/rajtheinnovator/TourGuide
     */
     private boolean mTwoPane;
-
-    FragmentPagerAdapter adapterViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putBoolean("myBool", mTwoPane);
             moviePosterFragment.setArguments(bundle);
-            moviePosterFragment.myMethod(mTwoPane);
             TvShowsPosterFragment tvShowsPosterFragment = new TvShowsPosterFragment();
+            tvShowsPosterFragment.setArguments(bundle);
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.movie_list_fragment, moviePosterFragment)
