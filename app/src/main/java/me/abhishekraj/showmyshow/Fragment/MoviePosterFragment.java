@@ -82,6 +82,9 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     LinearLayout containerMoviePosterTopRatedMovies;
     ProgressBar loadingIndicatorMoviePoster;
 
+
+    boolean myBool;
+
     public MoviePosterFragment() {
         // Required empty public constructor
     }
@@ -119,12 +122,18 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         }
     }
 
+    public void myMethod(boolean bool) {
+        myBool = bool;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         /* Inflate the layout for this fragment */
         View rootView = inflater.inflate(R.layout.fragment_movie_posters, container, false);
 
+        Bundle bundle = getArguments();
+        myBool = bundle.getBoolean("myBool");
         /* Code referenced from the @link:
          * "https://guides.codepath.com/android/using-the-recyclerview"
          */
@@ -201,7 +210,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
 
         // Create mTopRatedMovieAdapter passing in the sample user data
         mTopRatedMoviesAdapter = new TopRatedMoviesAdapter(getActivity(), topRatedMovies);
-        mTopRatedMoviesAdapter.setMovieData(topRatedMovies);
+        mTopRatedMoviesAdapter.setMovieData(topRatedMovies, myBool);
         // Attach the mTopRatedMovieAdapter to the recyclerview to populate items
         mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
 
@@ -330,7 +339,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                 } else {
                     topRatedMovies = incomingMovieArrayList;
                     mTopRatedMoviesAdapter = new TopRatedMoviesAdapter(getActivity(), topRatedMovies);
-                    mTopRatedMoviesAdapter.setMovieData(topRatedMovies);
+                    mTopRatedMoviesAdapter.setMovieData(topRatedMovies, myBool);
                     mTopRatedMovieRecyclerView.setAdapter(mTopRatedMoviesAdapter);
 
                     /*get loading indicator to work*/

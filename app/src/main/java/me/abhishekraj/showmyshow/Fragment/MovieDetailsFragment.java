@@ -122,6 +122,8 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     int currentMovieID;
     int currentFavoriteStatus;
 
+    boolean myBool;
+
     public MovieDetailsFragment() {
         // Required empty public constructor
     }
@@ -134,6 +136,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         Bundle bundle = getArguments();
         position = Integer.parseInt(bundle.getString("position"));
         currentMovieUri = Uri.parse(bundle.getString("currentMovieUri"));
+        myBool = bundle.getBoolean("myBool");
 
         movieDetailTitleTextView = (TextView) rootView.findViewById(R.id.moivie_detail_title_text_view);
         movieDetailTitleImageView = (ImageView) rootView.findViewById(R.id.movie_detail_title_image_view);
@@ -154,8 +157,11 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         *  @link http://stackoverflow.com/a/32858049/5770629
         */
         final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_movie_detail);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (myBool) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
 
         /*Creating a collapsing collapsing_toolbar_movie_detail, defined in the fragment_movie_details.xml  */
         collapsingToolbar =

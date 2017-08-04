@@ -4,6 +4,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.R;
+import me.abhishekraj.showmyshow.activity.MainActivity;
 import me.abhishekraj.showmyshow.activity.MovieDetailsActivity;
 import me.abhishekraj.showmyshow.data.MovieContract;
+import me.abhishekraj.showmyshow.fragment.MovieDetailsFragment;
 import me.abhishekraj.showmyshow.model.movie.Movie;
 
 /**
@@ -32,6 +35,7 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
     /* Store the context for easy access */
     private Context mContext;
 
+    private static boolean myBool;
     /* Pass in the topRatedMovies array into the constructor */
     public TopRatedMoviesAdapter(Context context, ArrayList<Movie> movies) {
         mTopRatedMovie = movies;
@@ -77,9 +81,10 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
         return mTopRatedMovie.size();
     }
 
-    public void setMovieData(ArrayList<Movie> movieData) {
+    public void setMovieData(ArrayList<Movie> movieData, boolean bool) {
         mTopRatedMovie = movieData;
         notifyDataSetChanged();
+        myBool = bool;
     }
 
     /*
@@ -132,7 +137,20 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
                 Uri currentMovieUri = ContentUris.withAppendedId(MovieContract.MoviesEntry.CONTENT_URI, position+1);
                 movieDetailIntent.setData(currentMovieUri);
                 /* start the new activity intent */
-                context.startActivity(movieDetailIntent);
+                if (!myBool) {
+                    context.startActivity(movieDetailIntent);
+                }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("position", String.valueOf(position+1));
+                    bundle.putParcelable("movie", currentMovie);
+                    bundle.putString("currentMovieUri", currentMovieUri.toString());
+                    MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
+                    movieDetailsFragment.setArguments(bundle);
+                    ((MainActivity)context).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.details_container, movieDetailsFragment)
+                    .commit();
+                }
+
             }
         }
     }

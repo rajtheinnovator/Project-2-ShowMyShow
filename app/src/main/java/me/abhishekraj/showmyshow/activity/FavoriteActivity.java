@@ -70,6 +70,11 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
         favoriteGridView.setAdapter(mCursorAdapter);
     }
 
+    /* Use of Loaders referenced from the @link:
+    * "http://www.appstoremarketresearch.com/articles/android-tutorial-loader-simple-cursor-adapter/"
+    * as well as from my previous work/project, link at: "https://github.com/rajtheinnovator/InventoryApp"
+    */
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = {

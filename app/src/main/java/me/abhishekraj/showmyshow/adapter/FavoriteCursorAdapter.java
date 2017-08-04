@@ -22,6 +22,7 @@ import me.abhishekraj.showmyshow.data.MovieContract.MoviesEntry;
 
 public class FavoriteCursorAdapter extends SimpleCursorAdapter {
 
+    /*Use of simpleCursorReferenced from the @link: "http://stackoverflow.com/a/17709253/5770629" */
     private Context context;
 
     private int layout;

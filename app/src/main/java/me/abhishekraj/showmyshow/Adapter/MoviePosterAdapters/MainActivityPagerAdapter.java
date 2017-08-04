@@ -1,6 +1,7 @@
 package me.abhishekraj.showmyshow.adapter.movieposteradapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -26,7 +27,11 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new MoviePosterFragment();
+            MoviePosterFragment moviePosterFragment = new MoviePosterFragment();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("myBool", false);
+            moviePosterFragment.setArguments(bundle);
+            return moviePosterFragment;
         } else {
             return new TvShowsPosterFragment();
         }
