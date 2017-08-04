@@ -238,7 +238,9 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_movie_poster_fragment, menu);
+        if (!myBool) {
+            inflater.inflate(R.menu.menu_movie_poster_fragment, menu);
+        }
     }
 
     @Override

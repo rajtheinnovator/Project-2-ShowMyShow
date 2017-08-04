@@ -235,6 +235,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_movie_poster_fragment, menu);
+
     }
 
     /* setup menu click handling */
