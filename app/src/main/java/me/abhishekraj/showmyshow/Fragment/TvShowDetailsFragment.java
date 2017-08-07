@@ -141,7 +141,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         *  @link http://stackoverflow.com/a/32858049/5770629
         */
         final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_tv_show_detail);
-        if (myBool) {
+        if (rootView.findViewById(R.id.toolbar_tv_show_detail) == null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

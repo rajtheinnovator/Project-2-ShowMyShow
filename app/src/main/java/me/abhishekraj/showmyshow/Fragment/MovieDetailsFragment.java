@@ -58,11 +58,10 @@ import static me.abhishekraj.showmyshow.utils.UrlsAndConstants.MovieDetailQuery.
 
 public class MovieDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<MovieDetailsBundle> {
 
-    private static final int MOVIE_DETAIL_LOADER_ID = 2;
     public static final int BEFORE_FAV_CLICK = 7777;
     public static final int ON_FAV_CLICK = 8888;
     public static final int ON_NOT_FAV_CLICK = 9999;
-
+    private static final int MOVIE_DETAIL_LOADER_ID = 2;
     /* Arrays for holding movie details */
     public ArrayList<Review> mReview;
     public ArrayList<Video> mVideo;
@@ -96,20 +95,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     LinearLayout containerMoviesCast;
     LinearLayout containerMoviesReviews;
     ProgressBar loadingIndicatorMovieDetail;
-
-    private MovieDetailsBundle mMovieDetailsBundle;
-    private int mMovieDuration;
-    private String mMovieDurationString;
-
-    /* Database functionality*/
-    private boolean favorite;
-    private MovieDbHelper mDbHelper;
-    private ImageButton favoriteButton;
-    private Uri currentMovieUri;
-
-    private String uriString;
     int position;
-
     String MovieName;
     int currentRowId;
     int nameColumnIndex;
@@ -121,8 +107,16 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
     float currentRatings;
     int currentMovieID;
     int currentFavoriteStatus;
-
     boolean myBool;
+    private MovieDetailsBundle mMovieDetailsBundle;
+    private int mMovieDuration;
+    private String mMovieDurationString;
+    /* Database functionality*/
+    private boolean favorite;
+    private MovieDbHelper mDbHelper;
+    private ImageButton favoriteButton;
+    private Uri currentMovieUri;
+    private String uriString;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -157,7 +151,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         *  @link http://stackoverflow.com/a/32858049/5770629
         */
         final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_movie_detail);
-        if (myBool) {
+        if (rootView.findViewById(R.id.toolbar_movie_detail) == null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

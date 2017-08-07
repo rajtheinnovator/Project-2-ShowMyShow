@@ -10,6 +10,7 @@ import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.adapter.movieposteradapters.MainActivityPagerAdapter;
 import me.abhishekraj.showmyshow.fragment.MoviePosterFragment;
 import me.abhishekraj.showmyshow.fragment.TvShowsPosterFragment;
+import me.abhishekraj.showmyshow.sync.ReminderUtilities;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,5 +62,7 @@ public class MainActivity extends AppCompatActivity {
             TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
             tabLayout.setupWithViewPager(vpPager);
         }
+
+        ReminderUtilities.scheduleChargingReminder(this);
     }
 }
