@@ -64,5 +64,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ReminderUtilities.scheduleChargingReminder(this);
+
     }
 }

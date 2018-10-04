@@ -45,7 +45,9 @@
             android:authorities="me.abhishekraj.showmyshow"
             android:exported="false" />
 
-        <activity android:name=".activity.FavoriteActivity">
+        <activity
+            android:name=".activity.FavoriteActivity"
+            android:theme="@style/AppTheme">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
