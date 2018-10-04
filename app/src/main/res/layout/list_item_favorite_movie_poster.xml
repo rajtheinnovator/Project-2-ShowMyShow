@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#aaaaaa"
+                android:background="@null"
                 android:padding="2dp"
                 android:src="@drawable/unstarred" />
         </LinearLayout>
