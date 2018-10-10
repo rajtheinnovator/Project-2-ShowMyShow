@@ -50,5 +50,6 @@
     <string name="favorite_movie_failed">Favorite failed</string>
     <string name="favorite_movie_successful">Favorite Successful</string>
     <string name="no_favorite_movie_at_the_moment">No Favorite Movie at the moment</string>
+    <string name="action_privacy_policy">Privacy Policy</string>
 
 </resources>

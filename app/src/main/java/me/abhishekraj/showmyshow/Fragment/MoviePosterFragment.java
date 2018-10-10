@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.R;
 import me.abhishekraj.showmyshow.activity.FavoriteActivity;
+import me.abhishekraj.showmyshow.activity.PrivacyPolicyActivity;
 import me.abhishekraj.showmyshow.adapter.movieposteradapters.PopularMoviesAdapter;
 import me.abhishekraj.showmyshow.adapter.movieposteradapters.TopRatedMoviesAdapter;
 import me.abhishekraj.showmyshow.adapter.movieposteradapters.UpcomingMovieAdapter;
@@ -114,7 +115,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
             if (networkInfo != null && networkInfo.isConnected()) {
                 /*
                  *fetch data. Get a reference to the LoaderManager, in order to interact with loaders.
-                */
+                 */
                 startPopularMoviesLoaderManager();
                 startUpcomingMoviesLoaderManager();
                 startTopRatedMoviesLoaderManager();
@@ -146,37 +147,37 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         containerMoviePosterUpcomingMovies = (LinearLayout) rootView.findViewById(R.id.containerMoviePosterUpcomingMovies);
         loadingIndicatorMoviePoster = (ProgressBar) rootView.findViewById(R.id.loading_indicator_movie_poster);
 
-         /*
-          * Setup layout manager for items with orientation
-          * Also supports `LinearLayoutManager.HORIZONTAL`
-          */
+        /*
+         * Setup layout manager for items with orientation
+         * Also supports `LinearLayoutManager.HORIZONTAL`
+         */
         layoutManagerPopularMoviesPoster = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
-            /* Optionally customize the position you want to default scroll to */
+        /* Optionally customize the position you want to default scroll to */
         layoutManagerPopularMoviesPoster.scrollToPosition(0);
-            /* Attach layout manager to the RecyclerView */
+        /* Attach layout manager to the RecyclerView */
         mPopularMovieRecyclerView.setLayoutManager(layoutManagerPopularMoviesPoster);
 
-         /*
-          * Setup layout manager for items with orientation
-          * Also supports `LinearLayoutManager.HORIZONTAL`
-          */
+        /*
+         * Setup layout manager for items with orientation
+         * Also supports `LinearLayoutManager.HORIZONTAL`
+         */
         layoutManagerUpcomingMoviesPoster = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
-            /* Optionally customize the position you want to default scroll to */
+        /* Optionally customize the position you want to default scroll to */
         layoutManagerUpcomingMoviesPoster.scrollToPosition(0);
-            /* Attach layout manager to the RecyclerView */
+        /* Attach layout manager to the RecyclerView */
         mUpcomingMovieRecyclerView.setLayoutManager(layoutManagerUpcomingMoviesPoster);
 
-                 /*
-          * Setup layout manager for items with orientation
-          * Also supports `LinearLayoutManager.HORIZONTAL`
-          */
+        /*
+         * Setup layout manager for items with orientation
+         * Also supports `LinearLayoutManager.HORIZONTAL`
+         */
         layoutManagerTopRatedMoviesPoster = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
-            /* Optionally customize the position you want to default scroll to */
+        /* Optionally customize the position you want to default scroll to */
         layoutManagerTopRatedMoviesPoster.scrollToPosition(0);
-            /* Attach layout manager to the RecyclerView */
+        /* Attach layout manager to the RecyclerView */
         mTopRatedMovieRecyclerView.setLayoutManager(layoutManagerTopRatedMoviesPoster);
 
         SnapHelper snapHelperForPopularMovieRecyclerView = new GravitySnapHelper(Gravity.START);
@@ -189,8 +190,8 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
         snapHelperForTopRatedMovieRecyclerView.attachToRecyclerView(mTopRatedMovieRecyclerView);
 
         /* Code referenced from the @link:
-        * "https://guides.codepath.com/android/using-the-recyclerview"
-        */
+         * "https://guides.codepath.com/android/using-the-recyclerview"
+         */
 
         // Create mPopularMovieAdapter passing in the sample user data
         mPopularMoviesAdapter = new PopularMoviesAdapter(getActivity(), popularMovies);
@@ -250,9 +251,17 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                 Intent favoriteIntent = new Intent(getActivity(), FavoriteActivity.class);
                 startActivity(favoriteIntent);
                 return true;
+            case R.id.action_privacy_policy:
+                startPrivacyPolicyActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void startPrivacyPolicyActivity() {
+        Intent privacyPolicyIntent = new Intent(getActivity(), PrivacyPolicyActivity.class);
+        startActivity(privacyPolicyIntent);
     }
 
     private void reStartLoaderManagers() {
@@ -312,7 +321,7 @@ public class MoviePosterFragment extends Fragment implements LoaderManager.Loade
                     mPopularMoviesAdapter.setMovieData(popularMovies, myBool);
                     mPopularMovieRecyclerView.setAdapter(mPopularMoviesAdapter);
 
-                      /*get loading indicator to work*/
+                    /*get loading indicator to work*/
                     containerMoviePosterPopularMovies.setVisibility(View.VISIBLE);
                     loadingIndicatorMoviePoster.setVisibility(View.GONE);
                 }

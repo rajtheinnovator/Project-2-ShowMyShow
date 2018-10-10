@@ -2,6 +2,7 @@ package me.abhishekraj.showmyshow.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import java.util.ArrayList;
 
 import me.abhishekraj.showmyshow.R;
+import me.abhishekraj.showmyshow.activity.PrivacyPolicyActivity;
 import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.AiredNowTvShowAdapter;
 import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.PopularTvShowAdapter;
 import me.abhishekraj.showmyshow.adapter.tvshowposteradapter.TopRatedTvShowAdapter;
@@ -250,9 +252,17 @@ public class TvShowsPosterFragment extends Fragment implements LoaderManager.Loa
             case R.id.refresh:
                 reStartLoaderManagers();
                 return true;
+            case R.id.action_privacy_policy:
+                startPrivacyPolicyActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void startPrivacyPolicyActivity() {
+        Intent privacyPolicyIntent = new Intent(getActivity(), PrivacyPolicyActivity.class);
+        startActivity(privacyPolicyIntent);
     }
 
     private void reStartLoaderManagers() {
