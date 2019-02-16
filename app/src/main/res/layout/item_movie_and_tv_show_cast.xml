@@ -18,7 +18,7 @@
             android:id="@+id/castImageView"
             android:layout_width="@dimen/layout_width84dp"
             android:layout_height="@dimen/layout_width84dp"
-            android:background="#c1c1c1"
+            android:background="@null"
             app:civ_border_color="#FF000000"
             app:civ_border_width="@dimen/civ_border_width" />
 

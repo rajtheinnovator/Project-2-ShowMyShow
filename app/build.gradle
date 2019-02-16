@@ -11,6 +11,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            keyAlias keyAliasGradle
+            keyPassword keyPasswordGradle
+            storeFile file("showmyshow_jks_file.jks")
+            storePassword storePasswordGradle
+        }
+    }
+    
     buildTypes {
         release {
             minifyEnabled false
