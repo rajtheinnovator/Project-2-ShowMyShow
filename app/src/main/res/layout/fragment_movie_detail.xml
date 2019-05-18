@@ -50,7 +50,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <ImageButton
+                    android:id="@+id/image_button_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/back" />
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -64,109 +72,109 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/padding_8dp">
 
-        <LinearLayout
-            android:id="@+id/movie_detail_fragment_container_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/padding_24dp">
-
-            <include layout="@layout/item_movie_detail" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/view_height_1dp"
-                android:background="#440000"
-                android:paddingLeft="@dimen/padding_8dp"
-                android:paddingRight="@dimen/padding_8dp" />
-
             <LinearLayout
-                android:id="@+id/containerMoviesTrailer"
+                android:id="@+id/movie_detail_fragment_container_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/padding_24dp">
 
-                <TextView
-                    style="@style/MovieAndTvShowCategoryNameTextStyle"
-                    android:text="@string/videos" />
+                <include layout="@layout/item_movie_detail" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height_1dp"
+                    android:background="#440000"
+                    android:paddingLeft="@dimen/padding_8dp"
+                    android:paddingRight="@dimen/padding_8dp" />
 
                 <LinearLayout
+                    android:id="@+id/containerMoviesTrailer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerViewMoviesTrailers"
+                    <TextView
+                        style="@style/MovieAndTvShowCategoryNameTextStyle"
+                        android:text="@string/videos" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:scrollbars="horizontal" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerViewMoviesTrailers"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:scrollbars="horizontal" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/containerMoviesCast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/MovieAndTvShowCategoryNameTextStyle"
-                    android:text="@string/cast" />
 
                 <LinearLayout
+                    android:id="@+id/containerMoviesCast"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height_128dp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        style="@style/MovieAndTvShowCategoryNameTextStyle"
+                        android:text="@string/cast" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_128dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerViewMovieCast"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/containerMoviesReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MovieAndTvShowCategoryNameTextStyle"
+                        android:text="@string/reviews" />
+
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerViewMovieCast"
+                        android:id="@+id/recyclerViewMovieReviews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollbars="horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="@dimen/padding_16dp"
+                        android:paddingBottom="@dimen/padding_16dp"
+                        android:text="@string/all_reviews"
+                        android:textSize="@dimen/text_size_16sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/containerMoviesReviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/MovieAndTvShowCategoryNameTextStyle"
-                    android:text="@string/reviews" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerViewMovieReviews"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="horizontal" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
-                    android:paddingBottom="@dimen/padding_16dp"
-                    android:paddingLeft="@dimen/padding_16dp"
-                    android:text="@string/all_reviews"
-                    android:textSize="@dimen/text_size_16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/loading_indicator_movie_detail"
                 style="@style/Widget.AppCompat.ProgressBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal|center" />
         </RelativeLayout>

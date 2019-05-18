@@ -38,4 +38,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

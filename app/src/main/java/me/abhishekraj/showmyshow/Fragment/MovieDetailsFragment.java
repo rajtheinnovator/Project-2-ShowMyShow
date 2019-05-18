@@ -2,6 +2,9 @@ package me.abhishekraj.showmyshow.fragment;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -9,6 +12,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +21,7 @@ import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -147,10 +152,17 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         loadingIndicatorMovieDetail = (ProgressBar) rootView.findViewById(R.id.loading_indicator_movie_detail);
 
         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_movie_detail for this fragment
-        *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
-        *  @link http://stackoverflow.com/a/32858049/5770629
-        */
+         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
+         *  @link http://stackoverflow.com/a/32858049/5770629
+         */
         final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_movie_detail);
+        ImageButton backButton = rootView.findViewById(R.id.image_button_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         if (rootView.findViewById(R.id.toolbar_movie_detail) == null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -262,13 +274,13 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             });
         }
 
-             /* First of all check if network is connected or not then only start the loader */
+        /* First of all check if network is connected or not then only start the loader */
         ConnectivityManager connMgr = (ConnectivityManager)
                 getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
 
-             /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
+            /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
             startLoaderManager();
         }
             /*
@@ -279,18 +291,18 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         mMovieTrailerRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesTrailers);
         mMovieCastRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMovieCast);
 
-            /* Create mPopularMovieAdapter passing in the sample user data */
+        /* Create mPopularMovieAdapter passing in the sample user data */
         mMovieReviewAdapter = new MovieReviewAdapter(getActivity(), mMovieDetailsBundle);
-             /* Create mPopularMovieAdapter passing in the sample user data */
+        /* Create mPopularMovieAdapter passing in the sample user data */
         mMovieTrailerAdapter = new MovieTrailerAdapter(getActivity(), mMovieDetailsBundle);
-                 /* Create mPopularMovieAdapter passing in the sample user data */
+        /* Create mPopularMovieAdapter passing in the sample user data */
         mMovieCreditsCastAdapter = new MovieCreditsCastAdapter(getActivity(), mMovieDetailsBundle);
 
-            /* Attach the mPopularMovieAdapter to the reviewRecyclerView to populate items */
+        /* Attach the mPopularMovieAdapter to the reviewRecyclerView to populate items */
         mMovieReviewRecyclerView.setAdapter(mMovieReviewAdapter);
-            /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
+        /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
         mMovieTrailerRecyclerView.setAdapter(mMovieTrailerAdapter);
-            /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
+        /* Attach the mPopularMovieAdapter to the trailerRecyclerView to populate items */
         mMovieCastRecyclerView.setAdapter(mMovieCreditsCastAdapter);
 
             /*
@@ -299,9 +311,9 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             */
         LinearLayoutManager layoutManagerMovieReview = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
-            /* Optionally customize the position you want to default scroll to */
+        /* Optionally customize the position you want to default scroll to */
         layoutManagerMovieReview.scrollToPosition(0);
-            /* Attach layout manager to the RecyclerView */
+        /* Attach layout manager to the RecyclerView */
         mMovieReviewRecyclerView.setLayoutManager(layoutManagerMovieReview);
 
             /*
@@ -310,9 +322,9 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             */
         LinearLayoutManager layoutManagerMovietrailer = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
-            /* Optionally customize the position you want to default scroll to */
+        /* Optionally customize the position you want to default scroll to */
         layoutManagerMovietrailer.scrollToPosition(0);
-            /* Attach layout manager to the RecyclerView */
+        /* Attach layout manager to the RecyclerView */
         mMovieTrailerRecyclerView.setLayoutManager(layoutManagerMovietrailer);
 
                /*
@@ -321,21 +333,21 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
             */
         LinearLayoutManager layoutManagerMovieCast = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
-            /* Optionally customize the position you want to default scroll to */
+        /* Optionally customize the position you want to default scroll to */
         layoutManagerMovietrailer.scrollToPosition(0);
-            /* Attach layout manager to the RecyclerView */
+        /* Attach layout manager to the RecyclerView */
         mMovieCastRecyclerView.setLayoutManager(layoutManagerMovieCast);
 
-            /*
-            * Snap code for trailer recyclerview taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
-            * SnapHelper snapHelper = new LinearSnapHelper();
-            * snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
-            */
+        /*
+         * Snap code for trailer recyclerview taken from @link: "https://guides.codepath.com/android/using-the-recyclerview"
+         * SnapHelper snapHelper = new LinearSnapHelper();
+         * snapHelper.attachToRecyclerView(mMovieTrailerRecyclerView);
+         */
 
 
-            /*Snap code for trailer review taken from
-            * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
-            */
+        /*Snap code for trailer review taken from
+         * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
+         */
 
         SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
         snapHelperStart.attachToRecyclerView(mMovieTrailerRecyclerView);
@@ -343,7 +355,7 @@ public class MovieDetailsFragment extends Fragment implements LoaderManager.Load
         SnapHelper snapHelperCastStart = new GravitySnapHelper(Gravity.START);
         snapHelperCastStart.attachToRecyclerView(mMovieCastRecyclerView);
 
-              /*get loading indicator to work*/
+        /*get loading indicator to work*/
         if (mMovieDetailsBundle.getReviewArrayList().isEmpty() && mMovieDetailsBundle.getCreditsArrayList().isEmpty()
                 && mMovieDetailsBundle.getVideoArrayList().isEmpty()) {
             loadingIndicatorMovieDetail.setVisibility(View.VISIBLE);

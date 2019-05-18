@@ -1,6 +1,7 @@
 package me.abhishekraj.showmyshow.fragment;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +18,10 @@ import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -136,11 +140,18 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
         containerTvShowTrailer = (LinearLayout) rootView.findViewById(R.id.containerTvShowTrailer);
         loadingIndicatorTvShowDetail = (ProgressBar) rootView.findViewById(R.id.loading_indicator_tv_show_detail);
 
-         /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_tv_show_detail for this fragment
-        *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
-        *  @link http://stackoverflow.com/a/32858049/5770629
-        */
+        /* As there is no actionbar defined in the Style for this activity, so creating one toolbar_tv_show_detail for this fragment
+         *  which will act as an actionbar after scrolling-up, referenced from StackOverflow link
+         *  @link http://stackoverflow.com/a/32858049/5770629
+         */
         final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_tv_show_detail);
+        ImageButton backButton= rootView.findViewById(R.id.image_button_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         if (rootView.findViewById(R.id.toolbar_tv_show_detail) == null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -185,13 +196,13 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             tvShowPopularityTextView.setText(String.valueOf(tvShow.getTvShowPopularity()));
 
 
-             /* First of all check if network is connected or not then only start the loader */
+            /* First of all check if network is connected or not then only start the loader */
             ConnectivityManager connMgr = (ConnectivityManager)
                     getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
 
-             /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
+                /* fetch data. Get a reference to the LoaderManager, in order to interact with loaders. */
                 startLoaderManager();
             }
             /*
@@ -205,11 +216,11 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
 
             /* Create mPopularTvShowAdapter passing in the sample user data */
             mTvShowReviewAdapter = new TvShowReviewAdapter(getActivity(), mTvShowDetailsBundle);
-             /* Create mPopularTvShowAdapter passing in the sample user data */
+            /* Create mPopularTvShowAdapter passing in the sample user data */
             mTvShowTrailerAdapter = new TvShowTrailerAdapter(getActivity(), mTvShowDetailsBundle);
-                 /* Create mPopularTvShowAdapter passing in the sample user data */
+            /* Create mPopularTvShowAdapter passing in the sample user data */
             mTvShowCreditsCastAdapter = new TvShowCreditsCastAdapter(getActivity(), mTvShowDetailsBundle);
-             /* Create mPopularTvShowAdapter passing in the sample user data */
+            /* Create mPopularTvShowAdapter passing in the sample user data */
             mTvShowSeasonsAdapter = new TvShowSeasonsAdapter(getActivity(), mTvShowDetailsBundle);
 
             /* Attach the mPopularTvShowAdapter to the reviewRecyclerView to populate items */
@@ -266,8 +277,8 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             mTvShowSeasonsRecyclerView.setLayoutManager(layoutManagerTvShowSeason);
 
             /*Snap code for trailer review taken from
-            * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
-            */
+             * @link: "https://github.com/rubensousa/RecyclerViewSnap/"
+             */
 
             SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
             snapHelperStart.attachToRecyclerView(mTvShowTrailerRecyclerView);
@@ -278,7 +289,7 @@ public class TvShowDetailsFragment extends Fragment implements LoaderManager.Loa
             SnapHelper snapHelperSeasonsStart = new GravitySnapHelper(Gravity.START);
             snapHelperSeasonsStart.attachToRecyclerView(mTvShowSeasonsRecyclerView);
 
-                /*get loading indicator to work*/
+            /*get loading indicator to work*/
             if (mTvShowDetailsBundle.getReviewArrayList().isEmpty() && mTvShowDetailsBundle.getCreditsArrayList().isEmpty()
                     && mTvShowDetailsBundle.getVideoArrayList().isEmpty() && mTvShowDetailsBundle.getSeasonsArrayList().isEmpty()) {
                 loadingIndicatorTvShowDetail.setVisibility(View.VISIBLE);
